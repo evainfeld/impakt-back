@@ -1,0 +1,211 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+enum AnnouncementType {
+    EVENT
+    AGITATION
+}
+
+enum Role {
+    COORDINATOR
+}
+
+input CreateConversationInput {
+  name: String! 
+  range: String!
+  org: String!
+}
+
+type Conversation {
+  #  The Conversation's timestamp.
+  createdAt: String!
+  updatedAt: String
+  #  A unique identifier for the Conversation.
+  id: ID!
+  #  The Conversation's messages.
+  messages(after: String first: Int): MessageConnection
+  #  The Conversation's name.
+  name: String!
+  range: String!
+  org: String!
+}
+
+type MessageConnection {
+  messages: [Message]
+  nextToken: String
+}
+
+input CreateMesseageInput {
+  content: String! 
+  conversationId: ID!
+}
+
+type Message {
+  #  The author object. Note: `authorId` is only available because we list it in `extraAttributes` in `Conversation.messages`
+  author: String!
+  #  The message content.
+  content: String!
+  #  The id of the Conversation this message belongs to. This is the table primary key.
+  conversationId: ID!
+  #  The message timestamp. This is also the table sort key.
+  createdAt: String
+  #  Generated id for a message -- read-only
+  id: ID!
+  #  Flag denoting if this message has been accepted by the server or not.
+  isSent: Boolean
+}
+
+input CreateAnnouncementInput {
+  type: AnnouncementType! 
+  author: String! 
+  title: String! 
+  content: String! 
+  resources: [MapTupleInput] 
+  range: String!
+  org: String!
+}
+
+# agitation sample message and anouncement use same type
+type Announcement {
+    #  A unique identifier for the Conversation.
+    id: ID!
+    #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
+    createdAt: String!
+    updatedAt: String
+    #type - events || agitation
+    type: AnnouncementType!
+    author: String!
+    title: String!
+    content: String!
+    resources: [MapTuple]
+    range: String!
+    org: String!
+}
+
+
+input CreatePersonInput {
+  name: String! 
+  role: Role! 
+  phone: String! 
+  email: String! 
+  other: [MapTupleInput] 
+  range: String!
+  org: String!
+}
+
+
+type Person {
+    id: ID!
+    createdAt: String!
+    updatedAt: String
+    name: String!
+    role: Role!
+    phone: String!
+    email: String!
+    other: [MapTuple]
+    range: String!
+    org: String!
+}
+
+input CreateLocationInput {
+  range: String!
+  org: String!
+}
+
+type Location {
+    id: ID!
+    createdAt: String!
+    updatedAt: String
+    range: String!
+    org: String!
+}
+
+input MapTupleInput {
+     key: String!
+     value: String
+}
+
+type MapTuple {
+     key: String!
+     value: String
+}
+
+
+type Mutation {
+  #  Create a Conversation. Use some of the cooked in template functions for UUID and DateTime.
+  createConversation(
+    input: CreateConversationInput!
+  ): Conversation!
+  #  Create a message in a Conversation.
+  createMessage(
+    input: CreateMesseageInput!
+  ): Message!
+  #  Create location within organization
+  createLocation(
+    input: CreateLocationInput!
+  ): Location!
+  #  Create event or agitation message
+  createAnnouncement(
+    input: CreateAnnouncementInput
+  ): Announcement!
+  #  Create person (coordinator) 
+  createPerson(
+    input: CreatePersonInput!
+  ): Person!
+}
+
+
+type Query {
+  allConversations(
+    range: String
+    org: String!
+  ): Conversation
+  #  Scan through all values of type 'Message'. Use the 'after' and 'before' arguments with the 'nextToken' returned by the 'MessageConnection' result to fetch pages.
+  allMessage(
+    after: String 
+    conversationId: ID! 
+    first: Int
+  ): [Message]
+  #  Scan through all values of type 'MessageConnection'. Use the 'after' and 'before' arguments with the 'nextToken' returned by the 'MessageConnectionConnection' result to fetch pages.
+  allMessageConnection(
+    after: String 
+    conversationId: ID! 
+    first: Int
+  ): MessageConnection
+  allMessageFrom(
+    after: String 
+    conversationId: ID! 
+    first: Int 
+    author: String!
+  ): [Message]
+  allLocations(
+    org: String!
+  ): [Location]
+  allEvents(
+    after: String 
+    first: Int
+    range: String
+    org: String!
+  ): [Announcement]
+  allAgitation(
+    after: String 
+    first: Int
+    range: String
+    org: String!
+  ): [Announcement]
+  allCoordinators(
+    after: String 
+    first: Int
+    range: String
+    org: String!
+  ): [Person]
+}
+
+type Subscription {
+  #  Subscribes to all new messages in a given Conversation.
+  subscribeToNewMessage(conversationId: ID!): Message
+    @aws_subscribe(mutations:["createMessage"])
+}

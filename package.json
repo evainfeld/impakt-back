@@ -1,0 +1,19 @@
+{
+  "name": "change-agent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playlyfe/gql": "^2.6.1"
+  },
+  "dependencies": {
+    "aws-appsync": "^1.8.1",
+    "aws-sdk": "^2.489.0",
+    "ws": "^7.1.0"
+  }
+}
