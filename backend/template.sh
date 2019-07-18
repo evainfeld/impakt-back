@@ -22,14 +22,14 @@ Resources:
           AttributeName: "org_range"
           AttributeType: "S"
         -
-          AttributeName: "updateAt"
+          AttributeName: "updatedAt"
           AttributeType: "S"
       KeySchema:
         -
           AttributeName: "org_range"
           KeyType: "HASH"
         -
-          AttributeName: "updateAt"
+          AttributeName: "updatedAt"
           KeyType: "RANGE"
       ProvisionedThroughput:
         ReadCapacityUnits: "5"

@@ -25,8 +25,9 @@ Some initial stuff is currently in repo, mostly Graphql schema for AWS AppSync i
 
 You may try following for some basic tests using endpoint supporting only Location operations:
 
-- `https://2mbzvtsmszbvhgjz2ybtepgbri.appsync-api.eu-central-1.amazonaws.com/graphql`
-- `"x-api-key":"a2-uhsfr7iqybfzpntpmo5h45epzq"`
+- `https://qvntdakfb5faxa5owjli4aigue.appsync-api.eu-central-1.amazonaws.com/graphql`
+- `"x-api-key":"da2-xifownflebg5zewughne5w2r5e"`
+- api id: `nuoflxhdcbfvneh6xaazsh2vym`
 
 ## Create stack
 
@@ -34,7 +35,7 @@ From root dir:
 
 - `amplify init`
 - `amplify auth add`
-- `amplify hosting add`
+- `amplify hosting add` (_NOTE_: DEV)
 - `amplify publish`
 - `grep aws_user_pools_id src/aws-exports.js`
 - `./backend/template.sh`
@@ -43,8 +44,11 @@ From root dir:
 - `aws cloudformation delete-stack --stack-name changeAgent --region eu-central-1 --profile change-agent`
 
 _NOTE_: `https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/appsync-graphql-dynamodb` as better approach. Curretly things stored in `schema.gpl` and `resolvers/` are copied into deloyment descriptor `deploy-cfn.yml` using `template.sh` script.
+_NOTE_: Don't know yet how to deploy AppSync supporting only api key
 
 ## sample for GraphQL Playground
+
+### mutation
 
 ```grqphql
 mutation CreateLocation($input: CreateLocationInput!) {
@@ -58,7 +62,7 @@ mutation CreateLocation($input: CreateLocationInput!) {
 }
 ```
 
-### query variables
+__mutation variables__:
 
 ```json
 {
@@ -69,10 +73,26 @@ mutation CreateLocation($input: CreateLocationInput!) {
 }
 ```
 
-### header variables:
+__header variables__:
 
 ```json
 {
-  "x-api-key":"da2-uhsfr7iqybfzpntpmo5h45epzq"
+  "x-api-key":"da2-jkxib4crfngylj7iqrwgqffx4e"
 }
 ```
+
+### query
+
+```grqphql
+query AllLocations {
+  allLocations(org: "MyOrg1") {
+    id
+    createdAt
+    updatedAt
+    range
+    org
+  }
+}
+```
+
+_NOTE_ there're issues with permisions and query fails.

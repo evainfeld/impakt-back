@@ -2,15 +2,14 @@
     "version" : "2017-02-28",
     "operation" : "PutItem",
      "key": {
-        "org_range": { "S" : "${context.arguments.input.org}+${context.arguments.input.range}"},
+        "org_range": { "S" : "${context.arguments.input.org}::${context.arguments.input.range}"},
         "updatedAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
     },
     "attributeValues" : {
        "id": { "S" : "$util.autoId()" },
-       "doc_type": "location",
+       "doc_type": { "S" : "location" },
        "org": {  "S": "${context.arguments.input.org}" },
        "range": {  "S": "${context.arguments.input.range}" },
        "createdAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
-    
     }
 }
