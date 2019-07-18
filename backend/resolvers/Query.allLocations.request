@@ -1,0 +1,18 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "query" : {
+        "expression": "doc_type = :doc_type and org = :org",
+        "expressionValues" : {
+            ":doc_type" : {
+                "S" : "location"
+            },
+            ":org" : {
+                "S" : "${context.arguments.org}"
+            }
+        }
+    },
+    "index" : "org",
+    "limit": #if(${context.arguments.first}) ${context.arguments.first} #else 20 #end,
+    "nextToken": #if(${context.arguments.after}) "${context.arguments.after}" #else null #end
+}

@@ -1,0 +1,230 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  userPoolId:
+    Type: String
+    Description: User Pool ID associated with this project
+Outputs:
+  ChangeAgentApiId:
+    Description: Unique AWS AppSync GraphQL API Identifier
+    Value: !GetAtt changeAgentApi.ApiId
+  ChangeAgentApiUrl:
+    Description: The Endpoint URL of your GraphQL API.
+    Value: !GetAtt changeAgentApi.GraphQLUrl
+Resources:
+  changeAgentTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: "org_range"
+          AttributeType: "S"
+        -
+          AttributeName: "updateAt"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "org_range"
+          KeyType: "HASH"
+        -
+          AttributeName: "updateAt"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+  awsAppSyncServiceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "appsync.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+  dynamodbAccessPolicy:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: "dynamodb-access"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Action: "dynamodb:*"
+            Resource:
+              - !GetAtt changeAgentTable.Arn
+      Roles:
+        -
+          Ref: "awsAppSyncServiceRole"
+  changeAgentApi:
+    Type: "AWS::AppSync::GraphQLApi"
+    Properties:
+      Name: "ChangeAgent"
+      AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
+      UserPoolConfig:
+        UserPoolId: !Ref userPoolId
+        AwsRegion: !Ref "AWS::Region"
+        DefaultAction: "ALLOW"
+  changeAgentTableDataSource:
+    Type: "AWS::AppSync::DataSource"
+    Properties:
+      ApiId: !GetAtt changeAgentApi.ApiId
+      Name: "changeAgentTableDataSource"
+      Description: "changeAgentTable DynamoDB data source"
+      Type: "AMAZON_DYNAMODB"
+      ServiceRoleArn: !GetAtt awsAppSyncServiceRole.Arn
+      DynamoDBConfig:
+        TableName: !Ref changeAgentTable
+        AwsRegion: !Ref "AWS::Region"
+  changeAgentSchema:
+    Type: "AWS::AppSync::GraphQLSchema"
+    Properties:
+      ApiId: !GetAtt changeAgentApi.ApiId
+      Definition: |
+        schema {
+          query: Query
+          mutation: Mutation
+        }
+
+        enum AnnouncementType {
+            EVENT
+            AGITATION
+        }
+
+        input CreateAnnouncementInput {
+          type: AnnouncementType! 
+          author: String! 
+          title: String! 
+          content: String! 
+          resources: [MapTupleInput] 
+          range: String!
+          org: String!
+        }
+
+        # agitation sample message and anouncement use same type
+        type Announcement {
+            #  A unique identifier for the Conversation.
+            id: ID!
+            #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
+            createdAt: String!
+            updatedAt: String
+            #type - events || agitation
+            type: AnnouncementType!
+            author: String!
+            title: String!
+            content: String!
+            resources: [MapTuple]
+            range: String!
+            org: String!
+            orgRangeCompositeKey: String!
+        }
+
+        input CreateLocationInput {
+          range: String!
+          org: String!
+        }
+
+        type Location {
+            id: ID!
+            createdAt: String!
+            updatedAt: String
+            range: String!
+            org: String!
+        }
+
+        input MapTupleInput {
+             key: String!
+             value: String
+        }
+
+        type MapTuple {
+             key: String!
+             value: String
+        }
+
+
+        type Mutation {
+          #  Create event or agitation message
+          createAnnouncement(
+            input: CreateAnnouncementInput
+          ): Announcement!
+          createLocation(
+            input: CreateLocationInput!
+          ): Location!
+          #  Create person (coordinator) 
+        }
+
+        type Query {
+          allLocations(
+            org: String!
+          ): [Location]
+          allAnouncement(
+            after: String 
+            first: Int
+            range: String
+            org: String!
+            type: AnnouncementType
+          ): [Announcement]
+        }
+
+  allLocationsQueryResolver:
+    Type: "AWS::AppSync::Resolver"
+    Properties:
+      ApiId: !GetAtt changeAgentApi.ApiId
+      TypeName: "Query"
+      FieldName: "allLocations"
+      DataSourceName: !GetAtt changeAgentTableDataSource.Name
+      RequestMappingTemplate: |
+        {
+          "version" : "2017-02-28",
+          "operation" : "Query",
+          "query" : {
+              "expression": "doc_type = :doc_type and org = :org",
+              "expressionValues" : {
+                  ":doc_type" : {
+                      "S" : "location"
+                  },
+                  ":org" : {
+                      "S" : "${context.arguments.org}"
+                  }
+              }
+          },
+          "index" : "org",
+          "limit": #if(${context.arguments.first}) ${context.arguments.first} #else 20 #end,
+          "nextToken": #if(${context.arguments.after}) "${context.arguments.after}" #else null #end
+        }
+      ResponseMappingTemplate: |
+        $utils.toJson($context.result)
+  
+
+  createLocationMutationResolver:
+    Type: "AWS::AppSync::Resolver"
+    Properties:
+      ApiId: !GetAtt changeAgentApi.ApiId
+      TypeName: "Mutation"
+      FieldName: "createLocation"
+      DataSourceName: !GetAtt changeAgentTableDataSource.Name
+      RequestMappingTemplate: |
+        {
+            "version" : "2017-02-28",
+            "operation" : "PutItem",
+             "key": {
+                "org_range": { "S" : "${context.arguments.input.org}+${context.arguments.input.range}"},
+                "updatedAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+            },
+            "attributeValues" : {
+               "id": { "S" : "$util.autoId()" },
+               "doc_type": "location",
+               "org": {  "S": "${context.arguments.input.org}" },
+               "range": {  "S": "${context.arguments.input.range}" },
+               "createdAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+            
+            }
+        }
+      ResponseMappingTemplate: |
+        $utils.toJson($context.result)
+
