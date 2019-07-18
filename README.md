@@ -23,21 +23,26 @@
 
 Some initial stuff is currently in repo, mostly Graphql schema for AWS AppSync in `backend/`
 
-You may try following for some basic tests of connection without DB:
+You may try following for some basic tests using endpoint supporting only Location operations:
 
-- `https://gk2ioiic5jc7dbs7n6dhwjobfe.appsync-api.eu-central-1.amazonaws.com/graphql`
-- `"x-api-key":"da2-smwspt2minfg5pc22trceypx6e"`
+- `https://2mbzvtsmszbvhgjz2ybtepgbri.appsync-api.eu-central-1.amazonaws.com/graphql`
+- `"x-api-key":"a2-uhsfr7iqybfzpntpmo5h45epzq"`
 
 ## Create stack
 
-`amplify init`
-`amplify auth add`
-`amplify hosting add`
-`amplify publish`
-`grep aws_user_pools_id src/aws-exports.js`
-`aws cloudformation create-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=<aws_user_pools_id> --capabilities CAPABILITY_IAM --region <region> --profile <profile_name>`
-`aws cloudformation describe-stacks --stack-name changeAgent --query Stacks[0].Outputs --region eu-central-1 --profile change-agent`
-`aws cloudformation delete-stack --stack-name changeAgent --region eu-central-1 --profile change-agent`
+From root dir:
+
+- `amplify init`
+- `amplify auth add`
+- `amplify hosting add`
+- `amplify publish`
+- `grep aws_user_pools_id src/aws-exports.js`
+- `./backend/template.sh`
+- `aws cloudformation create-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=<aws_user_pools_id> --capabilities CAPABILITY_IAM --region <region> --profile <profile_name>`
+- `aws cloudformation describe-stacks --stack-name changeAgent --query Stacks[0].Outputs --region eu-central-1 --profile change-agent`
+- `aws cloudformation delete-stack --stack-name changeAgent --region eu-central-1 --profile change-agent`
+
+_NOTE_: `https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/appsync-graphql-dynamodb` as better approach. Curretly things stored in `schema.gpl` and `resolvers/` are copied into deloyment descriptor `deploy-cfn.yml` using `template.sh` script.
 
 ## sample for GraphQL Playground
 
