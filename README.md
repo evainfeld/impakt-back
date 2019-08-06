@@ -25,8 +25,8 @@ Some initial stuff is currently in repo, mostly Graphql schema for AWS AppSync i
 
 You may try following for some basic tests using endpoint supporting only Location operations:
 
-- `https://qvntdakfb5faxa5owjli4aigue.appsync-api.eu-central-1.amazonaws.com/graphql`
-- `"x-api-key":"da2-xifownflebg5zewughne5w2r5e"`
+- `https://cgf5qm2pobdiziunl75evoib7e.appsync-api.eu-central-1.amazonaws.com/graphql`
+- `"x-api-key":"da2-vgqko7cilvgf3cuybvcwi6wr3e"`
 - api id: `nuoflxhdcbfvneh6xaazsh2vym`
 
 ## Create stack
@@ -39,7 +39,7 @@ From root dir:
 - `amplify publish`
 - `grep aws_user_pools_id src/aws-exports.js`
 - `./backend/template.sh`
-- `aws cloudformation create-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=<aws_user_pools_id> --capabilities CAPABILITY_IAM --region <region> --profile <profile_name>`
+- `aws cloudformation create-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=<aws_user_pools_id> --capabilities CAPABILITY_IAM --region <region> --profile <profile_name>` ex. `aws cloudformation update-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=eu-central-1_am477BG4a --capabilities CAPABILITY_IAM --region eu-central-1  --profile change-agent`
 - `aws cloudformation describe-stacks --stack-name changeAgent --query Stacks[0].Outputs --region eu-central-1 --profile change-agent`
 - `aws cloudformation delete-stack --stack-name changeAgent --region eu-central-1 --profile change-agent`
 
@@ -77,7 +77,7 @@ __header variables__:
 
 ```json
 {
-  "x-api-key":"da2-jkxib4crfngylj7iqrwgqffx4e"
+  "x-api-key":"da2-vgqko7cilvgf3cuybvcwi6wr3e"
 }
 ```
 

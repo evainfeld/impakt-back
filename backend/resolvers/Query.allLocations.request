@@ -2,7 +2,7 @@
     "version" : "2017-02-28",
     "operation" : "Query",
     "query" : {
-        "expression": "doc_type = :doc_type and org = :org",
+        "expression": "org = :org",
         "expressionValues" : {
             ":doc_type" : {
                 "S" : "location"
@@ -12,7 +12,15 @@
             }
         }
     },
-    "index" : "org",
-    "limit": #if(${context.arguments.first}) ${context.arguments.first} #else 20 #end,
-    "nextToken": #if(${context.arguments.after}) "${context.arguments.after}" #else null #end
+    "index": "org-index",
+    "filter" : {
+    	"expression" : "doc_type = :doc_type",
+    	"expressionValues" : {
+            ":doc_type" : {
+                "S" : "location"
+            }
+        },
+	},
+    "limit": $util.defaultIfNull(${ctx.args.limit}, 20),
+    "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.nextToken, null))
 }

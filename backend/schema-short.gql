@@ -1,10 +1,12 @@
 schema {
   query: Query
   mutation: Mutation
+}
 
 enum AnnouncementType {
-    EVENT
-    AGITATION
+  EVENT
+  AGITATION
+}
 
 input CreateAnnouncementInput {
   type: AnnouncementType! 
@@ -14,43 +16,54 @@ input CreateAnnouncementInput {
   resources: [MapTupleInput] 
   range: String!
   org: String!
-
+}
 # agitation sample message and anouncement use same type
 type Announcement {
-    #  A unique identifier for the Conversation.
-    id: ID!
-    #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
-    createdAt: String!
-    updatedAt: String
-    #type - events || agitation
-    type: AnnouncementType!
-    author: String!
-    title: String!
-    content: String!
-    resources: [MapTuple]
-    range: String!
-    org: String!
-    orgRangeCompositeKey: String!
+  #  A unique identifier for the Conversation.
+  id: ID!
+  #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
+  createdAt: String!
+  updatedAt: String
+  #type - events || agitation
+  type: AnnouncementType!
+  author: String!
+  # org_range: MY_ORG::WWA::WTF
+  category: String!
+  title: String!
+  content: String!
+  resources: [MapTuple]
+  range: String!
+  org: String!
+  orgRangeCompositeKey: String!
+}
 
 input CreateLocationInput {
   range: String!
   org: String!
+}
 
 type Location {
-    id: ID!
-    createdAt: String!
-    updatedAt: String
-    range: String!
-    org: String!
+  id: ID!
+  createdAt: String!
+  updatedAt: String
+  range: String!
+  org: String!
+  doc_type: String!
+}
+
+type LocationConnection {
+  location: [Location]
+  nextToken: String
+ }
 
 input MapTupleInput {
-     key: String!
-     value: String
-
+  key: String!
+  value: String
+}
 type MapTuple {
-     key: String!
-     value: String
-
+  key: String!
+  value: String
+}
 type Mutation {
   #  Create event or agitation message
   createAnnouncement(
@@ -60,11 +73,13 @@ type Mutation {
     input: CreateLocationInput!
   ): Location!
   #  Create person (coordinator) 
-
+}
 type Query {
   allLocations(
     org: String!
-  ): [Location]
+    limit: Int
+    nextToken: String
+  ): LocationConnection
   allAnouncement(
     after: String 
     first: Int

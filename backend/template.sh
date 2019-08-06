@@ -2,14 +2,17 @@
 
 {
 echo 'AWSTemplateFormatVersion: "2010-09-09"
-Parameters:
-  userPoolId:
-    Type: String
-    Description: User Pool ID associated with this project
+#Parameters:
+#  userPoolId:
+#    Type: String
+#    Description: User Pool ID associated with this project
 Outputs:
   ChangeAgentApiId:
     Description: Unique AWS AppSync GraphQL API Identifier
     Value: !GetAtt changeAgentApi.ApiId
+  ChangeAgentApiKey:
+    Description: Unique AWS AppSync GraphQL API Key
+    Value: !GetAtt appSyncAPIKey.ApiKey
   ChangeAgentApiUrl:
     Description: The Endpoint URL of your GraphQL API.
     Value: !GetAtt changeAgentApi.GraphQLUrl
@@ -24,6 +27,9 @@ Resources:
         -
           AttributeName: "updatedAt"
           AttributeType: "S"
+        -
+          AttributeName: "org"
+          AttributeType: "S"
       KeySchema:
         -
           AttributeName: "org_range"
@@ -34,6 +40,18 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: "5"
         WriteCapacityUnits: "5"
+      GlobalSecondaryIndexes:
+        -
+          IndexName: "org-index"
+          KeySchema:
+            -
+              AttributeName: "org"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: "5"
+            WriteCapacityUnits: "5"
   awsAppSyncServiceRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -60,6 +78,7 @@ Resources:
             Action: "dynamodb:*"
             Resource:
               - !GetAtt changeAgentTable.Arn
+              - !Sub ${changeAgentTable.Arn}/index/org-index
       Roles:
         -
           Ref: "awsAppSyncServiceRole"
@@ -67,11 +86,16 @@ Resources:
     Type: "AWS::AppSync::GraphQLApi"
     Properties:
       Name: "ChangeAgent"
-      AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
-      UserPoolConfig:
-        UserPoolId: !Ref userPoolId
-        AwsRegion: !Ref "AWS::Region"
-        DefaultAction: "ALLOW"
+      AuthenticationType: API_KEY
+      #AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
+      #UserPoolConfig:
+      #  UserPoolId: !Ref userPoolId
+      #  AwsRegion: !Ref "AWS::Region"
+      #  DefaultAction: "ALLOW"
+  appSyncAPIKey:
+      Type: AWS::AppSync::ApiKey
+      Properties:
+        ApiId: !GetAtt changeAgentApi.ApiId
   changeAgentTableDataSource:
     Type: "AWS::AppSync::DataSource"
     Properties:
