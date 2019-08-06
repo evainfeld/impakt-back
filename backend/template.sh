@@ -22,20 +22,20 @@ Resources:
     Properties:
       AttributeDefinitions:
         -
-          AttributeName: "org_range"
+          AttributeName: "orgRangeKey"
           AttributeType: "S"
         -
-          AttributeName: "updatedAt"
+          AttributeName: "id"
           AttributeType: "S"
         -
           AttributeName: "org"
           AttributeType: "S"
       KeySchema:
         -
-          AttributeName: "org_range"
+          AttributeName: "orgRangeKey"
           KeyType: "HASH"
         -
-          AttributeName: "updatedAt"
+          AttributeName: "id"
           KeyType: "RANGE"
       ProvisionedThroughput:
         ReadCapacityUnits: "5"

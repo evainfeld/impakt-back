@@ -4,9 +4,6 @@
     "query" : {
         "expression": "org = :org",
         "expressionValues" : {
-            ":doc_type" : {
-                "S" : "location"
-            },
             ":org" : {
                 "S" : "${context.arguments.org}"
             }

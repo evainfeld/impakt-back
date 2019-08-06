@@ -54,8 +54,6 @@ _NOTE_: Don't know yet how to deploy AppSync supporting only api key
 mutation CreateLocation($input: CreateLocationInput!) {
   createLocation(input: $input) {
     id
-    createdAt
-    updatedAt
     range
     org
   }
@@ -85,12 +83,13 @@ __header variables__:
 
 ```grqphql
 query AllLocations {
-  allLocations(org: "MyOrg1") {
-    id
-    createdAt
-    updatedAt
-    range
-    org
+  allLocations(org: "MyOrg3") {
+    location {
+      id
+      range
+      org
+    }
+    nextToken
   }
 }
 ```

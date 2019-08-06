@@ -22,8 +22,7 @@ type Announcement {
   #  A unique identifier for the Conversation.
   id: ID!
   #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
-  createdAt: String!
-  updatedAt: String
+  modifiedAt: String!
   #type - events || agitation
   type: AnnouncementType!
   author: String!
@@ -34,7 +33,7 @@ type Announcement {
   resources: [MapTuple]
   range: String!
   org: String!
-  orgRangeCompositeKey: String!
+  orgRangeKey: String!
 }
 
 input CreateLocationInput {
@@ -44,8 +43,8 @@ input CreateLocationInput {
 
 type Location {
   id: ID!
-  createdAt: String!
-  updatedAt: String
+  orgRangeKey: String!
+  modifiedAt: String!
   range: String!
   org: String!
   doc_type: String!

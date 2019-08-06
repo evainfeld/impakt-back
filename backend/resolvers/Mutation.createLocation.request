@@ -2,14 +2,19 @@
     "version" : "2017-02-28",
     "operation" : "PutItem",
      "key": {
-        "org_range": { "S" : "${context.arguments.input.org}::${context.arguments.input.range}"},
-        "updatedAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+        "orgRangeKey": { "S" : "${context.arguments.input.org}::${context.arguments.input.range}"},
+        "id": { "S" : "${context.arguments.input.org}-location-$util.base64Encode(${context.arguments.input.range})" }
     },
     "attributeValues" : {
-       "id": { "S" : "$util.autoId()" },
-       "doc_type": { "S" : "location" },
-       "org": {  "S": "${context.arguments.input.org}" },
-       "range": {  "S": "${context.arguments.input.range}" },
-       "createdAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
-    }
+        "orgRangeKey": { "S" : "${context.arguments.input.org}::${context.arguments.input.range}"},
+        "id": { "S" : "${context.arguments.input.org}-location-$util.base64Encode(${context.arguments.input.range})" },
+        "modifiedAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601()),
+        "doc_type": { "S" : "location" },
+        "org": {  "S": "${context.arguments.input.org}" },
+        "range": {  "S": "${context.arguments.input.range}" },
+        "createdAt": $util.dynamodb.toDynamoDBJson($util.time.nowISO8601())
+    },
+    "condition" : {
+      "expression" : "attribute_not_exists(orgRangeKey) and attribute_not_exists(id)"
+   }
 }
