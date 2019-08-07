@@ -1,7 +1,7 @@
 {
     "version" : "2017-02-28",
     "operation" : "PutItem",
-    #set( $base64_param = $util.dynamodb.toString(${ctx.args.input.category})+$util.dynamodb.toString(${ctx.args.input.title})+$util.dynamodb.toString(${ctx.args.input.range}) )
+    #set( $base64_param = "${ctx.args.input.category}${ctx.args.input.title}${ctx.args.input.range}" )
     "key": {
         "orgRangeKey": { "S" : "${ctx.args.input.org}::${ctx.args.input.range}"},
         "id": { "S" : "${ctx.args.input.org}-announcement-$util.base64Encode($base64_param)" }
