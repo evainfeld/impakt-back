@@ -17,11 +17,11 @@
 - NodeJS with NPM
 - AWS CLI (`pip install awscli --upgrade --user`)
 - AWS Amplify CLI (configured for a region where AWS AppSync is available) (`npm install -g @aws-amplify/cli`)
- -Angular CLI (`npm install -g @angular/cli`)
+
 
 ## Notes
 
-Some initial stuff is currently in repo, mostly Graphql schema for AWS AppSync in `backend/`
+Backend stuff: schemas, resolvers and script for preparing CloudFormation config file are in `backend/`
 
 You may try following for some basic tests using endpoint supporting only Location operations:
 
@@ -45,6 +45,19 @@ From root dir:
 
 _NOTE_: `https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/appsync-graphql-dynamodb` as better approach. Curretly things stored in `schema.gpl` and `resolvers/` are copied into deloyment descriptor `deploy-cfn.yml` using `template.sh` script.
 _NOTE_: Don't know yet how to deploy AppSync supporting only api key
+
+## DynamoDB design
+
+There is one table called `changeAgentTable` that is used to store all documents comming from FE, throuout API. Currently key design is as follows:
+
+### primary key
+
+- _partition key_: `orgRangeKey` (format: <org_name>::<first_layer_region>::<second_layer_region>). As application design requires that chat and other resources should be as local as possible, we come to idea that traffic inside region should also be on resonable level. Otherwise region should be devidided into smaller ones to make peaple less overhelmed by data comming.
+- _sort key_: `id` (format <org_name>-<doc_type>-<some_data> _NOTE_ some_data format may warry between doc_types, as some of them requires sorting capabilities and others just uniqueness.
+
+### global secondary index
+
+- _org-index_: _partition key_: `org`, some frequently used queries requires just obtaining all specified documents for selected organization. Using secondary index and query in general gives better performance than `scan` with filter throughout whole table.
 
 ## sample for GraphQL Playground
 
@@ -95,3 +108,5 @@ query AllLocations {
 ```
 
 _NOTE_ there're issues with permisions and query fails.
+
+
