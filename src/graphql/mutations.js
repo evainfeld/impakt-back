@@ -5,7 +5,7 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
   createAnnouncement(input: $input) {
     id
     modifiedAt
-    type
+    announcementType
     author
     category
     title
@@ -27,7 +27,6 @@ export const createLocation = `mutation CreateLocation($input: CreateLocationInp
     modifiedAt
     range
     org
-    doc_type
   }
 }
 `;

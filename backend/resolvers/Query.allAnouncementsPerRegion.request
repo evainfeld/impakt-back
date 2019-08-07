@@ -1,0 +1,30 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "query" : {
+        "expression": "orgRangeKey = :orgRangeKey",
+        "expressionValues" : {
+            ":orgRangeKey" : {
+                "S" : "${context.arguments.orgRangeKey}"
+            }
+        }
+    },
+    #if($util.isNullOrEmpty(${ctx.args.category}))
+        #set( $filterExpr = "doc_type = :doc_type and announcementType = :announcementType" )
+    #else
+        #set( $filterExpr = "doc_type = :doc_type and announcementType = :announcementType and begins_with(category, ${ctx.args.category})" )
+    #end
+    "filter" : {
+    	"expression" : "$filterExpr",
+    	"expressionValues" : {
+            ":doc_type" : {
+                "S" : "announcement"
+            },
+            ":announcementType" : {
+                "S" : "${context.arguments.announcementType}"
+            }
+        },
+	},
+    "limit": $util.defaultIfNull(${ctx.args.limit}, 20),
+    "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.nextToken, null))
+}

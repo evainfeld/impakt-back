@@ -9,10 +9,11 @@ enum AnnouncementType {
 }
 
 input CreateAnnouncementInput {
-  type: AnnouncementType! 
+  announcementType: AnnouncementType! 
   author: String! 
   title: String! 
   content: String! 
+  category: String!
   resources: [MapTupleInput] 
   range: String!
   org: String!
@@ -24,7 +25,7 @@ type Announcement {
   #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
   modifiedAt: String!
   #type - events || agitation
-  type: AnnouncementType!
+  announcementType: AnnouncementType!
   author: String!
   # org_range: MY_ORG::WWA::WTF
   category: String!
@@ -47,11 +48,15 @@ type Location {
   modifiedAt: String!
   range: String!
   org: String!
-  doc_type: String!
 }
 
 type LocationConnection {
-  location: [Location]
+  items: [Location]
+  nextToken: String
+ }
+
+ type AnnouncementConnection {
+  items: [Announcement]
   nextToken: String
  }
 
@@ -79,11 +84,18 @@ type Query {
     limit: Int
     nextToken: String
   ): LocationConnection
-  allAnouncement(
-    after: String 
-    first: Int
-    range: String
+  allAnouncements(
     org: String!
-    type: AnnouncementType
-  ): [Announcement]
+    announcementType: AnnouncementType
+    category: String
+    limit: Int
+    nextToken: String
+  ): AnnouncementConnection
+  allAnouncementsPerRegion(
+    orgRangeKey: String!
+    announcementType: AnnouncementType
+    category: String
+    limit: Int
+    nextToken: String
+  ): AnnouncementConnection
 }

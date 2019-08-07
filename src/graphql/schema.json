@@ -55,36 +55,9 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "allAnouncement",
+          "name" : "allAnouncements",
           "description" : null,
           "args" : [ {
-            "name" : "after",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "first",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "Int",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "range",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
             "name" : "org",
             "description" : null,
             "type" : {
@@ -98,7 +71,7 @@
             },
             "defaultValue" : null
           }, {
-            "name" : "type",
+            "name" : "announcementType",
             "description" : null,
             "type" : {
               "kind" : "ENUM",
@@ -106,15 +79,98 @@
               "ofType" : null
             },
             "defaultValue" : null
+          }, {
+            "name" : "category",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "limit",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "Int",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "nextToken",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
           } ],
           "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "OBJECT",
-              "name" : "Announcement",
+            "kind" : "OBJECT",
+            "name" : "AnnouncementConnection",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "allAnouncementsPerRegion",
+          "description" : null,
+          "args" : [ {
+            "name" : "orgRangeKey",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "String",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "announcementType",
+            "description" : null,
+            "type" : {
+              "kind" : "ENUM",
+              "name" : "AnnouncementType",
               "ofType" : null
-            }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "category",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "limit",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "Int",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "nextToken",
+            "description" : null,
+            "type" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            },
+            "defaultValue" : null
+          } ],
+          "type" : {
+            "kind" : "OBJECT",
+            "name" : "AnnouncementConnection",
+            "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -128,7 +184,7 @@
         "name" : "LocationConnection",
         "description" : null,
         "fields" : [ {
-          "name" : "location",
+          "name" : "items",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -237,21 +293,6 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
-        }, {
-          "name" : "doc_type",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -282,6 +323,41 @@
         "fields" : null,
         "inputFields" : null,
         "interfaces" : null,
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
+        "kind" : "OBJECT",
+        "name" : "AnnouncementConnection",
+        "description" : null,
+        "fields" : [ {
+          "name" : "items",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "LIST",
+            "name" : null,
+            "ofType" : {
+              "kind" : "OBJECT",
+              "name" : "Announcement",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "nextToken",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        } ],
+        "inputFields" : null,
+        "interfaces" : [ ],
         "enumValues" : null,
         "possibleTypes" : null
       }, {
@@ -319,7 +395,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "type",
+          "name" : "announcementType",
           "description" : " type - events || agitation",
           "args" : [ ],
           "type" : {
@@ -579,7 +655,7 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "type",
+          "name" : "announcementType",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -619,6 +695,19 @@
           "defaultValue" : null
         }, {
           "name" : "content",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "category",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",

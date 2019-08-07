@@ -1,4 +1,4 @@
 {
-    "location": $util.toJson($context.result.items),
+    "items": $util.toJson($context.result.items),
     "nextToken": $util.toJson($context.result.nextToken)
 }

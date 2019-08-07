@@ -136,7 +136,7 @@ echo '      ResponseMappingTemplate: |'
 while IFS= read -r line
 do
   echo "        $line"
-done < backend/resolvers/Query.allLocations.response  
+done < backend/resolvers/pagginated.response  
 
 echo '  createLocationMutationResolver:
     Type: "AWS::AppSync::Resolver"
@@ -156,6 +156,66 @@ echo '      ResponseMappingTemplate: |'
 while IFS= read -r line
 do
   echo "        $line"
-done < backend/resolvers/Mutation.createLocation.response  
+done < backend/resolvers/passthrough.response  
+
+echo '  allAnouncementsQueryResolver:
+    Type: "AWS::AppSync::Resolver"
+    Properties:
+      ApiId: !GetAtt changeAgentApi.ApiId
+      TypeName: "Query"
+      FieldName: "allAnouncements"
+      DataSourceName: !GetAtt changeAgentTableDataSource.Name
+      RequestMappingTemplate: |'
+
+while IFS= read -r line
+do
+  echo "        $line"
+done < backend/resolvers/Query.allAnouncements.request  
+echo '      ResponseMappingTemplate: |'
+
+while IFS= read -r line
+do
+  echo "        $line"
+done < backend/resolvers/pagginated.response  
+
+echo '  allAnouncementsPerRegionQueryResolver:
+    Type: "AWS::AppSync::Resolver"
+    Properties:
+      ApiId: !GetAtt changeAgentApi.ApiId
+      TypeName: "Query"
+      FieldName: "allAnouncementsPerRegion"
+      DataSourceName: !GetAtt changeAgentTableDataSource.Name
+      RequestMappingTemplate: |'
+
+while IFS= read -r line
+do
+  echo "        $line"
+done < backend/resolvers/Query.allAnouncementsPerRegion.request  
+echo '      ResponseMappingTemplate: |'
+
+while IFS= read -r line
+do
+  echo "        $line"
+done < backend/resolvers/pagginated.response  
+
+echo '  createAnnouncementMutationResolver:
+    Type: "AWS::AppSync::Resolver"
+    Properties:
+      ApiId: !GetAtt changeAgentApi.ApiId
+      TypeName: "Mutation"
+      FieldName: "createAnnouncement"
+      DataSourceName: !GetAtt changeAgentTableDataSource.Name
+      RequestMappingTemplate: |'
+
+while IFS= read -r line
+do
+  echo "        $line"
+done < backend/resolvers/Mutation.createAnnouncement.request  
+echo '      ResponseMappingTemplate: |'
+
+while IFS= read -r line
+do
+  echo "        $line"
+done < backend/resolvers/passthrough.response
 
 } > backend/deploy-cfn.yml

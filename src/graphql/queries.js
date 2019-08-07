@@ -3,46 +3,74 @@
 
 export const allLocations = `query AllLocations($org: String!, $limit: Int, $nextToken: String) {
   allLocations(org: $org, limit: $limit, nextToken: $nextToken) {
-    location {
+    items {
       id
       orgRangeKey
       modifiedAt
       range
       org
-      doc_type
     }
     nextToken
   }
 }
 `;
-export const allAnouncement = `query AllAnouncement(
-  $after: String
-  $first: Int
-  $range: String
+export const allAnouncements = `query AllAnouncements(
   $org: String!
-  $type: AnnouncementType
+  $announcementType: AnnouncementType
+  $category: String
+  $limit: Int
+  $nextToken: String
 ) {
-  allAnouncement(
-    after: $after
-    first: $first
-    range: $range
+  allAnouncements(
     org: $org
-    type: $type
+    announcementType: $announcementType
+    category: $category
+    limit: $limit
+    nextToken: $nextToken
   ) {
-    id
-    modifiedAt
-    type
-    author
-    category
-    title
-    content
-    resources {
-      key
-      value
+    items {
+      id
+      modifiedAt
+      announcementType
+      author
+      category
+      title
+      content
+      range
+      org
+      orgRangeKey
     }
-    range
-    org
-    orgRangeKey
+    nextToken
+  }
+}
+`;
+export const allAnouncementsPerRegion = `query AllAnouncementsPerRegion(
+  $orgRangeKey: String!
+  $announcementType: AnnouncementType
+  $category: String
+  $limit: Int
+  $nextToken: String
+) {
+  allAnouncementsPerRegion(
+    orgRangeKey: $orgRangeKey
+    announcementType: $announcementType
+    category: $category
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      modifiedAt
+      announcementType
+      author
+      category
+      title
+      content
+      range
+      org
+      orgRangeKey
+    }
+    nextToken
   }
 }
 `;
