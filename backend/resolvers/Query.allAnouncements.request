@@ -2,25 +2,22 @@
     "version" : "2017-02-28",
     "operation" : "Query",
     "query" : {
-        "expression": "org = :org",
+        "expression": "docTypeOrgKey = :val",
         "expressionValues" : {
-            ":org" : {
-                "S" : "${context.arguments.org}"
+            ":val" : {
+                "S" : "announcement::${context.arguments.org}"
             }
         }
     },
-    "index": "org-index",
+    "index": "docTypeOrgKey-index",
     #if($util.isNullOrEmpty(${ctx.args.category}))
-        #set( $filterExpr = "doc_type = :doc_type and announcementType = :announcementType" )
+        #set( $filterExpr = "announcementType = :announcementType" )
     #else
-        #set( $filterExpr = "doc_type = :doc_type and announcementType = :announcementType and begins_with(category, ${ctx.args.category})" )
+        #set( $filterExpr = "announcementType = :announcementType and begins_with(category, ${ctx.args.category})" )
     #end
     "filter" : {
     	"expression" : "$filterExpr",
     	"expressionValues" : {
-            ":doc_type" : {
-                "S" : "announcement"
-            },
             ":announcementType" : {
                 "S" : "${context.arguments.announcementType}"
             }

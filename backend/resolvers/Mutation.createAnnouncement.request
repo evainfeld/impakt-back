@@ -2,13 +2,16 @@
     "version" : "2017-02-28",
     "operation" : "PutItem",
     #set( $base64_param = "${ctx.args.input.category}${ctx.args.input.title}${ctx.args.input.range}" )
+    #set( $orgRangeVal = "${ctx.args.input.org}::${ctx.args.input.range}" )
     "key": {
-        "orgRangeKey": { "S" : "${ctx.args.input.org}::${ctx.args.input.range}"},
+        "orgRangeKey": { "S" : "$orgRangeVal"},
         "id": { "S" : "${ctx.args.input.org}-announcement-$util.base64Encode($base64_param)" }
     },
     #set( $attr = $util.dynamodb.toMapValues($ctx.args.input) )
     #set( $attr.modifiedAt = $util.dynamodb.toString($util.time.nowISO8601()) )
     #set( $attr.doc_type = $util.dynamodb.toString("announcement"))
+    #set( $attr.docTypeOrgRangeKey = $util.dynamodb.toString("announcement::$orgRangeVal"))
+    #set( $attr.docTypeOrgKey = $util.dynamodb.toString("announcement::${ctx.args.input.org}"))
     "attributeValues" : $util.toJson($attr),
     "condition" : {
       "expression" : "attribute_not_exists(orgRangeKey) and attribute_not_exists(id)"

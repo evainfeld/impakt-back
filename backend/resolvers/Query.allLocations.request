@@ -2,22 +2,14 @@
     "version" : "2017-02-28",
     "operation" : "Query",
     "query" : {
-        "expression": "org = :org",
+        "expression": "docTypeOrgKey = :val",
         "expressionValues" : {
-            ":org" : {
-                "S" : "${context.arguments.org}"
+            ":val" : {
+                "S" : "location::${context.arguments.org}"
             }
         }
     },
-    "index": "org-index",
-    "filter" : {
-    	"expression" : "doc_type = :doc_type",
-    	"expressionValues" : {
-            ":doc_type" : {
-                "S" : "location"
-            }
-        },
-	},
+    "index": "docTypeOrgKey-index",
     "limit": $util.defaultIfNull(${ctx.args.limit}, 20),
     "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.nextToken, null))
 }

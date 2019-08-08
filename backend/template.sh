@@ -28,7 +28,10 @@ Resources:
           AttributeName: "id"
           AttributeType: "S"
         -
-          AttributeName: "org"
+          AttributeName: "docTypeOrgRangeKey"
+          AttributeType: "S"
+        -
+          AttributeName: "docTypeOrgKey"
           AttributeType: "S"
       KeySchema:
         -
@@ -42,10 +45,21 @@ Resources:
         WriteCapacityUnits: "5"
       GlobalSecondaryIndexes:
         -
-          IndexName: "org-index"
+          IndexName: "docTypeOrgRangeKey-index"
           KeySchema:
             -
-              AttributeName: "org"
+              AttributeName: "docTypeOrgRangeKey"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: "5"
+            WriteCapacityUnits: "5"
+        -
+          IndexName: "docTypeOrgKey-index"
+          KeySchema:
+            -
+              AttributeName: "docTypeOrgKey"
               KeyType: "HASH"
           Projection:
             ProjectionType: "ALL"
@@ -78,7 +92,8 @@ Resources:
             Action: "dynamodb:*"
             Resource:
               - !GetAtt changeAgentTable.Arn
-              - !Sub ${changeAgentTable.Arn}/index/org-index
+              - !Sub ${changeAgentTable.Arn}/index/docTypeOrgKey-index
+              - !Sub ${changeAgentTable.Arn}/index/docTypeOrgRangeKey-index
       Roles:
         -
           Ref: "awsAppSyncServiceRole"
