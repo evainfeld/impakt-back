@@ -1,0 +1,101 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+enum AnnouncementType {
+  EVENT
+  AGITATION
+}
+
+input CreateAnnouncementInput {
+  announcementType: AnnouncementType! 
+  author: String! 
+  title: String! 
+  content: String! 
+  category: String!
+  resources: [MapTupleInput] 
+  range: String!
+  org: String!
+}
+# agitation sample message and anouncement use same type
+type Announcement {
+  #  A unique identifier for the Conversation.
+  id: ID!
+  #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
+  modifiedAt: String!
+  #type - events || agitation
+  announcementType: AnnouncementType!
+  author: String!
+  # org_range: MY_ORG::WWA::WTF
+  category: String!
+  title: String!
+  content: String!
+  resources: [MapTuple]
+  range: String!
+  org: String!
+  orgRangeKey: String!
+}
+
+input CreateLocationInput {
+  range: String!
+  org: String!
+}
+
+type Location {
+  id: ID!
+  orgRangeKey: String!
+  modifiedAt: String!
+  range: String!
+  org: String!
+}
+
+type LocationConnection {
+  items: [Location]
+  nextToken: String
+ }
+
+ type AnnouncementConnection {
+  items: [Announcement]
+  nextToken: String
+ }
+
+input MapTupleInput {
+  key: String!
+  value: String
+}
+type MapTuple {
+  key: String!
+  value: String
+}
+type Mutation {
+  #  Create event or agitation message
+  createAnnouncement(
+    input: CreateAnnouncementInput
+  ): Announcement!
+  createLocation(
+    input: CreateLocationInput!
+  ): Location!
+  #  Create person (coordinator) 
+}
+type Query {
+  allLocations(
+    org: String!
+    limit: Int
+    nextToken: String
+  ): LocationConnection
+  allAnouncements(
+    org: String!
+    announcementType: AnnouncementType
+    category: String
+    limit: Int
+    nextToken: String
+  ): AnnouncementConnection
+  allAnouncementsPerRegion(
+    orgRangeKey: String!
+    announcementType: AnnouncementType
+    category: String
+    limit: Int
+    nextToken: String
+  ): AnnouncementConnection
+}

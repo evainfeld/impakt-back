@@ -1,0 +1,14 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "change-agent-dev-20190808173310-authRole",
+            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190808173310-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190808173310-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "change-agent-dev-20190808173310-deployment",
+            "UnauthRoleName": "change-agent-dev-20190808173310-unauthRole",
+            "StackName": "change-agent-dev-20190808173310",
+            "StackId": "arn:aws:cloudformation:eu-central-1:922687003324:stack/change-agent-dev-20190808173310/d41b5a10-b9f1-11e9-a42b-0ac843449136"
+        }
+    }
+}

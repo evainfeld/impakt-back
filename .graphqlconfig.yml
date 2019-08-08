@@ -1,5 +1,5 @@
 projects:
-  ChangeAgent:
+  changeAgentApi:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
@@ -10,5 +10,3 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
-        region: eu-central-1
-        maxDepth: 2

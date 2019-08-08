@@ -1,0 +1,28 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "query" : {
+        "expression": "docTypeOrgKey = :val",
+        "expressionValues" : {
+            ":val" : {
+                "S" : "announcement::${context.arguments.org}"
+            }
+        }
+    },
+    "index": "docTypeOrgKey-index",
+    #if($util.isNullOrEmpty(${ctx.args.category}))
+        #set( $filterExpr = "announcementType = :announcementType" )
+    #else
+        #set( $filterExpr = "announcementType = :announcementType and begins_with(category, ${ctx.args.category})" )
+    #end
+    "filter" : {
+    	"expression" : "$filterExpr",
+    	"expressionValues" : {
+            ":announcementType" : {
+                "S" : "${context.arguments.announcementType}"
+            }
+        },
+	},
+    "limit": $util.defaultIfNull(${ctx.args.limit}, 20),
+    "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.nextToken, null))
+}

@@ -1,4 +1,4 @@
-// eslint-disable
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
 export const allLocations = `query AllLocations($org: String!, $limit: Int, $nextToken: String) {
@@ -36,6 +36,10 @@ export const allAnouncements = `query AllAnouncements(
       category
       title
       content
+      resources {
+        key
+        value
+      }
       range
       org
       orgRangeKey
@@ -66,6 +70,10 @@ export const allAnouncementsPerRegion = `query AllAnouncementsPerRegion(
       category
       title
       content
+      resources {
+        key
+        value
+      }
       range
       org
       orgRangeKey
