@@ -4,16 +4,19 @@
 
 - `AppSync with Amplify`
 - Proper Graphql schema: `https://graphqlmastery.com/blog/graphql-best-practices-for-graphql-schema-design`
-- Proper DynamoDB data model: `https://www.youtube.com/watch?v=HaEPXoXVf2k&amp=&t=2s`
+- Proper DynamoDB data model: `https://www.youtube.com/watch?v=HaEPXoXVf2k&amp=&t=2s` 
 - AWS official sample with broken shema and model: `https://github.com/aws-samples/aws-mobile-appsync-chat-starter-angular`
+- Official up to date documentation of Amplify: `https://aws-amplify.github.io/docs/cli-toolchain/graphql`
 - Multiple Envs with Amplify: `https://read.acloud.guru/multiple-serverless-environments-with-aws-amplify-344759e1be08`. Another approach `https://github.com/ysfmag/amplify-multi-environment` (pre Amplify actualization).
 - SNS SMS support regions: `https://docs.aws.amazon.com/sns/latest/dg/sms_supported-countries.html`
 - resolvers: `https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference-programming-guide.html`
 - passwordless sms auth `https://github.com/mobilequickie/amplify-passwordless-sms-auth/`
+- schema testing: `https://codesandbox.io/s/42m2rx71j4` and `https://hackernoon.com/start-testing-your-graphql-schema-queries-and-mutations-b514911b1368`
+- another approach `https://medium.com/@FdMstri/testing-a-graphql-server-13512408c2fb`
 
 ## Tools
 
-- `graphql-playground`
+- `graphql-playground` if you like standalone. Alternative: `amplify mock api`.
 
 ## Prerequisites
 
@@ -21,19 +24,103 @@
 - NodeJS with NPM
 - AWS CLI (`pip install awscli --upgrade --user`)
 - AWS Amplify CLI (configured for a region where AWS AppSync is available) (`npm install -g @aws-amplify/cli`)
+- Keys for multiple accounts configured according to documantation: `https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-multiple-profiles`
+- git-flow tool might be helpful (`npm install -g git-flow`)
 
+## Environments
 
-## Notes
+Prod and Dev envs are deployed automatically using AWS Amplify Console.
+As long as, API is "protected" using API KEY remember to add `x-api-key` param to POST header.
 
-Backend stuff: schemas, resolvers and script for preparing CloudFormation config file are in `backend/`
+### PROD - associated with master branch
 
-You may try following for some basic tests using endpoint supporting only Location operations:
+``` txt
+GraphQL endpoint: https://lodfv533wzeaziok3kvulsfre4.appsync-api.eu-central-1.amazonaws.com/graphql
+GraphQL API KEY: da2-v5pv4ws4wrhvtjvvyno4dwchkm
+```
 
-- `https://cgf5qm2pobdiziunl75evoib7e.appsync-api.eu-central-1.amazonaws.com/graphql`
-- `"x-api-key":"da2-vgqko7cilvgf3cuybvcwi6wr3e"`
-- api id: `nuoflxhdcbfvneh6xaazsh2vym`
+### DEV - associated with develop branch
 
-## Create stack
+``` txt
+GraphQL endpoint: https://ad7kfb7gnrcznitl3r545twxqe.appsync-api.eu-central-1.amazonaws.com/graphql
+GraphQL API KEY: da2-crfwxunzkrh7lfykjtaeat66di
+```
+
+## How to develop
+
+All backend files are in `amplify/`:
+
+- annotated schema: `change-agent/amplify/backend/api/changeAgentApi/schema.graphql`
+- generated one: `change-agent/amplify/backend/api/changeAgentApi/build/schema.graphql`
+
+It's possible to customize resolvers and split schema using dirs in `change-agent/amplify/backend/api/changeAgentApi/`
+
+### Way to work within a team
+
+Team-member can work on their own sandbox environment and then merge changes to the dev environment to test some changes, & then to master once testing is finished.
+
+We have two independent environments (master & dev) in the cloud and have corresponding git branches with our amplify backend infrastructure code on Git.
+Suppose a team member wants to work on the same Amplify project, add some features to it and then push changes to the dev environment to test some changes. They would perform the following steps:
+
+``` bash
+$ git checkout -b mysandbox |or| git-flow feature start mysandbox
+$ amplify init
+? Do you want to use an existing environment? No
+? Enter a name for the environment mysandbox
+// Rest of init steps
+// Add/update any backend configurations using amplify add/update <category>
+$ amplify push
+$ git push -u origin mysandbox
+```
+
+Next, suppose the team-member wants to move these changes to dev and master environments/branches:
+
+__Note__: this is an example. Merging to develop is recommended to be done throughout PR.
+
+``` bash
+$ git checkout develop
+$ amplify init
+? Do you want to use an existing environment? true
+? Choose the environment you would like to use:
+❯ dev
+ master
+$ git merge mysandbox  |or| git-flow feature finish mysandbox
+$ amplify push
+$ git push -u origin dev
+```
+
+After testing that everything works fine in the dev stage, you could now merge dev to the master git branch:
+
+__Note__: this is an example. Merging to master is only possible throughout PR.
+
+``` bash
+$ git checkout master
+$ amplify init
+? Do you want to use an existing environment? true
+? Choose the environment you would like to use:
+ dev
+❯ master
+$ git merge develop
+$ amplify push
+$ git push -u origin master
+```
+
+__IMPORTANT__: remember to update Graphql operations using `amplify codegen` after each schema change.
+
+### Switching between envs
+
+``` bash
+// delete
+amplify env remove apifeature
+// create
+amplify env add apifeature
+// switch
+amplify env checkout apifeature
+// list
+amplify env list
+```
+
+## Useful commands
 
 From root dir:
 
@@ -52,65 +139,4 @@ _NOTE_: Don't know yet how to deploy AppSync supporting only api key
 
 ## DynamoDB design
 
-There is one table called `changeAgentTable` that is used to store all documents comming from FE, throuout API. Currently key design is as follows:
-
-### primary key
-
-- _partition key_: `orgRangeKey` (format: <org_name>::<first_layer_region>::<second_layer_region>). As application design requires that chat and other resources should be as local as possible, we come to idea that traffic inside region should also be on resonable level. Otherwise region should be devidided into smaller ones to make peaple less overhelmed by data comming.
-- _sort key_: `id` (format <org_name>-<doc_type>-<some_data> _NOTE_ some_data format may warry between doc_types, as some of them requires sorting capabilities and others just uniqueness.
-
-### global secondary index
-
-- _org-index_: _partition key_: `org`, some frequently used queries requires just obtaining all specified documents for selected organization. Using secondary index and query in general gives better performance than `scan` with filter throughout whole table.
-
-## sample for GraphQL Playground
-
-### mutation
-
-```grqphql
-mutation CreateLocation($input: CreateLocationInput!) {
-  createLocation(input: $input) {
-    id
-    range
-    org
-  }
-}
-```
-
-__mutation variables__:
-
-```json
-{
-"input":{
- "range": "PL::WAW",
- "org": "MyOrg"
- }
-}
-```
-
-__header variables__:
-
-```json
-{
-  "x-api-key":"da2-vgqko7cilvgf3cuybvcwi6wr3e"
-}
-```
-
-### query
-
-```grqphql
-query AllLocations {
-  allLocations(org: "MyOrg3") {
-    location {
-      id
-      range
-      org
-    }
-    nextToken
-  }
-}
-```
-
-_NOTE_ there're issues with permisions and query fails.
-
-
+AppSync supports only one table per one model design. According to AWS it's far away from optimal one table approach. However revriting generated Cloudformation files seems to be futile, as it breakes some AppSync annotation functionalities like @Connection or Unions.
