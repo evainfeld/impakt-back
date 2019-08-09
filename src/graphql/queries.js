@@ -117,6 +117,10 @@ export const listMessageOfTheDays = `query ListMessageOfTheDays(
       category
       title
       content
+      resources {
+        key
+        value
+      }
       region
       org
       createdAt
@@ -164,6 +168,10 @@ export const listEvents = `query ListEvents(
       category
       title
       content
+      resources {
+        key
+        value
+      }
       region
       org
       createdAt
@@ -193,6 +201,10 @@ export const listMessageOfTheDaysByOrg = `query ListMessageOfTheDaysByOrg(
       category
       title
       content
+      resources {
+        key
+        value
+      }
       region
       org
       createdAt
@@ -222,6 +234,10 @@ export const listEventsByOrg = `query ListEventsByOrg(
       category
       title
       content
+      resources {
+        key
+        value
+      }
       region
       org
       createdAt
