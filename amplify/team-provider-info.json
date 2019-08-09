@@ -10,5 +10,17 @@
             "StackName": "change-agent-dev-20190808173310",
             "StackId": "arn:aws:cloudformation:eu-central-1:922687003324:stack/change-agent-dev-20190808173310/d41b5a10-b9f1-11e9-a42b-0ac843449136"
         }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "change-agent-prod-20190809133749-authRole",
+            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190809133749-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190809133749-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "change-agent-prod-20190809133749-deployment",
+            "UnauthRoleName": "change-agent-prod-20190809133749-unauthRole",
+            "StackName": "change-agent-prod-20190809133749",
+            "StackId": "arn:aws:cloudformation:eu-central-1:922687003324:stack/change-agent-prod-20190809133749/1dabf790-ba9a-11e9-a7ef-02d441bc2b52"
+        }
     }
 }
