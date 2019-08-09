@@ -1,101 +1,79 @@
-schema {
-  query: Query
-  mutation: Mutation
+type MapTuple {
+  key: String!
+  value: String
 }
 
-enum AnnouncementType {
-  EVENT
-  AGITATION
-}
-
-input CreateAnnouncementInput {
-  announcementType: AnnouncementType! 
-  author: String! 
-  title: String! 
-  content: String! 
-  category: String!
-  resources: [MapTupleInput] 
-  range: String!
+# storing all available regions in application
+type Location 
+  @model( mutations: {create: "createLocation", update: null, delete: null})
+  @key(fields: ["org", "region"])
+ {
+  id: ID
+  # ex ORG1#PL#WAW
+  region: String!
+  # ex ORG1
   org: String!
+  name: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
-# agitation sample message and anouncement use same type
-type Announcement {
+
+# storing all available announcement categories in application
+type Category 
+  @model( mutations: {create: "createCategory", update: null, delete: "deleteCategory" },  )
+  @key(fields: ["org", "region", "name" ])
+ {
+  id: ID
+  # ex ORG1#PL#WAW
+  region: String!
+  # ex ORG1
+  org: String!
+  name: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type MessageOfTheDay 
+  @model( mutations: {create: "createMessageOfTheDay", update: null, delete: null})
+  @key(fields: ["region", "category", "title"])
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listMessageOfTheDaysByOrg" )
+{
   #  A unique identifier for the Conversation.
-  id: ID!
-  #  The Announcement's timestamp. Could be String in YYYY-MM-DDThh:mm:ss.sssZ format
-  modifiedAt: String!
-  #type - events || agitation
-  announcementType: AnnouncementType!
+  id: ID
+  #type - events || message
   author: String!
   # org_range: MY_ORG::WWA::WTF
   category: String!
   title: String!
   content: String!
   resources: [MapTuple]
-  range: String!
+  region: String!
   org: String!
-  orgRangeKey: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
-input CreateLocationInput {
-  range: String!
+
+type Event 
+  @model( mutations: {create: "createEvent", update: null, delete: null})
+  @key(fields: ["region", "category", "title"])
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listEventsByOrg" )
+{
+  #  A unique identifier for the Conversation.
+  id: ID
+  #type - events || message
+  author: String!
+  # org_range: MY_ORG::WWA::WTF
+  category: String!
+  title: String!
+  content: String!
+  resources: [MapTuple]
+  region: String!
   org: String!
-}
-
-type Location {
-  id: ID!
-  orgRangeKey: String!
-  modifiedAt: String!
-  range: String!
-  org: String!
-}
-
-type LocationConnection {
-  items: [Location]
-  nextToken: String
- }
-
- type AnnouncementConnection {
-  items: [Announcement]
-  nextToken: String
- }
-
-input MapTupleInput {
-  key: String!
-  value: String
-}
-type MapTuple {
-  key: String!
-  value: String
-}
-type Mutation {
-  #  Create event or agitation message
-  createAnnouncement(
-    input: CreateAnnouncementInput
-  ): Announcement!
-  createLocation(
-    input: CreateLocationInput!
-  ): Location!
-  #  Create person (coordinator) 
-}
-type Query {
-  allLocations(
-    org: String!
-    limit: Int
-    nextToken: String
-  ): LocationConnection
-  allAnouncements(
-    org: String!
-    announcementType: AnnouncementType
-    category: String
-    limit: Int
-    nextToken: String
-  ): AnnouncementConnection
-  allAnouncementsPerRegion(
-    orgRangeKey: String!
-    announcementType: AnnouncementType
-    category: String
-    limit: Int
-    nextToken: String
-  ): AnnouncementConnection
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }

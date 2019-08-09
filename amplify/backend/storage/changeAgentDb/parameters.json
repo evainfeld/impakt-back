@@ -1,7 +1,0 @@
-{
-    "tableName": "changeAgentDb",
-    "partitionKeyName": "orgRangeKey",
-    "partitionKeyType": "S",
-    "sortKeyName": "id",
-    "sortKeyType": "S"
-}

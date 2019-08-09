@@ -8,10 +8,5 @@
 			}
 		}
 	},
-	"storage": {
-		"changeAgentDb": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		}
-	}
+	"storage": {}
 }

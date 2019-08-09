@@ -1,11 +1,42 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnnouncementInput) {
-  createAnnouncement(input: $input) {
+export const createLocation = `mutation CreateLocation($input: CreateLocationInput!) {
+  createLocation(input: $input) {
     id
-    modifiedAt
-    announcementType
+    region
+    org
+    name
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const createCategory = `mutation CreateCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    id
+    region
+    org
+    name
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const deleteCategory = `mutation DeleteCategory($input: DeleteCategoryInput!) {
+  deleteCategory(input: $input) {
+    id
+    region
+    org
+    name
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const createMessageOfTheDay = `mutation CreateMessageOfTheDay($input: CreateMessageOfTheDayInput!) {
+  createMessageOfTheDay(input: $input) {
+    id
     author
     category
     title
@@ -14,19 +45,28 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
       key
       value
     }
-    range
+    region
     org
-    orgRangeKey
+    createdAt
+    updatedAt
   }
 }
 `;
-export const createLocation = `mutation CreateLocation($input: CreateLocationInput!) {
-  createLocation(input: $input) {
+export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
+  createEvent(input: $input) {
     id
-    orgRangeKey
-    modifiedAt
-    range
+    author
+    category
+    title
+    content
+    resources {
+      key
+      value
+    }
+    region
     org
+    createdAt
+    updatedAt
   }
 }
 `;
