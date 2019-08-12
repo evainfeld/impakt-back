@@ -1,6 +1,6 @@
 projects:
   changeAgentApi:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/changeAgentApi/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
