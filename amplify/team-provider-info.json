@@ -42,7 +42,10 @@
                 "changeagent8c09160bCreateAuthChallenge": {},
                 "changeagent8c09160bDefineAuthChallenge": {},
                 "changeagent8c09160bPreSignup": {},
-                "changeagent8c09160bVerifyAuthChallengeResponse": {}
+                "changeagent8c09160bVerifyAuthChallengeResponse": {},
+                "changeagent8c09160bPostConfirmation": {
+                    "GROUP": "users"
+                }
             }
         }
     }

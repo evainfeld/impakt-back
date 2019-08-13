@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "add-to-group"
+    ],
+    "parentResource": "changeagent8c09160b",
+    "functionName": "changeagent8c09160bPostConfirmation",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "PostConfirmation.json.ejs",
+    "roleName": "changeagent8c09160bPostConfirmation",
+    "skipEdit": true,
+    "resourceName": "changeagent8c09160bPostConfirmation"
+}

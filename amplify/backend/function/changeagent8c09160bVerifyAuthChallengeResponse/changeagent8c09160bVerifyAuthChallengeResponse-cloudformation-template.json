@@ -102,7 +102,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-auth-20190812151745-deployment",
-					"S3Key": "amplify-builds/changeagent8c09160bVerifyAuthChallengeResponse-4458677a3558416f6f79-build.zip"
+					"S3Key": "amplify-builds/changeagent8c09160bVerifyAuthChallengeResponse-48593138795673395762-build.zip"
 				}
 			}
 		},
