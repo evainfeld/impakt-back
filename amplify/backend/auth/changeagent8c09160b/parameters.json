@@ -52,6 +52,15 @@
     "dependsOn": [
         {
             "category": "function",
+            "resourceName": "changeagent8c09160bPostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
             "resourceName": "changeagent8c09160bCreateAuthChallenge",
             "triggerProvider": "Cognito",
             "attributes": [
@@ -85,18 +94,9 @@
                 "Arn",
                 "Name"
             ]
-        },
-        {
-            "category": "function",
-            "resourceName": "changeagent8c09160bPostConfirmation",
-            "triggerProvider": "Cognito",
-            "attributes": [
-                "Arn",
-                "Name"
-            ]
         }
     ],
-    "triggers": "{\"CreateAuthChallenge\":[\"custom\"],\"DefineAuthChallenge\":[\"custom\"],\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"custom\"],\"VerifyAuthChallengeResponse\":[\"custom\"]}",
+    "triggers": "{\"CreateAuthChallenge\":[\"boilerplate-create-challenge\"],\"DefineAuthChallenge\":[\"boilerplate-define-challenge\"],\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"custom\"],\"VerifyAuthChallengeResponse\":[\"boilerplate-verify\"]}",
     "hostedUI": false,
     "parentStack": {
         "Ref": "AWS::StackId"

@@ -1,16 +1,14 @@
 {
     "trigger": true,
     "modules": [
-        "custom"
+        "create-challenge"
     ],
     "parentResource": "changeagent8c09160b",
     "functionName": "changeagent8c09160bCreateAuthChallenge",
     "parentStack": "auth",
     "triggerEnvs": "[]",
-    "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/CreateAuthChallenge",
-    "roleName": "changeagent8c09160bCreateAuthChallenge",
     "triggerTemplate": "CreateAuthChallenge.json.ejs",
-    "triggerEventPath": "CreateAuthChallenge.event.json",
+    "roleName": "changeagent8c09160bCreateAuthChallenge",
     "skipEdit": true,
     "resourceName": "changeagent8c09160bCreateAuthChallenge"
 }

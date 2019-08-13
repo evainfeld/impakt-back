@@ -11,6 +11,16 @@ Parameters:
   
   
   
+  functionchangeagent8c09160bPostConfirmationArn: 
+    Type: String
+    Default: functionchangeagent8c09160bPostConfirmationArn
+  
+  functionchangeagent8c09160bPostConfirmationName: 
+    Type: String
+    Default: functionchangeagent8c09160bPostConfirmationName
+  
+  
+  
   functionchangeagent8c09160bCreateAuthChallengeArn: 
     Type: String
     Default: functionchangeagent8c09160bCreateAuthChallengeArn
@@ -48,16 +58,6 @@ Parameters:
   functionchangeagent8c09160bVerifyAuthChallengeResponseName: 
     Type: String
     Default: functionchangeagent8c09160bVerifyAuthChallengeResponseName
-  
-  
-  
-  functionchangeagent8c09160bPostConfirmationArn: 
-    Type: String
-    Default: functionchangeagent8c09160bPostConfirmationArn
-  
-  functionchangeagent8c09160bPostConfirmationName: 
-    Type: String
-    Default: functionchangeagent8c09160bPostConfirmationName
   
   
   

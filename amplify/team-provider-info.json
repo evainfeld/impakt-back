@@ -39,13 +39,13 @@
                 "changeagent8c09160b": {}
             },
             "function": {
+                "changeagent8c09160bPostConfirmation": {
+                    "GROUP": "Users"
+                },
                 "changeagent8c09160bCreateAuthChallenge": {},
                 "changeagent8c09160bDefineAuthChallenge": {},
                 "changeagent8c09160bPreSignup": {},
-                "changeagent8c09160bVerifyAuthChallengeResponse": {},
-                "changeagent8c09160bPostConfirmation": {
-                    "GROUP": "users"
-                }
+                "changeagent8c09160bVerifyAuthChallengeResponse": {}
             }
         }
     }

@@ -16,6 +16,15 @@
             "dependsOn": [
                 {
                     "category": "function",
+                    "resourceName": "changeagent8c09160bPostConfirmation",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
                     "resourceName": "changeagent8c09160bCreateAuthChallenge",
                     "triggerProvider": "Cognito",
                     "attributes": [
@@ -49,20 +58,16 @@
                         "Arn",
                         "Name"
                     ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "changeagent8c09160bPostConfirmation",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
                 }
             ]
         }
     },
     "function": {
+        "changeagent8c09160bPostConfirmation": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        },
         "changeagent8c09160bCreateAuthChallenge": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
@@ -79,11 +84,6 @@
             "build": true
         },
         "changeagent8c09160bVerifyAuthChallengeResponse": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        },
-        "changeagent8c09160bPostConfirmation": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
             "build": true
