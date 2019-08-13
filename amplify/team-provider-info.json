@@ -1,26 +1,14 @@
 {
-    "dev": {
+    "develop": {
         "awscloudformation": {
-            "AuthRoleName": "change-agent-dev-20190808173310-authRole",
-            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190808173310-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190808173310-authRole",
-            "Region": "eu-central-1",
-            "DeploymentBucketName": "change-agent-dev-20190808173310-deployment",
-            "UnauthRoleName": "change-agent-dev-20190808173310-unauthRole",
-            "StackName": "change-agent-dev-20190808173310",
-            "StackId": "arn:aws:cloudformation:eu-central-1:922687003324:stack/change-agent-dev-20190808173310/d41b5a10-b9f1-11e9-a42b-0ac843449136"
-        }
-    },
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "change-agent-prod-20190809133749-authRole",
-            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190809133749-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190809133749-authRole",
-            "Region": "eu-central-1",
-            "DeploymentBucketName": "change-agent-prod-20190809133749-deployment",
-            "UnauthRoleName": "change-agent-prod-20190809133749-unauthRole",
-            "StackName": "change-agent-prod-20190809133749",
-            "StackId": "arn:aws:cloudformation:eu-central-1:922687003324:stack/change-agent-prod-20190809133749/1dabf790-ba9a-11e9-a7ef-02d441bc2b52"
+            "AuthRoleName": "change-agent-develop-20190813164208-authRole",
+            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190813164208-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190813164208-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "change-agent-develop-20190813164208-deployment",
+            "UnauthRoleName": "change-agent-develop-20190813164208-unauthRole",
+            "StackName": "change-agent-develop-20190813164208",
+            "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-develop-20190813164208/8720f360-bdd8-11e9-8445-0646713dba72"
         }
     }
 }
