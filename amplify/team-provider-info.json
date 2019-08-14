@@ -19,7 +19,7 @@
                     "GROUP": "Users"
                 },
                 "changeagent8c09160bCreateAuthChallenge": {
-                    "CHALLENGEANSWER": ""
+                    "MODULES": "create-challenge"
                 },
                 "changeagent8c09160bDefineAuthChallenge": {},
                 "changeagent8c09160bPreSignup": {},

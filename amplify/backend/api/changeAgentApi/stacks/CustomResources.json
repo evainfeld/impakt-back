@@ -30,33 +30,6 @@
 		"EmptyResource": {
 			"Type": "Custom::EmptyResource",
 			"Condition": "AlwaysFalse"
-		  },
-		  "UserPoolGroupAdmins": {
-			"Type": "AWS::Cognito::UserPoolGroup",
-			"Properties": {
-			  "GroupName": "Admins",
-			  "UserPoolId": {
-				"Ref": "AuthCognitoUserPoolId"
-			  }
-			}
-		  },
-		  "UserPoolGroupMembers": {
-			"Type": "AWS::Cognito::UserPoolGroup",
-			"Properties": {
-			  "GroupName": "Members",
-			  "UserPoolId": {
-				"Ref": "AuthCognitoUserPoolId"
-			  }
-			}
-		  },
-		  "UserPoolGroupUsers": {
-			"Type": "AWS::Cognito::UserPoolGroup",
-			"Properties": {
-			  "GroupName": "Users",
-			  "UserPoolId": {
-				"Ref": "AuthCognitoUserPoolId"
-			  }
-			}
 		  }
 	},
 	"Conditions": {
