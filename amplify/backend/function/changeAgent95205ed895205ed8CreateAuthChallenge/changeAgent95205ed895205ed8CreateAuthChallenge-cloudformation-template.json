@@ -183,6 +183,14 @@
 									}
 								]
 							}
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"mobiletargeting:*~",
+								"sns:*"
+							],
+							"Resource": "*"
 						}
 					]
 				}
