@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "custom"
+    ],
+    "parentResource": "changeAgent95205ed895205ed8",
+    "functionName": "changeAgent95205ed895205ed8DefineAuthChallenge",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "DefineAuthChallenge.json.ejs",
+    "roleName": "changeAgent95205ed895205ed8DefineAuthChallenge",
+    "skipEdit": true,
+    "resourceName": "changeAgent95205ed895205ed8DefineAuthChallenge"
+}

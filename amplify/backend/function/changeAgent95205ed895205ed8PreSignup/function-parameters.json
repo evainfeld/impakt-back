@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "custom"
+    ],
+    "parentResource": "changeAgent95205ed895205ed8",
+    "functionName": "changeAgent95205ed895205ed8PreSignup",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "PreSignup.json.ejs",
+    "roleName": "changeAgent95205ed895205ed8PreSignup",
+    "skipEdit": true,
+    "resourceName": "changeAgent95205ed895205ed8PreSignup"
+}

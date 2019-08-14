@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "custom"
+    ],
+    "parentResource": "changeAgent95205ed895205ed8",
+    "functionName": "changeAgent95205ed895205ed8VerifyAuthChallengeResponse",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+    "roleName": "changeAgent95205ed895205ed8VerifyAuthChallengeResponse",
+    "skipEdit": true,
+    "resourceName": "changeAgent95205ed895205ed8VerifyAuthChallengeResponse"
+}
