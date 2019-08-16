@@ -57,7 +57,7 @@
 				"aws:asset:property": "Code"
 			},
 			"Properties": {
-				"Handler": "index.handler",
+				"Handler": "custom.handler",
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
@@ -98,11 +98,11 @@
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs8.10",
+				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-authnew-20190813162224-deployment",
-					"S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-4c654e466f7179782b65-build.zip"
+					"S3Bucket": "change-agent-smsauth-20190816110038-deployment",
+					"S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-44512f32614b4b514f6b-build.zip"
 				}
 			}
 		},

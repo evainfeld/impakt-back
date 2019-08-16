@@ -4,10 +4,10 @@
   "MODULES" is a comma-delimmited string.
 */
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event) => {
   const modules = process.env.MODULES.split(',');
-  for (let i = 0; i < modules.length; i += 1) {
-    const { handler } = require(modules[i]);
-    handler(event, context, callback);
-  }
+  modules.forEach(async md => {
+    const { handler } = require(md);
+    return await handler(event);
+  });
 };

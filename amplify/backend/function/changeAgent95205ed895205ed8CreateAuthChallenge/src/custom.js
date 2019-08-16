@@ -37,6 +37,8 @@ exports.handler = async (event = {}) => {
     // Add the secret login code to the session so it is available
     // in a next invocation of the "Create Auth Challenge" trigger
     event.response.challengeMetadata = `CODE-${secretLoginCode}`;
+    console.log("ENVIRONMENT VARIABLES\n" + JSON.stringify(process.env, null, 2))
+    console.log("EVENT\n" + JSON.stringify(event, null, 2))
     return event;
 };
 

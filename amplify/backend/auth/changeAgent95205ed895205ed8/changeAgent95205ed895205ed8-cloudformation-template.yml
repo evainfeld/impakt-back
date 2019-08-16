@@ -294,9 +294,12 @@ Resources:
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
+      GenerateSecret: false
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
-      UserPoolId: !Ref UserPool
+      UserPoolId: !Ref UserPool   
+      ExplicitAuthFlows:
+        - CUSTOM_AUTH_FLOW_ONLY
     DependsOn: UserPool
   UserPoolClient:
   # Created provide application access to user pool
