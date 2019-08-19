@@ -1,6 +1,4 @@
 {
-    "identityPoolName": "change_agent95205ed8_identitypool_95205ed8",
-    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "change95205ed8",
     "userPoolName": "change_agent95205ed8_userpool_95205ed8",
     "autoVerifiedAttributes": [
@@ -31,9 +29,8 @@
     "userpoolClientLambdaRole": "change95205ed8_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
     "useDefault": "manual",
-    "authSelections": "identityPoolAndUserPool",
+    "authSelections": "userPoolOnly",
     "resourceName": "changeAgent95205ed895205ed8",
-    "thirdPartyAuth": false,
     "usernameAttributes": [
         "phone_number"
     ],
