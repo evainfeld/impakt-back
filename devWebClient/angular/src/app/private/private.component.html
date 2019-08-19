@@ -29,9 +29,16 @@
 
     <p *ngIf="errorMessage | async">{{ errorMessage | async }}</p>
 
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+        <div fxFlex></div>
+        <p>Token has expired?</p>
+        <div fxFlex></div>
+        <button mat-stroked-button color="primary" (click)="refresh()">Refresh token</button>
+    </mat-card-content>
+
     <mat-card-content fxLayout="row">
         <div fxFlex></div>
-        <a routerLink='/sign-out' routerLinkActive="active">Sign out</a>
+        <p>Fed up with GraphQL? <a routerLink='/sign-out' routerLinkActive="active">Sign out</a></p>
     </mat-card-content>
 
 </mat-card>
