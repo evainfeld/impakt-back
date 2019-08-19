@@ -1,16 +1,21 @@
 # Change Agent Backend App
 
+## Very important about Amplify CLI
+
+Never, ever, in any circumstances call `amplify delete` :)
+
 ## Ideas
 
 - `AppSync with Amplify`
 - Proper Graphql schema: `https://graphqlmastery.com/blog/graphql-best-practices-for-graphql-schema-design`
-- Proper DynamoDB data model: `https://www.youtube.com/watch?v=HaEPXoXVf2k&amp=&t=2s` 
+- Proper DynamoDB data model: `https://www.youtube.com/watch?v=HaEPXoXVf2k&amp=&t=2s`
 - AWS official sample with broken shema and model: `https://github.com/aws-samples/aws-mobile-appsync-chat-starter-angular`
 - Official up to date documentation of Amplify: `https://aws-amplify.github.io/docs/cli-toolchain/graphql`
 - Multiple Envs with Amplify: `https://read.acloud.guru/multiple-serverless-environments-with-aws-amplify-344759e1be08`. Another approach `https://github.com/ysfmag/amplify-multi-environment` (pre Amplify actualization).
 - SNS SMS support regions: `https://docs.aws.amazon.com/sns/latest/dg/sms_supported-countries.html`
 - resolvers: `https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference-programming-guide.html`
 - passwordless sms auth `https://github.com/mobilequickie/amplify-passwordless-sms-auth/`
+- custom auth `https://medium.com/cloudsail-io/aws-cognito-use-existing-users-database-with-custom-authentication-flow-920142884c08`
 - schema testing: `https://codesandbox.io/s/42m2rx71j4` and `https://hackernoon.com/start-testing-your-graphql-schema-queries-and-mutations-b514911b1368`
 - another approach `https://medium.com/@FdMstri/testing-a-graphql-server-13512408c2fb`
 
@@ -35,23 +40,30 @@ As long as, API is "protected" using API KEY remember to add `x-api-key` param t
 ### PROD - associated with master branch
 
 ``` txt
-GraphQL endpoint: https://2fakxaksi5bj3k4bnuw6npujey.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-azzbmxrblbefrf5wgkrqnmktni
+GraphQL endpoint: https://lodfv533wzeaziok3kvulsfre4.appsync-api.eu-central-1.amazonaws.com/graphql
+GraphQL API KEY: da2-v5pv4ws4wrhvtjvvyno4dwchkm
 ```
 
 ### DEV - associated with develop branch
 
 ``` txt
-GraphQL endpoint: https://ricqyhf4ybal3ib5x3bv4ulwbm.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-f4x2njqaxrfnboaftabifwqpai
+GraphQL endpoint: https://ad7kfb7gnrcznitl3r545twxqe.appsync-api.eu-central-1.amazonaws.com/graphql
+GraphQL API KEY: da2-crfwxunzkrh7lfykjtaeat66di
 ```
+
+## Components
+
+- AppSync - Graphql API service
+- DynamoDB
+- Lambda functions as Cognito Triggers
+- Amplify
 
 ## How to develop
 
 All backend files are in `amplify/`:
 
 - annotated schema: `change-agent/amplify/backend/api/changeAgentApi/schema.graphql`
-- generated one: `change-agent/amplify/backend/api/changeAgentApi/build/schema.graphql`
+- generated one with `amplify api gql-compile` or `amplify push`: `change-agent/amplify/backend/api/changeAgentApi/build/schema.graphql`
 
 It's possible to customize resolvers and split schema using dirs in `change-agent/amplify/backend/api/changeAgentApi/`
 
@@ -119,6 +131,63 @@ amplify env checkout apifeature
 // list
 amplify env list
 ```
+
+### Customizing Cognito User Pools using Lambda and Amplify
+
+First of all call `amplify auth add` or `amplify auth update`. When prompted with `Do you want to configure Lambda Triggers for Cognito? (Y/n)` select `y`. Then you'll be able to select different steps of authentication flow for customization. Later for each selected step, amplify'll ask for template. There're different ones, however we'll concentrate on `Create your own module` and some hard to spot issues with it.
+
+First off all, we don't like `callback` and prefer `async/await`. But what is generated inside your `backend/function/<function_name>` dir:
+
+- `src/custom.js`
+- `src/event.json`
+- `src/index.js`
+- `src/package.json`
+- sth like `changeAgent95205ed895205ed8PreSignup-cloudformation-template.json`
+- `function-parameters.json`
+- `parameters.json`
+
+What is the main issue? `index.js` is there only to call multiple handlers from modules definied twice in parameters files. It might make sens, but not for Cognito triggers which are really shallow "functions". It doesn't make sens to use this kind of approch in really standard flows. It's really simple to create response just in "custom" file. Another thing is that Cognito doesn't expect multiple responses from trigger. Best way is to get completely rid of this index.js especially that it uses `callback` by default and make it complicated to use async/await in your custom code and adds no additional functionality. After removing file point selected handler by using `Handler` field in `*-cloudformation-template.json`.
+
+Remeber to change Runtime in `*-cloudformation-template.json` to version 10 ex. `"Runtime": "nodejs10.x",`. By defualt it's 8 and async/await triggers returns wrong anwsers eventhough nodejs supports this functionality in this version.
+
+If there is a need to call another AWS service, it's crutial to add Lambda function aprioprate privilidge in `*-cloudformation-template.json` file. Like:
+
+``` json
+{
+"PolicyDocument": {
+    "Effect": "Allow",
+    "Action": [
+        "mobiletargeting:*~",
+        "sns:*"
+        ],
+    "Resource": "*"
+    }
+}
+```
+
+If you wan't to edit name of `custom.js` file remember to edit `package.json` and `params` files. If you previosly removed `index.js` remember to update `"Handler": "create-auth.handler"` in `*-cloudformation-template.json`.
+
+Env variables can be also passed using Amplify env defining file `team-provider-info.json`
+
+__NOTE__: `pre-signup` trigger is the best place to add some blacklist for users.
+
+What is important, calling `amplify auth update` may override some of your configuration or add useless files to your previously written triggers. Look carefully to you current GIT status. To revert changes to current cloud configuration call `amplify env pull --restore`
+
+### Sample Angular app for obtaining API keys
+
+When using custom Cognito auth procedure it's important to take a look on `UserPoolClient`. By default Amplify creates two of them: `UserPoolClient`, `UserPoolClientWeb` in `change-agent/amplify/backend/auth/**/*-cloudformation-template.yml`. First of them needs to stay as generated bcouse it's required for connecting to S3 buckets used by Amplify. However second is completely editable including name. What is important is to add two lines into CloudFormation:
+
+``` yaml
+  UserPoolClientWeb:
+    Properties:
+      #otherwise Client has it's own secret key that overrides those generated in custom flow
+      GenerateSecret: false
+      #we're supporting only custom flow using Lambda triggers
+      ExplicitAuthFlows:
+        - CUSTOM_AUTH_FLOW_ONLY
+```
+
+Sample app for obtaining tokens from dev envs is available in `devWebClient/angular`. It has separate readme available there.
 
 ## Useful commands
 
