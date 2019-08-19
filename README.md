@@ -1,10 +1,14 @@
 # Change Agent Backend App
 
+## Very important about Amplify CLI
+
+Never, ever, in any circumstances call `amplify delete` :)
+
 ## Ideas
 
 - `AppSync with Amplify`
 - Proper Graphql schema: `https://graphqlmastery.com/blog/graphql-best-practices-for-graphql-schema-design`
-- Proper DynamoDB data model: `https://www.youtube.com/watch?v=HaEPXoXVf2k&amp=&t=2s` 
+- Proper DynamoDB data model: `https://www.youtube.com/watch?v=HaEPXoXVf2k&amp=&t=2s`
 - AWS official sample with broken shema and model: `https://github.com/aws-samples/aws-mobile-appsync-chat-starter-angular`
 - Official up to date documentation of Amplify: `https://aws-amplify.github.io/docs/cli-toolchain/graphql`
 - Multiple Envs with Amplify: `https://read.acloud.guru/multiple-serverless-environments-with-aws-amplify-344759e1be08`. Another approach `https://github.com/ysfmag/amplify-multi-environment` (pre Amplify actualization).
@@ -167,7 +171,23 @@ Env variables can be also passed using Amplify env defining file `team-provider-
 
 __NOTE__: `pre-signup` trigger is the best place to add some blacklist for users.
 
-What is important, calling `amplify auth update` may override some of your configuration or add useless files to your previously written triggers. Look carefully to you current GIT status.
+What is important, calling `amplify auth update` may override some of your configuration or add useless files to your previously written triggers. Look carefully to you current GIT status. To revert changes to current cloud configuration call `amplify env pull --restore`
+
+### Sample Angular app for obtaining API keys
+
+When using custom Cognito auth procedure it's important to take a look on `UserPoolClient`. By default Amplify creates two of them: `UserPoolClient`, `UserPoolClientWeb` in `change-agent/amplify/backend/auth/**/*-cloudformation-template.yml`. First of them needs to stay as generated bcouse it's required for connecting to S3 buckets used by Amplify. However second is completely editable including name. What is important is to add two lines into CloudFormation:
+
+``` yaml
+  UserPoolClientWeb:
+    Properties:
+      #otherwise Client has it's own secret key that overrides those generated in custom flow
+      GenerateSecret: false
+      #we're supporting only custom flow using Lambda triggers
+      ExplicitAuthFlows:
+        - CUSTOM_AUTH_FLOW_ONLY
+```
+
+Sample app for obtaining tokens from dev envs is available in `devWebClient/angular`. It has separate readme available there.
 
 ## Useful commands
 
