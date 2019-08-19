@@ -73,4 +73,9 @@ export class AuthService {
     return await Auth.userAttributes(this.cognitoUser);
   }
 
+  public async getSessionDetails() {
+ 
+    return await Auth.currentSession();
+  }
+
 }

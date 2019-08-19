@@ -5,6 +5,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
+import { CognitoUserAttribute, ICognitoUserAttributeData } from 'amazon-cognito-identity-js';
 
 @Component({
   selector: 'app-private',
@@ -35,6 +36,11 @@ export class PrivateComponent implements OnInit {
     this.errorMessage_.next('');
     try {
       const userDetails = await this.auth.getUserDetails();
+      const sessionDetails = await this.auth.getSessionDetails();
+      userDetails.push(new CognitoUserAttribute({Name: "id_token", Value: sessionDetails.getIdToken().getJwtToken()} as ICognitoUserAttributeData));
+      userDetails.push(new CognitoUserAttribute({Name: "access_token", Value: sessionDetails.getAccessToken().getJwtToken()} as ICognitoUserAttributeData));
+      userDetails.push(new CognitoUserAttribute({Name: "is_valid", Value: new String(sessionDetails.isValid())} as ICognitoUserAttributeData));
+
       userDetails.forEach(detail => {
         const control = new FormControl(detail.getValue());
         this.userDetailsForm.addControl(detail.getName(), control);
