@@ -1,8 +1,5 @@
 {
     "trigger": true,
-    "modules": [
-        "custom"
-    ],
     "parentResource": "changeAgent95205ed895205ed8",
     "functionName": "changeAgent95205ed895205ed8CreateAuthChallenge",
     "parentStack": "auth",

@@ -2,6 +2,10 @@
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
+		"GROUP": {
+			"Type": "String",
+			"Default": ""
+		},
 		"resourceName": {
 			"Type": "String",
 			"Default": ""
@@ -48,16 +52,16 @@
 				"aws:asset:property": "Code"
 			},
 			"Properties": {
-				"Handler": "create-auth.handler",
+				"Handler": "add-to-group.handler",
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgent95205ed895205ed8CreateAuthChallenge",
+						"changeAgent95205ed895205ed8PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgent95205ed895205ed8CreateAuthChallenge",
+									"changeAgent95205ed895205ed8PostConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -74,6 +78,9 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"GROUP": {
+							"Ref": "GROUP"
 						}
 					}
 				},
@@ -87,7 +94,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-smsauth-20190816110038-deployment",
-					"S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-43436e3579426f354a49-build.zip"
+					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-594f6a55527144613636-build.zip"
 				}
 			}
 		},
@@ -97,12 +104,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgent95205ed895205ed8CreateAuthChallenge",
+						"changeAgent95205ed895205ed8PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgent95205ed895205ed8CreateAuthChallenge",
+									"changeAgent95205ed895205ed8PostConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -168,14 +175,6 @@
 									}
 								]
 							}
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
-								"mobiletargeting:*~",
-								"sns:*"
-							],
-							"Resource": "*"
 						}
 					]
 				}

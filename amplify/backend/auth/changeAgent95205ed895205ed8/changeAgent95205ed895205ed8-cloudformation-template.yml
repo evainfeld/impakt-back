@@ -51,6 +51,16 @@ Parameters:
   
   
   
+  functionchangeAgent95205ed895205ed8PostConfirmationArn: 
+    Type: String
+    Default: functionchangeAgent95205ed895205ed8PostConfirmationArn
+  
+  functionchangeAgent95205ed895205ed8PostConfirmationName: 
+    Type: String
+    Default: functionchangeAgent95205ed895205ed8PostConfirmationName
+  
+  
+  
 
     
   identityPoolName:
@@ -209,6 +219,8 @@ Resources:
         
         
         
+          PostConfirmation: !Ref functionchangeAgent95205ed895205ed8PostConfirmationArn
+        
         
         
           PreSignUp: !Ref functionchangeAgent95205ed895205ed8PreSignupArn
@@ -260,6 +272,15 @@ Resources:
       SourceArn: !GetAtt UserPool.Arn
   
     
+  
+  UserPoolPostConfirmationLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionchangeAgent95205ed895205ed8PostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
     
   
   
@@ -285,6 +306,38 @@ Resources:
   # Updating lambda role with permissions to Cognito
   
   
+  changeAgent95205ed895205ed8PostConfirmationAddToGroupCognito:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: changeAgent95205ed895205ed8PostConfirmationAddToGroupCognito
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            
+              - cognito-idp:AdminAddUserToGroup
+            
+              - cognito-idp:GetGroup
+            
+              - cognito-idp:CreateGroup
+            
+            
+            
+            Resource: !GetAtt
+            
+              - UserPool
+            
+              - Arn
+            
+            
+            
+
+      Roles:
+        - !Join ['',["changeAgent95205ed895205ed8PostConfirmation", '-', !Ref env]]
+  
+  
+  
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
@@ -294,12 +347,9 @@ Resources:
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
-      GenerateSecret: false
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
-      UserPoolId: !Ref UserPool   
-      ExplicitAuthFlows:
-        - CUSTOM_AUTH_FLOW_ONLY
+      UserPoolId: !Ref UserPool
     DependsOn: UserPool
   UserPoolClient:
   # Created provide application access to user pool
