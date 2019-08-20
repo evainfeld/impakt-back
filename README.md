@@ -57,6 +57,7 @@ __NOTE__ Dev environment is secured using Cognito User Pools without Identity Po
 __Obtaining JWT Token__ To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:
 
 - go to `devWebClient`
+- edit `src/environments/environment.ts` with UserPoolId and UserPoolClientID
 - call `npm install`
 - call `npm run start`
 - open `http://localhost:4200`
