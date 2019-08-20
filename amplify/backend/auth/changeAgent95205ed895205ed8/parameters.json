@@ -34,7 +34,7 @@
     "usernameAttributes": [
         "phone_number"
     ],
-    "triggers": "{\"CreateAuthChallenge\":[\"custom\"],\"DefineAuthChallenge\":[\"custom\"],\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"custom\"],\"VerifyAuthChallengeResponse\":[\"custom\"]}",
+    "triggers": "{\"CreateAuthChallenge\":[\"create-auth\"],\"DefineAuthChallenge\":[\"define-auth\"],\"PreSignup\":[\"pre-signup\"],\"VerifyAuthChallengeResponse\":[\"verify-auth\"],\"PostConfirmation\":[\"add-to-group\"]}",
     "hostedUI": false,
     "authRoleArn": {
         "Fn::GetAtt": [

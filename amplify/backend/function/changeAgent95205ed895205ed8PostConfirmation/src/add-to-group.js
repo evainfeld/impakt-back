@@ -12,13 +12,12 @@ exports.handler = async (event, context, callback) => {
     UserPoolId: event.userPoolId,
     Username: event.userName,
   };
-
+  
   await cognitoidentityserviceprovider.getGroup(groupParams, async (err) => {
     if (err) {
       await cognitoidentityserviceprovider.createGroup(groupParams).promise();
     }
   }).promise();
-
 
   cognitoidentityserviceprovider.adminAddUserToGroup(addUserParams, (err) => {
     if (err) {
