@@ -42,10 +42,7 @@
                 "changeAgent95205ed895205ed8CreateAuthChallenge": {},
                 "changeAgent95205ed895205ed8DefineAuthChallenge": {},
                 "changeAgent95205ed895205ed8PreSignup": {},
-                "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
-                "changeAgent95205ed895205ed8PostConfirmation": {
-                    "GROUP": "Users"
-                }
+                "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {}
             }
         }
     }

@@ -49,15 +49,6 @@
                         "Arn",
                         "Name"
                     ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "changeAgent95205ed895205ed8PostConfirmation",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
                 }
             ]
         }
@@ -79,11 +70,6 @@
             "build": true
         },
         "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        },
-        "changeAgent95205ed895205ed8PostConfirmation": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
             "build": true

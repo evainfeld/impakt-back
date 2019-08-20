@@ -34,7 +34,7 @@
     "usernameAttributes": [
         "phone_number"
     ],
-    "triggers": "{\"CreateAuthChallenge\":[\"create-auth\"],\"DefineAuthChallenge\":[\"define-auth\"],\"PreSignup\":[\"pre-signup\"],\"VerifyAuthChallengeResponse\":[\"verify-auth\"],\"PostConfirmation\":[\"add-to-group\"]}",
+    "triggers": "{\"CreateAuthChallenge\":[\"create-auth\"],\"DefineAuthChallenge\":[\"define-auth\"],\"PreSignup\":[\"pre-signup\"],\"VerifyAuthChallengeResponse\":[\"verify-auth\"]}",
     "hostedUI": false,
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -51,9 +51,7 @@
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": [
-        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
-    ],
+    "permissions": [],
     "dependsOn": [
         {
             "category": "function",
@@ -85,15 +83,6 @@
         {
             "category": "function",
             "resourceName": "changeAgent95205ed895205ed8VerifyAuthChallengeResponse",
-            "triggerProvider": "Cognito",
-            "attributes": [
-                "Arn",
-                "Name"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "changeAgent95205ed895205ed8PostConfirmation",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
