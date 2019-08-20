@@ -37,10 +37,7 @@ export class PrivateComponent implements OnInit {
     try {
       const userDetails = await this.auth.getUserDetails();
       const sessionDetails = await this.auth.getSessionDetails();
-      userDetails.push(new CognitoUserAttribute({Name: "id_token", Value: sessionDetails.getIdToken().getJwtToken()} as ICognitoUserAttributeData));
       userDetails.push(new CognitoUserAttribute({Name: "access_token", Value: sessionDetails.getAccessToken().getJwtToken()} as ICognitoUserAttributeData));
-      userDetails.push(new CognitoUserAttribute({Name: "is_valid", Value: new String(sessionDetails.isValid())} as ICognitoUserAttributeData));
-
       userDetails.forEach(detail => {
         const control = new FormControl(detail.getValue());
         this.userDetailsForm.addControl(detail.getName(), control);
@@ -52,4 +49,8 @@ export class PrivateComponent implements OnInit {
       this.busy_.next(false);
     }
   }
+  
+  refresh(): void {
+    window.location.reload();
+  } 
 }

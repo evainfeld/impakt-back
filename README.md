@@ -48,8 +48,33 @@ GraphQL API KEY: da2-v5pv4ws4wrhvtjvvyno4dwchkm
 
 ``` txt
 GraphQL endpoint: https://ad7kfb7gnrcznitl3r545twxqe.appsync-api.eu-central-1.amazonaws.com/graphql
-GraphQL API KEY: da2-crfwxunzkrh7lfykjtaeat66di
+UserPoolId:
+UserPoolClientID:
 ```
+
+__NOTE__ Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
+
+__Obtaining JWT Token__ To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:
+
+- go to `devWebClient`
+- edit `src/environments/environment.ts` with UserPoolId and UserPoolClientID
+- call `npm install`
+- call `npm run start`
+- open `http://localhost:4200`
+- follow instructions
+- after successful login you'll land on `http://localhost:4200/private` page
+- copy `access-token`
+- fill http Header with following data (bare in mind that you shouldn't provide any prefix like `Bearer or JWT` before token):
+
+```json
+{
+  "Content-Type": "application/json",
+  "Authorization": "copied access-token"
+}
+```
+
+- If you receive `Token has expired.` error just click `Refresh Token` button in app's private page.
+- SMSs are cheap but still not free of charge. Try not to log out or stop app frequently. As long as it stores session you can use your access-tokens, without need of receiving additional login SMSs.
 
 ## Components
 
