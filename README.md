@@ -18,6 +18,7 @@ Never, ever, in any circumstances call `amplify delete` :)
 - custom auth `https://medium.com/cloudsail-io/aws-cognito-use-existing-users-database-with-custom-authentication-flow-920142884c08`
 - schema testing: `https://codesandbox.io/s/42m2rx71j4` and `https://hackernoon.com/start-testing-your-graphql-schema-queries-and-mutations-b514911b1368`
 - another approach `https://medium.com/@FdMstri/testing-a-graphql-server-13512408c2fb`
+- and in CI `https://graphql-inspector.com/docs/recipes/ci`
 
 ## Tools
 
