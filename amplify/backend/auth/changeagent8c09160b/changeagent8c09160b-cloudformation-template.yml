@@ -11,43 +11,43 @@ Parameters:
   
   
   
-  functionchangeAgent95205ed895205ed8CreateAuthChallengeArn: 
+  functionchangeagent8c09160bCreateAuthChallengeArn: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8CreateAuthChallengeArn
+    Default: functionchangeagent8c09160bCreateAuthChallengeArn
   
-  functionchangeAgent95205ed895205ed8CreateAuthChallengeName: 
+  functionchangeagent8c09160bCreateAuthChallengeName: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8CreateAuthChallengeName
+    Default: functionchangeagent8c09160bCreateAuthChallengeName
   
   
   
-  functionchangeAgent95205ed895205ed8DefineAuthChallengeArn: 
+  functionchangeagent8c09160bDefineAuthChallengeArn: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8DefineAuthChallengeArn
+    Default: functionchangeagent8c09160bDefineAuthChallengeArn
   
-  functionchangeAgent95205ed895205ed8DefineAuthChallengeName: 
+  functionchangeagent8c09160bDefineAuthChallengeName: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8DefineAuthChallengeName
+    Default: functionchangeagent8c09160bDefineAuthChallengeName
   
   
   
-  functionchangeAgent95205ed895205ed8PreSignupArn: 
+  functionchangeagent8c09160bPreSignupArn: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8PreSignupArn
+    Default: functionchangeagent8c09160bPreSignupArn
   
-  functionchangeAgent95205ed895205ed8PreSignupName: 
+  functionchangeagent8c09160bPreSignupName: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8PreSignupName
+    Default: functionchangeagent8c09160bPreSignupName
   
   
   
-  functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseArn: 
+  functionchangeagent8c09160bVerifyAuthChallengeResponseArn: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseArn
+    Default: functionchangeagent8c09160bVerifyAuthChallengeResponseArn
   
-  functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseName: 
+  functionchangeagent8c09160bVerifyAuthChallengeResponseName: 
     Type: String
-    Default: functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseName
+    Default: functionchangeagent8c09160bVerifyAuthChallengeResponseName
   
   
   
@@ -88,10 +88,10 @@ Parameters:
                 
   defaultPasswordPolicy:
     Type: String
-            
+                
   passwordPolicyMinLength:
-    Type: String
-                      
+    Type: Number
+                  
   passwordPolicyCharacters:
     Type: CommaDelimitedList
               
@@ -116,16 +116,19 @@ Parameters:
   userpoolClientSetAttributes:
     Type: String
             
-  useDefault:
+  resourceName:
     Type: String
               
   authSelections:
     Type: String
-              
-  resourceName:
+                                      
+  useDefault:
     Type: String
                       
   usernameAttributes:
+    Type: CommaDelimitedList
+              
+  dependsOn:
     Type: CommaDelimitedList
       
   triggers:
@@ -133,16 +136,16 @@ Parameters:
                 
   hostedUI:
     Type: String
-                                          
+                  
   parentStack:
     Type: String
                 
   permissions:
     Type: CommaDelimitedList
-              
-  dependsOn:
-    Type: CommaDelimitedList
-    
+        
+  thirdPartyAuth:
+    Type: String
+          
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -154,7 +157,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'change95205ed8_sns-role', !Join ['',['change95205ed8_sns-role', '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'change8c09160b_sns-role', !Join ['',['change8c09160b_sns-role', '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -166,10 +169,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: change95205ed8_role_external_id
+                sts:ExternalId: change8c09160b_role_external_id
       Policies: 
         - 
-          PolicyName: change95205ed8-sns-policy
+          PolicyName: change8c09160b-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -190,7 +193,7 @@ Resources:
       Schema: 
         
         -
-          Name: phone_number
+          Name: email
           Required: true
           Mutable: true
         
@@ -198,20 +201,20 @@ Resources:
       
       LambdaConfig:
         
-          CreateAuthChallenge: !Ref functionchangeAgent95205ed895205ed8CreateAuthChallengeArn
+          CreateAuthChallenge: !Ref functionchangeagent8c09160bCreateAuthChallengeArn
         
         
         
-          DefineAuthChallenge: !Ref functionchangeAgent95205ed895205ed8DefineAuthChallengeArn
+          DefineAuthChallenge: !Ref functionchangeagent8c09160bDefineAuthChallengeArn
         
         
         
         
         
-          PreSignUp: !Ref functionchangeAgent95205ed895205ed8PreSignupArn
+          PreSignUp: !Ref functionchangeagent8c09160bPreSignupArn
         
         
-          VerifyAuthChallengeResponse: !Ref functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseArn
+          VerifyAuthChallengeResponse: !Ref functionchangeagent8c09160bVerifyAuthChallengeResponseArn
         
       
       
@@ -232,7 +235,7 @@ Resources:
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: change95205ed8_role_external_id
+        ExternalId: change8c09160b_role_external_id
     
   
   
@@ -242,7 +245,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionchangeAgent95205ed895205ed8CreateAuthChallengeName
+      FunctionName: !Ref functionchangeagent8c09160bCreateAuthChallengeName
       SourceArn: !GetAtt UserPool.Arn
     
     
@@ -253,7 +256,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionchangeAgent95205ed895205ed8DefineAuthChallengeName
+      FunctionName: !Ref functionchangeagent8c09160bDefineAuthChallengeName
       SourceArn: !GetAtt UserPool.Arn
   
     
@@ -266,7 +269,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionchangeAgent95205ed895205ed8PreSignupName
+      FunctionName: !Ref functionchangeagent8c09160bPreSignupName
       SourceArn: !GetAtt UserPool.Arn
    
   
@@ -276,7 +279,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseName
+      FunctionName: !Ref functionchangeagent8c09160bVerifyAuthChallengeResponseName
       SourceArn: !GetAtt UserPool.Arn
     
   # Updating lambda role with permissions to Cognito
@@ -287,23 +290,20 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: change95205ed8_app_clientWeb
+      ClientName: change8c09160b_app_clientWeb
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
-      GenerateSecret: false
       UserPoolId: !Ref UserPool
-      ExplicitAuthFlows:
-        - CUSTOM_AUTH_FLOW_ONLY
     DependsOn: UserPool
   UserPoolClient:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: change95205ed8_app_client
+      ClientName: change8c09160b_app_client
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
@@ -371,7 +371,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: change95205ed8_userpoolclient_lambda_iam_policy
+      PolicyName: change8c09160b_userpoolclient_lambda_iam_policy
       Roles: 
         - !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',[!Ref userpoolClientLambdaRole, '-', !Ref env]]]
       PolicyDocument:
@@ -388,7 +388,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: change95205ed8_userpoolclient_lambda_log_policy
+      PolicyName: change8c09160b_userpoolclient_lambda_log_policy
       Roles: 
         - !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',[!Ref userpoolClientLambdaRole, '-', !Ref env]]]
       PolicyDocument:
@@ -428,7 +428,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'changeAgent95205ed895205ed8_identitypool_8cff2fa1', !Join ['',['changeAgent95205ed895205ed8_identitypool_8cff2fa1', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'change_agent85ebee87_identitypool_85ebee87', !Join ['',['change_agent85ebee87_identitypool_85ebee87', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

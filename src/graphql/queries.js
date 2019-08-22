@@ -1,6 +1,86 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const listAllImportantNotifications = `query ListAllImportantNotifications($region: String!) {
+  listAllImportantNotifications(region: $region) {
+    ... on Announcement {
+      id
+      author
+      category
+      title
+      content
+      resources {
+        id
+        name
+        author
+        file {
+          bucket
+          region
+          key
+        }
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    ... on Event {
+      id
+      author
+      category
+      title
+      content
+      resources {
+        id
+        name
+        author
+        file {
+          bucket
+          region
+          key
+        }
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
+export const getResource = `query GetResource($id: ID!) {
+  getResource(id: $id) {
+    id
+    name
+    author
+    file {
+      bucket
+      region
+      key
+    }
+  }
+}
+`;
+export const listResources = `query ListResources(
+  $filter: ModelResourceFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listResources(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    nextToken
+  }
+}
+`;
 export const getLocation = `query GetLocation($org: String!, $region: String!) {
   getLocation(org: $org, region: $region) {
     id
@@ -12,14 +92,14 @@ export const getLocation = `query GetLocation($org: String!, $region: String!) {
   }
 }
 `;
-export const listLocations = `query ListLocations(
+export const listLocation = `query ListLocation(
   $org: String
   $region: ModelStringKeyConditionInput
   $filter: ModelLocationFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listLocations(
+  listLocation(
     org: $org
     region: $region
     filter: $filter
@@ -49,14 +129,14 @@ export const getCategory = `query GetCategory($org: String!, $region: String!, $
   }
 }
 `;
-export const listCategorys = `query ListCategorys(
+export const listCategory = `query ListCategory(
   $org: String
   $regionName: ModelCategoryPrimaryCompositeKeyConditionInput
   $filter: ModelCategoryFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listCategorys(
+  listCategory(
     org: $org
     regionName: $regionName
     filter: $filter
@@ -75,20 +155,22 @@ export const listCategorys = `query ListCategorys(
   }
 }
 `;
-export const getMessageOfTheDay = `query GetMessageOfTheDay(
-  $region: String!
-  $category: String!
-  $title: String!
-) {
-  getMessageOfTheDay(region: $region, category: $category, title: $title) {
+export const getPropaganda = `query GetPropaganda($region: String!, $category: String!, $title: String!) {
+  getPropaganda(region: $region, category: $category, title: $title) {
     id
     author
     category
     title
     content
     resources {
-      key
-      value
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
     }
     region
     org
@@ -97,14 +179,14 @@ export const getMessageOfTheDay = `query GetMessageOfTheDay(
   }
 }
 `;
-export const listMessageOfTheDays = `query ListMessageOfTheDays(
+export const listPropaganda = `query ListPropaganda(
   $region: String
-  $categoryTitle: ModelMessageOfTheDayPrimaryCompositeKeyConditionInput
-  $filter: ModelMessageOfTheDayFilterInput
+  $categoryTitle: ModelPropagandaPrimaryCompositeKeyConditionInput
+  $filter: ModelPropagandaFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listMessageOfTheDays(
+  listPropaganda(
     region: $region
     categoryTitle: $categoryTitle
     filter: $filter
@@ -118,8 +200,9 @@ export const listMessageOfTheDays = `query ListMessageOfTheDays(
       title
       content
       resources {
-        key
-        value
+        id
+        name
+        author
       }
       region
       org
@@ -138,8 +221,14 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
     title
     content
     resources {
-      key
-      value
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
     }
     region
     org
@@ -148,14 +237,14 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
   }
 }
 `;
-export const listEvents = `query ListEvents(
+export const listEvent = `query ListEvent(
   $region: String
   $categoryTitle: ModelEventPrimaryCompositeKeyConditionInput
   $filter: ModelEventFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listEvents(
+  listEvent(
     region: $region
     categoryTitle: $categoryTitle
     filter: $filter
@@ -169,8 +258,9 @@ export const listEvents = `query ListEvents(
       title
       content
       resources {
-        key
-        value
+        id
+        name
+        author
       }
       region
       org
@@ -181,14 +271,72 @@ export const listEvents = `query ListEvents(
   }
 }
 `;
-export const listMessageOfTheDaysByOrg = `query ListMessageOfTheDaysByOrg(
-  $org: String
-  $categoryTitle: ModelMessageOfTheDayorgCompositeKeyConditionInput
-  $filter: ModelMessageOfTheDayFilterInput
+export const getAnnouncement = `query GetAnnouncement($region: String!, $category: String!, $title: String!) {
+  getAnnouncement(region: $region, category: $category, title: $title) {
+    id
+    author
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const listAnnouncements = `query ListAnnouncements(
+  $region: String
+  $categoryTitle: ModelAnnouncementPrimaryCompositeKeyConditionInput
+  $filter: ModelAnnouncementFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listMessageOfTheDaysByOrg(
+  listAnnouncements(
+    region: $region
+    categoryTitle: $categoryTitle
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      author
+      category
+      title
+      content
+      resources {
+        id
+        name
+        author
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const listPropagandaByOrg = `query ListPropagandaByOrg(
+  $org: String
+  $categoryTitle: ModelPropagandaorgCompositeKeyConditionInput
+  $filter: ModelPropagandaFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPropagandaByOrg(
     org: $org
     categoryTitle: $categoryTitle
     filter: $filter
@@ -202,8 +350,9 @@ export const listMessageOfTheDaysByOrg = `query ListMessageOfTheDaysByOrg(
       title
       content
       resources {
-        key
-        value
+        id
+        name
+        author
       }
       region
       org
@@ -214,14 +363,14 @@ export const listMessageOfTheDaysByOrg = `query ListMessageOfTheDaysByOrg(
   }
 }
 `;
-export const listEventsByOrg = `query ListEventsByOrg(
+export const listEventByOrg = `query ListEventByOrg(
   $org: String
   $categoryTitle: ModelEventorgCompositeKeyConditionInput
   $filter: ModelEventFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listEventsByOrg(
+  listEventByOrg(
     org: $org
     categoryTitle: $categoryTitle
     filter: $filter
@@ -235,8 +384,43 @@ export const listEventsByOrg = `query ListEventsByOrg(
       title
       content
       resources {
-        key
-        value
+        id
+        name
+        author
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
+  $org: String
+  $categoryTitle: ModelAnnouncementorgCompositeKeyConditionInput
+  $filter: ModelAnnouncementFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAnnouncementByOrg(
+    org: $org
+    categoryTitle: $categoryTitle
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      author
+      category
+      title
+      content
+      resources {
+        id
+        name
+        author
       }
       region
       org

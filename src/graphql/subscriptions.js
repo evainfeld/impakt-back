@@ -1,6 +1,45 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateResource = `subscription OnCreateResource {
+  onCreateResource {
+    id
+    name
+    author
+    file {
+      bucket
+      region
+      key
+    }
+  }
+}
+`;
+export const onUpdateResource = `subscription OnUpdateResource {
+  onUpdateResource {
+    id
+    name
+    author
+    file {
+      bucket
+      region
+      key
+    }
+  }
+}
+`;
+export const onDeleteResource = `subscription OnDeleteResource {
+  onDeleteResource {
+    id
+    name
+    author
+    file {
+      bucket
+      region
+      key
+    }
+  }
+}
+`;
 export const onCreateLocation = `subscription OnCreateLocation {
   onCreateLocation {
     id
@@ -34,16 +73,70 @@ export const onDeleteCategory = `subscription OnDeleteCategory {
   }
 }
 `;
-export const onCreateMessageOfTheDay = `subscription OnCreateMessageOfTheDay {
-  onCreateMessageOfTheDay {
+export const onCreatePropaganda = `subscription OnCreatePropaganda {
+  onCreatePropaganda {
     id
     author
     category
     title
     content
     resources {
-      key
-      value
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
+  onUpdatePropaganda {
+    id
+    author
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onDeletePropaganda = `subscription OnDeletePropaganda {
+  onDeletePropaganda {
+    id
+    author
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
     }
     region
     org
@@ -60,8 +153,86 @@ export const onCreateEvent = `subscription OnCreateEvent {
     title
     content
     resources {
-      key
-      value
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onUpdateEvent = `subscription OnUpdateEvent {
+  onUpdateEvent {
+    id
+    author
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onDeleteEvent = `subscription OnDeleteEvent {
+  onDeleteEvent {
+    id
+    author
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
+  onCreateAnnouncement {
+    id
+    author
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author
+      file {
+        bucket
+        region
+        key
+      }
     }
     region
     org

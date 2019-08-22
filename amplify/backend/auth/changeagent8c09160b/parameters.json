@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "changeAgent95205ed895205ed8_identitypool_8cff2fa1",
+    "identityPoolName": "change_agent85ebee87_identitypool_85ebee87",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "change95205ed8",
-    "userPoolName": "change_agent95205ed8_userpool_95205ed8",
+    "resourceNameTruncated": "change8c09160b",
+    "userPoolName": "changeagent8c09160b_userpool_8c09160b",
     "autoVerifiedAttributes": [
         "phone_number"
     ],
@@ -15,29 +15,24 @@
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": true,
-    "passwordPolicyMinLength": "6",
+    "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "phone_number"
+        "email"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "phone_number"
+        "phone_number",
+        "email"
     ],
     "userpoolClientReadAttributes": [
         "phone_number"
     ],
-    "userpoolClientLambdaRole": "change95205ed8_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "change8c09160b_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "useDefault": "manual",
+    "resourceName": "changeagent8c09160b",
     "authSelections": "identityPoolAndUserPool",
-    "resourceName": "changeAgent95205ed895205ed8",
-    "usernameAttributes": [
-        "phone_number"
-    ],
-    "triggers": "{\"CreateAuthChallenge\":[\"create-auth\"],\"DefineAuthChallenge\":[\"define-auth\"],\"PreSignup\":[\"pre-signup\"],\"VerifyAuthChallengeResponse\":[\"verify-auth\"]}",
-    "hostedUI": false,
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -50,14 +45,14 @@
             "Arn"
         ]
     },
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [],
+    "useDefault": "manual",
+    "usernameAttributes": [
+        "phone_number"
+    ],
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "changeAgent95205ed895205ed8CreateAuthChallenge",
+            "resourceName": "changeagent8c09160bCreateAuthChallenge",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -66,7 +61,7 @@
         },
         {
             "category": "function",
-            "resourceName": "changeAgent95205ed895205ed8DefineAuthChallenge",
+            "resourceName": "changeagent8c09160bDefineAuthChallenge",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -75,7 +70,7 @@
         },
         {
             "category": "function",
-            "resourceName": "changeAgent95205ed895205ed8PreSignup",
+            "resourceName": "changeagent8c09160bPreSignup",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -84,12 +79,19 @@
         },
         {
             "category": "function",
-            "resourceName": "changeAgent95205ed895205ed8VerifyAuthChallengeResponse",
+            "resourceName": "changeagent8c09160bVerifyAuthChallengeResponse",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
                 "Name"
             ]
         }
-    ]
+    ],
+    "triggers": "{\"CreateAuthChallenge\":[\"custom\"],\"DefineAuthChallenge\":[\"custom\"],\"PreSignup\":[\"custom\"],\"VerifyAuthChallengeResponse\":[\"custom\"]}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "thirdPartyAuth": false
 }

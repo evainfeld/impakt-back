@@ -1,11 +1,23 @@
-type MapTuple {
+type S3Object {
+  bucket: String!
+  region: String!
   key: String!
-  value: String
+}
+
+type Resource 
+  @model 
+  {
+  id: ID!
+  name: String
+  author: String
+
+  # Reference the S3Object type from a field.
+  file: S3Object
 }
 
 # storing all available regions in application
 type Location 
-  @model( mutations: {create: "createLocation", update: null, delete: null})
+  @model( queries: { get: "getLocation", list: "listLocation" }, mutations: {create: "createLocation", update: null, delete: null})
   @key(fields: ["org", "region"])
  {
   id: ID
@@ -19,9 +31,9 @@ type Location
   updatedAt: AWSDateTime
 }
 
-# storing all available announcement categories in application
+# storing all available message categories in application
 type Category 
-  @model( mutations: {create: "createCategory", update: null, delete: "deleteCategory" },  )
+  @model( queries: { get: "getCategory", list: "listCategory" }, mutations: {create: "createCategory", update: null, delete: "deleteCategory" }  )
   @key(fields: ["org", "region", "name" ])
  {
   id: ID
@@ -35,20 +47,18 @@ type Category
   updatedAt: AWSDateTime
 }
 
-type MessageOfTheDay 
-  @model( mutations: {create: "createMessageOfTheDay", update: null, delete: null})
+type Propaganda 
+  @model( queries: { get: "getPropaganda", list: "listPropaganda" }, mutations: {create: "createPropaganda", update: "updatePropaganda", delete: "deletePropaganda"})
   @key(fields: ["region", "category", "title"])
-  @key(name: "org", fields: ["org", "category", "title"], queryField: "listMessageOfTheDaysByOrg" )
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listPropagandaByOrg" )
 {
-  #  A unique identifier for the Conversation.
   id: ID
-  #type - events || message
   author: String!
-  # org_range: MY_ORG::WWA::WTF
   category: String!
   title: String!
+  # org_range: MY_ORG::WWA::WTF
   content: String!
-  resources: [MapTuple]
+  resources: [Resource]
   region: String!
   org: String!
   #### autogen
@@ -57,23 +67,46 @@ type MessageOfTheDay
 }
 
 
-type Event 
-  @model( mutations: {create: "createEvent", update: null, delete: null})
+type Event
+  @model( queries: { get: "getEvent", list: "listEvent" }, mutations: {create: "createEvent", update: "updateEvent", delete: "deleteEvent"})
   @key(fields: ["region", "category", "title"])
-  @key(name: "org", fields: ["org", "category", "title"], queryField: "listEventsByOrg" )
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listEventByOrg" )
 {
-  #  A unique identifier for the Conversation.
   id: ID
-  #type - events || message
   author: String!
-  # org_range: MY_ORG::WWA::WTF
   category: String!
   title: String!
+  # org_range: MY_ORG::WWA::WTF
   content: String!
-  resources: [MapTuple]
+  resources: [Resource]
   region: String!
   org: String!
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
+}
+
+type Announcement
+  @model( mutations: {create: "createNews", update: null, delete: null})
+  @key(fields: ["region", "category", "title"])
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg" )
+{
+  id: ID
+  author: String!
+  category: String!
+  title: String!
+  # org_range: MY_ORG::WWA::WTF
+  content: String!
+  resources: [Resource]
+  region: String!
+  org: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+#for "aktualnosci page"
+union Important = Announcement | Event
+type Query {
+    listAllImportantNotifications(region: String!): [Important]
 }
