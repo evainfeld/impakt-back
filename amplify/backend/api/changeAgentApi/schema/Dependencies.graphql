@@ -1,0 +1,55 @@
+
+# storing all available regions in application
+type Location 
+  @model( queries: { get: "getLocation", list: "listLocation" }, mutations: {create: "createLocation", update: null, delete: null})
+  @key(fields: ["org", "region"])
+ {
+  id: ID
+  # ex ORG1#PL#WAW
+  region: String!
+  # ex ORG1
+  org: String!
+  name: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+# storing all available message categories in application
+type Category 
+  @model( queries: { get: "getCategory", list: "listCategory" }, mutations: {create: "createCategory", update: null, delete: "deleteCategory" }  )
+  @key(fields: ["org", "region", "name" ])
+ {
+  id: ID
+  # ex ORG1#PL#WAW
+  region: String!
+  # ex ORG1
+  org: String!
+  name: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+#getUser is called "me" and works withouth params. Just using context
+type User 
+@model( queries: { get: null, list: "listUser" }, mutations: {create: "createUser", update: "updateUser", delete: null})
+@key(fields: ["cognitoId"]) 
+@key(name: "org", fields: ["org", "username"], queryField: "listUsersByOrg" )
+{
+	#  A unique identifier for the user.
+	cognitoId: ID!
+  #  A unique identifier for the user.
+	cognitoGroup: String!
+	#  Generated id for a user. read-only
+	id: ID!
+	#  The username
+	username: String!
+	# is the user registered?
+	registered: Boolean
+  # 
+	org: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}

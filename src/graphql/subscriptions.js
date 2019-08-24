@@ -1,42 +1,185 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateResource = `subscription OnCreateResource {
-  onCreateResource {
+export const onCreateConversation = `subscription OnCreateConversation {
+  onCreateConversation {
     id
-    name
-    author
-    file {
-      bucket
-      region
-      key
+    messages {
+      messages {
+        content
+        conversationId
+        id
+        isSent
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
+    name
+    type
+    region
+    org
+    createdAt
+    updatedAt
   }
 }
 `;
-export const onUpdateResource = `subscription OnUpdateResource {
-  onUpdateResource {
+export const onDeleteConversation = `subscription OnDeleteConversation {
+  onDeleteConversation {
     id
-    name
-    author
-    file {
-      bucket
-      region
-      key
+    messages {
+      messages {
+        content
+        conversationId
+        id
+        isSent
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
+    name
+    type
+    region
+    org
+    createdAt
+    updatedAt
   }
 }
 `;
-export const onDeleteResource = `subscription OnDeleteResource {
-  onDeleteResource {
-    id
-    name
-    author
-    file {
-      bucket
-      region
-      key
+export const onCreateMessage = `subscription OnCreateMessage {
+  onCreateMessage {
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
     }
+    content
+    conversationId
+    id
+    isSent
+    resources {
+      id
+      name
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onCreateMessageConnection = `subscription OnCreateMessageConnection {
+  onCreateMessageConnection {
+    messages {
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
+      content
+      conversationId
+      id
+      isSent
+      resources {
+        id
+        name
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const onUpdateMessageConnection = `subscription OnUpdateMessageConnection {
+  onUpdateMessageConnection {
+    messages {
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
+      content
+      conversationId
+      id
+      isSent
+      resources {
+        id
+        name
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const onDeleteMessageConnection = `subscription OnDeleteMessageConnection {
+  onDeleteMessageConnection {
+    messages {
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
+      content
+      conversationId
+      id
+      isSent
+      resources {
+        id
+        name
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
   }
 }
 `;
@@ -73,17 +216,61 @@ export const onDeleteCategory = `subscription OnDeleteCategory {
   }
 }
 `;
+export const onCreateUser = `subscription OnCreateUser {
+  onCreateUser {
+    cognitoId
+    cognitoGroup
+    id
+    username
+    registered
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onUpdateUser = `subscription OnUpdateUser {
+  onUpdateUser {
+    cognitoId
+    cognitoGroup
+    id
+    username
+    registered
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
 export const onCreatePropaganda = `subscription OnCreatePropaganda {
   onCreatePropaganda {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -100,14 +287,32 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
 export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
   onUpdatePropaganda {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -124,14 +329,32 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
 export const onDeletePropaganda = `subscription OnDeletePropaganda {
   onDeletePropaganda {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -148,14 +371,32 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
 export const onCreateEvent = `subscription OnCreateEvent {
   onCreateEvent {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -172,14 +413,32 @@ export const onCreateEvent = `subscription OnCreateEvent {
 export const onUpdateEvent = `subscription OnUpdateEvent {
   onUpdateEvent {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -196,14 +455,32 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
 export const onDeleteEvent = `subscription OnDeleteEvent {
   onDeleteEvent {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -220,14 +497,32 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
 export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
   onCreateAnnouncement {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -238,6 +533,72 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
     org
     createdAt
     updatedAt
+  }
+}
+`;
+export const onCreateResource = `subscription OnCreateResource {
+  onCreateResource {
+    id
+    name
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
+    file {
+      bucket
+      region
+      key
+    }
+  }
+}
+`;
+export const onUpdateResource = `subscription OnUpdateResource {
+  onUpdateResource {
+    id
+    name
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
+    file {
+      bucket
+      region
+      key
+    }
+  }
+}
+`;
+export const onDeleteResource = `subscription OnDeleteResource {
+  onDeleteResource {
+    id
+    name
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
+    file {
+      bucket
+      region
+      key
+    }
   }
 }
 `;

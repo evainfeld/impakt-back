@@ -5,14 +5,32 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
   listAllImportantNotifications(region: $region) {
     ... on Announcement {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
+        author {
+          cognitoId
+          cognitoGroup
+          id
+          username
+          registered
+          org
+          createdAt
+          updatedAt
+        }
         file {
           bucket
           region
@@ -26,14 +44,32 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
     }
     ... on Event {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
+        author {
+          cognitoId
+          cognitoGroup
+          id
+          username
+          registered
+          org
+          createdAt
+          updatedAt
+        }
         file {
           bucket
           region
@@ -48,34 +84,222 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
   }
 }
 `;
-export const getResource = `query GetResource($id: ID!) {
-  getResource(id: $id) {
+export const me = `query Me {
+  me {
+    cognitoId
+    cognitoGroup
     id
-    name
-    author
-    file {
-      bucket
-      region
-      key
-    }
+    username
+    registered
+    org
+    createdAt
+    updatedAt
   }
 }
 `;
-export const listResources = `query ListResources(
-  $filter: ModelResourceFilterInput
+export const getConversation = `query GetConversation(
+  $region: String!
+  $type: ConversationType!
+  $name: String!
+) {
+  getConversation(region: $region, type: $type, name: $name) {
+    id
+    messages {
+      messages {
+        content
+        conversationId
+        id
+        isSent
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    name
+    type
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const listConversation = `query ListConversation(
+  $region: String
+  $typeName: ModelConversationPrimaryCompositeKeyConditionInput
+  $filter: ModelConversationFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listResources(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listConversation(
+    region: $region
+    typeName: $typeName
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
     items {
       id
+      messages {
+        nextToken
+      }
       name
-      author
+      type
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const getMessage = `query GetMessage(
+  $region: String!
+  $conversationId: ID!
+  $createdAt: AWSDateTime!
+) {
+  getMessage(
+    region: $region
+    conversationId: $conversationId
+    createdAt: $createdAt
+  ) {
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
+    content
+    conversationId
+    id
+    isSent
+    resources {
+      id
+      name
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
         key
       }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const listMessage = `query ListMessage(
+  $region: String
+  $conversationIdCreatedAt: ModelMessagePrimaryCompositeKeyConditionInput
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMessage(
+    region: $region
+    conversationIdCreatedAt: $conversationIdCreatedAt
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
+      content
+      conversationId
+      id
+      isSent
+      resources {
+        id
+        name
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const getMessageConnection = `query GetMessageConnection($id: ID!) {
+  getMessageConnection(id: $id) {
+    messages {
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
+      content
+      conversationId
+      id
+      isSent
+      resources {
+        id
+        name
+      }
+      region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const listMessageConnections = `query ListMessageConnections(
+  $filter: ModelMessageConnectionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMessageConnections(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      messages {
+        content
+        conversationId
+        id
+        isSent
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     nextToken
   }
@@ -155,17 +379,61 @@ export const listCategory = `query ListCategory(
   }
 }
 `;
+export const listUser = `query ListUser(
+  $cognitoId: ID
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUser(
+    cognitoId: $cognitoId
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
 export const getPropaganda = `query GetPropaganda($region: String!, $category: String!, $title: String!) {
   getPropaganda(region: $region, category: $category, title: $title) {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -195,14 +463,22 @@ export const listPropaganda = `query ListPropaganda(
   ) {
     items {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
       }
       region
       org
@@ -216,14 +492,32 @@ export const listPropaganda = `query ListPropaganda(
 export const getEvent = `query GetEvent($region: String!, $category: String!, $title: String!) {
   getEvent(region: $region, category: $category, title: $title) {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -253,14 +547,22 @@ export const listEvent = `query ListEvent(
   ) {
     items {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
       }
       region
       org
@@ -274,14 +576,32 @@ export const listEvent = `query ListEvent(
 export const getAnnouncement = `query GetAnnouncement($region: String!, $category: String!, $title: String!) {
   getAnnouncement(region: $region, category: $category, title: $title) {
     id
-    author
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
     category
     title
     content
     resources {
       id
       name
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       file {
         bucket
         region
@@ -295,14 +615,14 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
   }
 }
 `;
-export const listAnnouncements = `query ListAnnouncements(
+export const listAnnouncement = `query ListAnnouncement(
   $region: String
   $categoryTitle: ModelAnnouncementPrimaryCompositeKeyConditionInput
   $filter: ModelAnnouncementFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listAnnouncements(
+  listAnnouncement(
     region: $region
     categoryTitle: $categoryTitle
     filter: $filter
@@ -311,16 +631,103 @@ export const listAnnouncements = `query ListAnnouncements(
   ) {
     items {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
       }
       region
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const getResource = `query GetResource($id: ID!) {
+  getResource(id: $id) {
+    id
+    name
+    author {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
+      org
+      createdAt
+      updatedAt
+    }
+    file {
+      bucket
+      region
+      key
+    }
+  }
+}
+`;
+export const listResources = `query ListResources(
+  $filter: ModelResourceFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listResources(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listUsersByOrg = `query ListUsersByOrg(
+  $org: String
+  $username: ModelStringKeyConditionInput
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsersByOrg(
+    org: $org
+    username: $username
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      cognitoId
+      cognitoGroup
+      id
+      username
+      registered
       org
       createdAt
       updatedAt
@@ -345,14 +752,22 @@ export const listPropagandaByOrg = `query ListPropagandaByOrg(
   ) {
     items {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
       }
       region
       org
@@ -379,14 +794,22 @@ export const listEventByOrg = `query ListEventByOrg(
   ) {
     items {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
       }
       region
       org
@@ -413,14 +836,22 @@ export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
   ) {
     items {
       id
-      author
+      author {
+        cognitoId
+        cognitoGroup
+        id
+        username
+        registered
+        org
+        createdAt
+        updatedAt
+      }
       category
       title
       content
       resources {
         id
         name
-        author
       }
       region
       org
