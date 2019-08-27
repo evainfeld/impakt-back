@@ -2,7 +2,7 @@
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
-		"resourceName": {
+		"GROUP": {
 			"Type": "String",
 			"Default": ""
 		},
@@ -10,6 +10,10 @@
 			"Type": "String",
 			"Default": "",
 			"Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
+		},
+		"resourceName": {
+			"Type": "String",
+			"Default": ""
 		},
 		"trigger": {
 			"Type": "String",
@@ -53,16 +57,16 @@
 				"aws:asset:property": "Code"
 			},
 			"Properties": {
-				"Handler": "pre-signup.handler",
+				"Handler": "index.handler",
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgent95205ed895205ed8PreSignup",
+						"changeAgent95205ed895205ed8PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgent95205ed895205ed8PreSignup",
+									"changeAgent95205ed895205ed8PostConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -77,8 +81,14 @@
 						"ENV": {
 							"Ref": "env"
 						},
+						"MODULES": {
+							"Ref": "modules"
+						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"GROUP": {
+							"Ref": "GROUP"
 						}
 					}
 				},
@@ -88,11 +98,11 @@
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs10.x",
+				"Runtime": "nodejs8.10",
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-schema-20190826140234-deployment",
-					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PreSignup-59796978785162325569-build.zip"
+					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-6b77476e38767a527166-build.zip"
 				}
 			}
 		},
@@ -102,12 +112,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgent95205ed895205ed8PreSignup",
+						"changeAgent95205ed895205ed8PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgent95205ed895205ed8PreSignup",
+									"changeAgent95205ed895205ed8PostConfirmation",
 									"-",
 									{
 										"Ref": "env"

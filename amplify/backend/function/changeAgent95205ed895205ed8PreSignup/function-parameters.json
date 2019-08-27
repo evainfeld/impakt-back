@@ -1,5 +1,8 @@
 {
     "trigger": true,
+    "modules": [
+        "pre-signup"
+    ],
     "parentResource": "changeAgent95205ed895205ed8",
     "functionName": "changeAgent95205ed895205ed8PreSignup",
     "parentStack": "auth",

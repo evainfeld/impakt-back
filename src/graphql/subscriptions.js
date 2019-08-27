@@ -54,9 +54,9 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
 export const onCreateMessage = `subscription OnCreateMessage {
   onCreateMessage {
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -71,9 +71,9 @@ export const onCreateMessage = `subscription OnCreateMessage {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -97,9 +97,9 @@ export const onCreateMessageConnection = `subscription OnCreateMessageConnection
   onCreateMessageConnection {
     messages {
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -127,9 +127,9 @@ export const onUpdateMessageConnection = `subscription OnUpdateMessageConnection
   onUpdateMessageConnection {
     messages {
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -157,9 +157,9 @@ export const onDeleteMessageConnection = `subscription OnDeleteMessageConnection
   onDeleteMessageConnection {
     messages {
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -218,9 +218,9 @@ export const onDeleteCategory = `subscription OnDeleteCategory {
 `;
 export const onCreateUser = `subscription OnCreateUser {
   onCreateUser {
-    id
     cognitoId
     cognitoGroup
+    id
     username
     registered
     org
@@ -231,9 +231,9 @@ export const onCreateUser = `subscription OnCreateUser {
 `;
 export const onUpdateUser = `subscription OnUpdateUser {
   onUpdateUser {
-    id
     cognitoId
     cognitoGroup
+    id
     username
     registered
     org
@@ -246,9 +246,9 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
   onCreatePropaganda {
     id
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -262,9 +262,9 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -288,9 +288,9 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
   onUpdatePropaganda {
     id
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -304,9 +304,9 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -330,9 +330,9 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
   onDeletePropaganda {
     id
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -346,9 +346,9 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -372,9 +372,9 @@ export const onCreateEvent = `subscription OnCreateEvent {
   onCreateEvent {
     id
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -388,9 +388,9 @@ export const onCreateEvent = `subscription OnCreateEvent {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -414,9 +414,9 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
   onUpdateEvent {
     id
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -430,9 +430,9 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -456,9 +456,9 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
   onDeleteEvent {
     id
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -472,9 +472,9 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -498,9 +498,9 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
   onCreateAnnouncement {
     id
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -514,9 +514,9 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
       id
       name
       author {
-        id
         cognitoId
         cognitoGroup
+        id
         username
         registered
         org
@@ -541,9 +541,9 @@ export const onCreateResource = `subscription OnCreateResource {
     id
     name
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -563,9 +563,9 @@ export const onUpdateResource = `subscription OnUpdateResource {
     id
     name
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org
@@ -585,9 +585,9 @@ export const onDeleteResource = `subscription OnDeleteResource {
     id
     name
     author {
-      id
       cognitoId
       cognitoGroup
+      id
       username
       registered
       org

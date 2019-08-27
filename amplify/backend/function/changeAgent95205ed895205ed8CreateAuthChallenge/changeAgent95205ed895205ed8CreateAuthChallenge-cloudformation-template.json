@@ -6,6 +6,11 @@
 			"Type": "String",
 			"Default": ""
 		},
+		"modules": {
+			"Type": "String",
+			"Default": "",
+			"Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
+		},
 		"trigger": {
 			"Type": "String",
 			"Default": "true"
