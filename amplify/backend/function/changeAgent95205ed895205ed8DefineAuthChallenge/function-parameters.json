@@ -1,5 +1,8 @@
 {
     "trigger": true,
+    "modules": [
+        "define-auth"
+    ],
     "parentResource": "changeAgent95205ed895205ed8",
     "functionName": "changeAgent95205ed895205ed8DefineAuthChallenge",
     "parentStack": "auth",

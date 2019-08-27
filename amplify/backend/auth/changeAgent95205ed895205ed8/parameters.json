@@ -1,4 +1,6 @@
 {
+    "identityPoolName": "changeAgent95205ed895205ed8_identitypool_8cff2fa1",
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "change95205ed8",
     "userPoolName": "change_agent95205ed8_userpool_95205ed8",
     "autoVerifiedAttributes": [
@@ -29,12 +31,12 @@
     "userpoolClientLambdaRole": "change95205ed8_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
     "useDefault": "manual",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "resourceName": "changeAgent95205ed895205ed8",
     "usernameAttributes": [
         "phone_number"
     ],
-    "triggers": "{\"CreateAuthChallenge\":[\"create-auth\"],\"DefineAuthChallenge\":[\"define-auth\"],\"PreSignup\":[\"pre-signup\"],\"VerifyAuthChallengeResponse\":[\"verify-auth\"]}",
+    "triggers": "{\"CreateAuthChallenge\":[\"create-auth\"],\"DefineAuthChallenge\":[\"define-auth\"],\"PreSignup\":[\"pre-signup\"],\"VerifyAuthChallengeResponse\":[\"verify-auth\"],\"PostConfirmation\":[\"add-to-group\"]}",
     "hostedUI": false,
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -51,7 +53,9 @@
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": [],
+    "permissions": [
+        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
+    ],
     "dependsOn": [
         {
             "category": "function",
@@ -88,6 +92,16 @@
                 "Arn",
                 "Name"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "changeAgent95205ed895205ed8PostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
         }
-    ]
+    ],
+    "thirdPartyAuth": false
 }

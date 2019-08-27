@@ -24,13 +24,48 @@
 		"S3DeploymentRootKey": {
 			"Type": "String",
 			"Description": "An S3 key relative to the S3DeploymentBucket that points to the root\nof the deployment directory."
+		},
+		"AuthCognitoUserPoolId": {
+			"Type": "String",
+			"Description": "Cognito User Pool ID for groups creation"
 		}
 	},
 	"Resources": {
 		"EmptyResource": {
 			"Type": "Custom::EmptyResource",
 			"Condition": "AlwaysFalse"
+		  },
+		  "UserPoolGroupAdmins": {
+			"Type": "AWS::Cognito::UserPoolGroup",
+			"Properties": {
+				"Description": "Privilidged users group",
+				"GroupName": "Admins",
+				"UserPoolId": {
+					"Ref": "AuthCognitoUserPoolId"
+			  }
+			}
+		  },
+		  "UserPoolGroupMembers": {
+			"Type": "AWS::Cognito::UserPoolGroup",
+			"Properties": {
+				"Description": "Organization members group",
+				"GroupName": "Members",
+				"UserPoolId": {
+					"Ref": "AuthCognitoUserPoolId"
+			  }
+			}
+		  },
+		  "UserPoolGroupUsers": {
+			"Type": "AWS::Cognito::UserPoolGroup",
+			"Properties": {
+				"Description": "Organization supporters group",
+				"GroupName": "Users",
+				"UserPoolId": {
+					"Ref": "AuthCognitoUserPoolId"
+			  }
+			}
 		  }
+		  
 	},
 	"Conditions": {
 		"HasEnvironmentParameter": {

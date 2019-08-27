@@ -19,6 +19,7 @@ Never, ever, in any circumstances call `amplify delete` :)
 - schema testing: `https://codesandbox.io/s/42m2rx71j4` and `https://hackernoon.com/start-testing-your-graphql-schema-queries-and-mutations-b514911b1368`
 - another approach `https://medium.com/@FdMstri/testing-a-graphql-server-13512408c2fb`
 - and in CI `https://graphql-inspector.com/docs/recipes/ci`
+- working with CF on VS Code `https://hodgkins.io/up-your-cloudformation-game-with-vscode#yaml-indentation`
 
 ## Tools
 
@@ -65,7 +66,7 @@ __Obtaining JWT Token__ To call any Graphql you need to provide valid JWT Access
 - follow instructions
 - after successful login you'll land on `http://localhost:4200/private` page
 - copy `access-token`
-- fill http Header with following data (bare in mind that you shouldn't provide any prefix like `Bearer or JWT` before token):
+- fill http Header with following data (bare in mind that you shouldn't provide any prefix like `Bearer or JWT` before token) and call Grapqhql endpoint with any sample query:
 
 ```json
 {
@@ -76,6 +77,39 @@ __Obtaining JWT Token__ To call any Graphql you need to provide valid JWT Access
 
 - If you receive `Token has expired.` error just click `Refresh Token` button in app's private page.
 - SMSs are cheap but still not free of charge. Try not to log out or stop app frequently. As long as it stores session you can use your access-tokens, without need of receiving additional login SMSs.
+
+### Graphql queries
+
+__listCategory__:
+
+schema:
+
+``` grqphql
+listCategory(org: String, regionName: ModelCategoryPrimaryCompositeKeyConditionInput, filter: ModelCategoryFilterInput, limit: Int, nextToken: String): ModelCategoryConnection
+```
+
+parametes to look for all Categiories within region created after some date:
+
+```json
+{
+  "org": "sample-org",
+  "regionName": {
+    "beginsWith": {
+      "category": "Prawo",
+      "title": ""
+      }
+    },
+  "filter": {
+    "createdAt": {
+      "gt": "YYYY-MM-DDThh:mm:ss.sssZ"
+    }
+  },
+  "limit": 20,
+  "nextToken": "sample-token-from-previous-call"
+}
+```
+
+__note_: Category might change due to not optimal Key schema. However it'd still might be used as reference, becouse it follows general convention.
 
 ## Components
 

@@ -7,169 +7,188 @@ Parameters:
     Type: String
   unauthRoleArn:
     Type: String
-  
-  
-  
-  
-  functionchangeAgent95205ed895205ed8CreateAuthChallengeArn: 
+
+
+
+
+  functionchangeAgent95205ed895205ed8CreateAuthChallengeArn:
     Type: String
     Default: functionchangeAgent95205ed895205ed8CreateAuthChallengeArn
-  
-  functionchangeAgent95205ed895205ed8CreateAuthChallengeName: 
+
+  functionchangeAgent95205ed895205ed8CreateAuthChallengeName:
     Type: String
     Default: functionchangeAgent95205ed895205ed8CreateAuthChallengeName
-  
-  
-  
-  functionchangeAgent95205ed895205ed8DefineAuthChallengeArn: 
+
+
+
+  functionchangeAgent95205ed895205ed8DefineAuthChallengeArn:
     Type: String
     Default: functionchangeAgent95205ed895205ed8DefineAuthChallengeArn
-  
-  functionchangeAgent95205ed895205ed8DefineAuthChallengeName: 
+
+  functionchangeAgent95205ed895205ed8DefineAuthChallengeName:
     Type: String
     Default: functionchangeAgent95205ed895205ed8DefineAuthChallengeName
-  
-  
-  
-  functionchangeAgent95205ed895205ed8PreSignupArn: 
+
+
+
+  functionchangeAgent95205ed895205ed8PreSignupArn:
     Type: String
     Default: functionchangeAgent95205ed895205ed8PreSignupArn
-  
-  functionchangeAgent95205ed895205ed8PreSignupName: 
+
+  functionchangeAgent95205ed895205ed8PreSignupName:
     Type: String
     Default: functionchangeAgent95205ed895205ed8PreSignupName
-  
-  
-  
-  functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseArn: 
+
+
+
+  functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseArn:
     Type: String
     Default: functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseArn
-  
-  functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseName: 
+
+  functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseName:
     Type: String
     Default: functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseName
-  
-  
-  
 
-    
+
+
+  functionchangeAgent95205ed895205ed8PostConfirmationArn:
+    Type: String
+    Default: functionchangeAgent95205ed895205ed8PostConfirmationArn
+
+  functionchangeAgent95205ed895205ed8PostConfirmationName:
+    Type: String
+    Default: functionchangeAgent95205ed895205ed8PostConfirmationName
+
+
+
+
+
+  identityPoolName:
+    Type: String
+
+  allowUnauthenticatedIdentities:
+    Type: String
+
   resourceNameTruncated:
     Type: String
-              
+
   userPoolName:
     Type: String
-                      
+
   autoVerifiedAttributes:
     Type: CommaDelimitedList
-      
+
   mfaConfiguration:
     Type: String
-                      
+
   mfaTypes:
     Type: CommaDelimitedList
-      
+
   smsAuthenticationMessage:
     Type: String
-              
+
   smsVerificationMessage:
     Type: String
-              
+
   emailVerificationSubject:
     Type: String
-              
+
   emailVerificationMessage:
     Type: String
-                
+
   defaultPasswordPolicy:
     Type: String
-            
+
   passwordPolicyMinLength:
     Type: String
-                      
+
   passwordPolicyCharacters:
     Type: CommaDelimitedList
-              
+
   requiredAttributes:
     Type: CommaDelimitedList
-        
+
   userpoolClientGenerateSecret:
     Type: String
-                
+
   userpoolClientRefreshTokenValidity:
     Type: Number
-                  
+
   userpoolClientWriteAttributes:
     Type: CommaDelimitedList
-              
+
   userpoolClientReadAttributes:
     Type: CommaDelimitedList
-      
+
   userpoolClientLambdaRole:
     Type: String
-                
+
   userpoolClientSetAttributes:
     Type: String
-            
+
   useDefault:
     Type: String
-              
+
   authSelections:
     Type: String
-              
+
   resourceName:
     Type: String
-                      
+
   usernameAttributes:
     Type: CommaDelimitedList
-      
+
   triggers:
     Type: String
-                
+
   hostedUI:
     Type: String
-                                          
+
   parentStack:
     Type: String
-                
+
   permissions:
     Type: CommaDelimitedList
-              
+
   dependsOn:
     Type: CommaDelimitedList
-    
+
+  thirdPartyAuth:
+    Type: String
+
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
 Resources:
-  
-  
+
+
   # BEGIN SNS ROLE RESOURCE
-  SNSRole: 
+  SNSRole:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
       RoleName: !If [ShouldNotCreateEnvResources, 'change95205ed8_sns-role', !Join ['',['change95205ed8_sns-role', '-', !Ref env]]]
-      AssumeRolePolicyDocument: 
+      AssumeRolePolicyDocument:
         Version: "2012-10-17"
-        Statement: 
+        Statement:
           - Sid: ""
             Effect: "Allow"
-            Principal: 
+            Principal:
               Service: "cognito-idp.amazonaws.com"
-            Action: 
+            Action:
               - "sts:AssumeRole"
-            Condition: 
+            Condition:
               StringEquals:
                 sts:ExternalId: change95205ed8_role_external_id
-      Policies: 
-        - 
+      Policies:
+        -
           PolicyName: change95205ed8-sns-policy
-          PolicyDocument: 
+          PolicyDocument:
             Version: "2012-10-17"
-            Statement: 
-              - 
+            Statement:
+              -
                 Effect: "Allow"
-                Action: 
+                Action:
                   - "sns:Publish"
                 Resource: "*"
   # BEGIN USER POOL RESOURCES
@@ -180,38 +199,40 @@ Resources:
     UpdateReplacePolicy: Retain
     Properties:
       UserPoolName: !If [ShouldNotCreateEnvResources, !Ref userPoolName, !Join ['',[!Ref userPoolName, '-', !Ref env]]]
-      
-      Schema: 
-        
+
+      Schema:
+
         -
           Name: phone_number
           Required: true
           Mutable: true
-        
-      
-      
+
+
+
       LambdaConfig:
-        
+
           CreateAuthChallenge: !Ref functionchangeAgent95205ed895205ed8CreateAuthChallengeArn
-        
-        
-        
+
+
+
           DefineAuthChallenge: !Ref functionchangeAgent95205ed895205ed8DefineAuthChallengeArn
-        
-        
-        
-        
-        
+
+
+
+          PostConfirmation: !Ref functionchangeAgent95205ed895205ed8PostConfirmationArn
+
+
+
           PreSignUp: !Ref functionchangeAgent95205ed895205ed8PreSignupArn
-        
-        
+
+
           VerifyAuthChallengeResponse: !Ref functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseArn
-        
-      
-      
+
+
+
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
-      
-            
+
+
       Policies:
         PasswordPolicy:
           MinimumLength: !Ref passwordPolicyMinLength
@@ -219,73 +240,114 @@ Resources:
           RequireNumbers: false
           RequireSymbols: false
           RequireUppercase: false
-      
+
       UsernameAttributes: !Ref usernameAttributes
-          
+
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
-      SmsConfiguration: 
+      SmsConfiguration:
         SnsCallerArn: !GetAtt SNSRole.Arn
         ExternalId: change95205ed8_role_external_id
-    
-  
-  
-  UserPoolCreateAuthChallengeLambdaInvokePermission: 
+
+
+
+  UserPoolCreateAuthChallengeLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionchangeAgent95205ed895205ed8CreateAuthChallengeName
       SourceArn: !GetAtt UserPool.Arn
-    
-    
-  
-  UserPoolDefineAuthChallengeLambdaInvokePermission: 
+
+
+
+  UserPoolDefineAuthChallengeLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionchangeAgent95205ed895205ed8DefineAuthChallengeName
       SourceArn: !GetAtt UserPool.Arn
-  
-    
-    
-  
-  
-  UserPoolPreSignupLambdaInvokePermission: 
+
+
+
+  UserPoolPostConfirmationLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionchangeAgent95205ed895205ed8PostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
+
+
+
+  UserPoolPreSignupLambdaInvokePermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionchangeAgent95205ed895205ed8PreSignupName
       SourceArn: !GetAtt UserPool.Arn
-   
-  
-  UserPoolVerifyAuthChallengeResponseLambdaInvokePermission: 
+
+
+  UserPoolVerifyAuthChallengeResponseLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponseName
       SourceArn: !GetAtt UserPool.Arn
-    
+
   # Updating lambda role with permissions to Cognito
-  
-  
+
+
+  changeAgent95205ed895205ed8PostConfirmationAddToGroupCognito:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: changeAgent95205ed895205ed8PostConfirmationAddToGroupCognito
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+
+              - cognito-idp:AdminAddUserToGroup
+
+              - cognito-idp:GetGroup
+
+              - cognito-idp:CreateGroup
+
+
+
+            Resource: !GetAtt
+
+              - UserPool
+
+              - Arn
+
+
+
+
+      Roles:
+        - !Join ['',["changeAgent95205ed895205ed8PostConfirmation", '-', !Ref env]]
+
+
+
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: change95205ed8_app_clientWeb
-      
+
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
-      
+
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       GenerateSecret: false
       UserPoolId: !Ref UserPool
@@ -298,10 +360,10 @@ Resources:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: change95205ed8_app_client
-      
+
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
-      
+
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -329,7 +391,7 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        ZipFile: !Join 
+        ZipFile: !Join
           - |+
           - - 'const response = require(''cfn-response'');'
             - 'const aws = require(''aws-sdk'');'
@@ -345,7 +407,7 @@ Resources:
             - '   };'
             - '   identity.describeUserPoolClient(params).promise()'
             - '     .then((res) => {'
-            - '       response.send(event, context, response.SUCCESS, {''appSecret'': res.UserPoolClient.ClientSecret});'   
+            - '       response.send(event, context, response.SUCCESS, {''appSecret'': res.UserPoolClient.ClientSecret});'
             - '     })'
             - '     .catch((err) => {'
             - '       response.send(event, context, response.FAILED, {err});'
@@ -355,7 +417,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs8.10
       Timeout: '300'
-      Role: !GetAtt 
+      Role: !GetAtt
         - UserPoolClientRole
         - Arn
     DependsOn: UserPoolClientRole
@@ -366,7 +428,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: change95205ed8_userpoolclient_lambda_iam_policy
-      Roles: 
+      Roles:
         - !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',[!Ref userpoolClientLambdaRole, '-', !Ref env]]]
       PolicyDocument:
         Version: '2012-10-17'
@@ -383,7 +445,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: change95205ed8_userpoolclient_lambda_log_policy
-      Roles: 
+      Roles:
         - !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',[!Ref userpoolClientLambdaRole, '-', !Ref env]]]
       PolicyDocument:
         Version: 2012-10-17
@@ -393,10 +455,10 @@ Resources:
               - 'logs:CreateLogGroup'
               - 'logs:CreateLogStream'
               - 'logs:PutLogEvents'
-            Resource: !Sub  
+            Resource: !Sub
               - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
               - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref UserPoolClientLambda}
-    DependsOn: UserPoolClientLambdaPolicy  
+    DependsOn: UserPoolClientLambdaPolicy
   UserPoolClientInputs:
   # Values passed to Userpool client Lambda
   # Depends on UserPool for Id
@@ -408,19 +470,61 @@ Resources:
       clientId: !Ref UserPoolClient
       userpoolId: !Ref UserPool
     DependsOn: UserPoolClientLogPolicy
-  
 
-  
-  
 
-  
-    
+
+
+
+
+
+  # BEGIN IDENTITY POOL RESOURCES
+
+
+  IdentityPool:
+  # Always created
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'changeAgent95205ed895205ed8_identitypool_8cff2fa1', !Join ['',['changeAgent95205ed895205ed8_identitypool_8cff2fa1', '__', !Ref env]]]
+
+      CognitoIdentityProviders:
+        - ClientId:  !Ref UserPoolClient
+          ProviderName: !Sub
+            - cognito-idp.${region}.amazonaws.com/${client}
+            - { region: !Ref "AWS::Region",  client: !Ref UserPool}
+        - ClientId:  !Ref UserPoolClientWeb
+          ProviderName: !Sub
+            - cognito-idp.${region}.amazonaws.com/${client}
+            - { region: !Ref "AWS::Region",  client: !Ref UserPool}
+
+      AllowUnauthenticatedIdentities: !Ref allowUnauthenticatedIdentities
+
+
+    DependsOn: UserPoolClientInputs
+
+
+  IdentityPoolRoleMap:
+  # Created to map Auth and Unauth roles to the identity pool
+  # Depends on Identity Pool for ID ref
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId: !Ref IdentityPool
+      Roles:
+          unauthenticated: !Ref unauthRoleArn
+          authenticated: !Ref authRoleArn
+    DependsOn: IdentityPool
+
 
 Outputs :
-  
-  
-  
-  
+
+  IdentityPoolId:
+    Value: !Ref 'IdentityPool'
+    Description:  Id for the identity pool
+  IdentityPoolName:
+    Value: !GetAtt IdentityPool.Name
+
+
+
+
   UserPoolId:
     Value: !Ref 'UserPool'
     Description:  Id for the user pool
@@ -434,10 +538,9 @@ Outputs :
     Description: The user pool app client id
   AppClientSecret:
     Value: !GetAtt UserPoolClientInputs.appSecret
-  
-   
-   
-  
-   
-   
-  
+
+
+
+
+
+

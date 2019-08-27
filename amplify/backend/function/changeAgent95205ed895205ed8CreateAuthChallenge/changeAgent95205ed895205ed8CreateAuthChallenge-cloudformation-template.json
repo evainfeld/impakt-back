@@ -6,6 +6,11 @@
 			"Type": "String",
 			"Default": ""
 		},
+		"modules": {
+			"Type": "String",
+			"Default": "",
+			"Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
+		},
 		"trigger": {
 			"Type": "String",
 			"Default": "true"
@@ -86,7 +91,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-develop-20190820160039-deployment",
+					"S3Bucket": "change-agent-schema-20190826140234-deployment",
 					"S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-43436e3579426f354a49-build.zip"
 				}
 			}
