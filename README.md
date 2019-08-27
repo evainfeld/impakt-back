@@ -42,8 +42,8 @@ As long as, API is "protected" using API KEY remember to add `x-api-key` param t
 ### PROD - associated with master branch
 
 ``` txt
-GraphQL endpoint: https://2fakxaksi5bj3k4bnuw6npujey.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-azzbmxrblbefrf5wgkrqnmktni
+GraphQL endpoint: https://mz7qtaidlneyhja4wc3cpki26m.appsync-api.eu-west-1.amazonaws.com/graphql
+
 ```
 
 ### DEV - associated with develop branch
