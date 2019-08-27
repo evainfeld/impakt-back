@@ -1,0 +1,16 @@
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Resource 
+  @model 
+  {
+  id: ID!
+  name: String
+  author: User! @connection(keyField: "cognitoId")
+
+  # Reference the S3Object type from a field.
+  file: S3Object
+}

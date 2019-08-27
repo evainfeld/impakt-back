@@ -1,0 +1,70 @@
+type Propaganda 
+  @model( queries: { get: "getPropaganda", list: "listPropaganda" }, mutations: {create: "createPropaganda", update: "updatePropaganda", delete: "deletePropaganda"})
+  @key(fields: ["region", "category", "title"])
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listPropagandaByOrg" )
+  #@auth(
+  #  rules: [
+  #    {allow: owner, ownerField: "cognitoId", identityField: "cognito:sub" , operations: [create, update, delete, read]},
+  #  ])
+  # more:  https://github.com/aws-amplify/amplify-cli/issues/1277
+{
+  id: ID
+  author: User! @connection(keyField: "cognitoId")
+  category: String!
+  title: String!
+  # org_range: MY_ORG::WWA::WTF
+  content: String!
+  resources: [Resource]
+  region: String!
+  org: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+
+type Event
+  @model( queries: { get: "getEvent", list: "listEvent" }, mutations: {create: "createEvent", update: "updateEvent", delete: "deleteEvent"})
+  @key(fields: ["region", "category", "title"])
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listEventByOrg" )
+{
+  id: ID
+  author: User! @connection(keyField: "cognitoId")
+  category: String!
+  title: String!
+  # org_range: MY_ORG::WWA::WTF
+  content: String!
+  resources: [Resource]
+  region: String!
+  org: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Announcement
+  @model( queries: { get: "getAnnouncement", list: "listAnnouncement" }, mutations: {create: "createAnnouncement", update: null, delete: null})
+  @key(fields: ["region", "category", "title"])
+  @key(name: "org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg" )
+{
+  id: ID
+  author: User! @connection(keyField: "cognitoId")
+  category: String!
+  title: String!
+  # org_range: MY_ORG::WWA::WTF
+  content: String!
+  resources: [Resource]
+  region: String!
+  org: String!
+  #### autogen
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+#for "aktualnosci page"
+union Important = Announcement | Event
+type Query {
+    listAllImportantNotifications(region: String!): [Important]
+    #  Get my user.
+	  me: User
+}

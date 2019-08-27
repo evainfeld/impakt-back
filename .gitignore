@@ -1,5 +1,6 @@
 node_modules
 deploy-cfn.yml
+amplify-backup/
 
 #amplify
 amplify/\#current-cloud-backend
