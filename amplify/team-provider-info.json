@@ -1,80 +1,54 @@
 {
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "change-agent-prod-20190827124352-authRole",
-            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190827124352-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190827124352-authRole",
-            "Region": "eu-west-1",
-            "DeploymentBucketName": "change-agent-prod-20190827124352-deployment",
-            "UnauthRoleName": "change-agent-prod-20190827124352-unauthRole",
-            "StackName": "change-agent-prod-20190827124352",
-            "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-prod-20190827124352/8f8e9f90-c8b7-11e9-9f97-02135cc8443e"
-        },
-        "categories": {
-            "auth": {
-                "changeAgent95205ed895205ed8": {}
-            },
-            "function": {
-                "changeAgent95205ed895205ed8CreateAuthChallenge": {},
-                "changeAgent95205ed895205ed8DefineAuthChallenge": {},
-                "changeAgent95205ed895205ed8PreSignup": {},
-                "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
-                "changeAgent95205ed895205ed8PostConfirmation": {
-                    "GROUP": "Users"
-                }
-            }
-        }
-    },
-    "develop": {
-        "awscloudformation": {
-            "AuthRoleName": "change-agent-develop-20190820160039-authRole",
-            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190820160039-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190820160039-authRole",
-            "Region": "eu-west-1",
-            "DeploymentBucketName": "change-agent-develop-20190820160039-deployment",
-            "UnauthRoleName": "change-agent-develop-20190820160039-unauthRole",
-            "StackName": "change-agent-develop-20190820160039",
-            "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-develop-20190820160039/e4724760-c352-11e9-9230-06e26620325a"
-        },
-        "categories": {
-            "auth": {
-                "changeAgent95205ed895205ed8": {}
-            },
-            "function": {
-                "changeAgent95205ed895205ed8CreateAuthChallenge": {},
-                "changeAgent95205ed895205ed8DefineAuthChallenge": {},
-                "changeAgent95205ed895205ed8PreSignup": {},
-                "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
-                "changeAgent95205ed895205ed8PostConfirmation": {
-                    "GROUP": "Users"
-                }
-            }
-        }
-    },
-    "schema": {
-        "awscloudformation": {
-            "AuthRoleName": "change-agent-schema-20190826140234-authRole",
-            "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-schema-20190826140234-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-schema-20190826140234-authRole",
-            "Region": "eu-west-1",
-            "DeploymentBucketName": "change-agent-schema-20190826140234-deployment",
-            "UnauthRoleName": "change-agent-schema-20190826140234-unauthRole",
-            "StackName": "change-agent-schema-20190826140234",
-            "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-schema-20190826140234/64324130-c7f9-11e9-bb6e-0a25aff68e4e"
-        },
-        "categories": {
-            "auth": {
-                "changeAgent95205ed895205ed8": {}
-            },
-            "function": {
-                "changeAgent95205ed895205ed8CreateAuthChallenge": {},
-                "changeAgent95205ed895205ed8DefineAuthChallenge": {},
-                "changeAgent95205ed895205ed8PreSignup": {},
-                "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
-                "changeAgent95205ed895205ed8PostConfirmation": {
-                    "GROUP": "Users"
-                }
-            }
-        }
-    }
+	"prod": {
+		"awscloudformation": {
+			"AuthRoleName": "change-agent-prod-20190827124352-authRole",
+			"UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190827124352-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190827124352-authRole",
+			"Region": "eu-west-1",
+			"DeploymentBucketName": "change-agent-prod-20190827124352-deployment",
+			"UnauthRoleName": "change-agent-prod-20190827124352-unauthRole",
+			"StackName": "change-agent-prod-20190827124352",
+			"StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-prod-20190827124352/8f8e9f90-c8b7-11e9-9f97-02135cc8443e"
+		},
+		"categories": {
+			"auth": {
+				"changeAgent95205ed895205ed8": {}
+			},
+			"function": {
+				"changeAgent95205ed895205ed8CreateAuthChallenge": {},
+				"changeAgent95205ed895205ed8DefineAuthChallenge": {},
+				"changeAgent95205ed895205ed8PreSignup": {},
+				"changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
+				"changeAgent95205ed895205ed8PostConfirmation": {
+					"GROUP": "Users"
+				}
+			}
+		}
+	},
+	"develop": {
+		"awscloudformation": {
+			"AuthRoleName": "change-agent-develop-20190820160039-authRole",
+			"UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190820160039-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190820160039-authRole",
+			"Region": "eu-west-1",
+			"DeploymentBucketName": "change-agent-develop-20190820160039-deployment",
+			"UnauthRoleName": "change-agent-develop-20190820160039-unauthRole",
+			"StackName": "change-agent-develop-20190820160039",
+			"StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-develop-20190820160039/e4724760-c352-11e9-9230-06e26620325a"
+		},
+		"categories": {
+			"auth": {
+				"changeAgent95205ed895205ed8": {}
+			},
+			"function": {
+				"changeAgent95205ed895205ed8CreateAuthChallenge": {},
+				"changeAgent95205ed895205ed8DefineAuthChallenge": {},
+				"changeAgent95205ed895205ed8PreSignup": {},
+				"changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
+				"changeAgent95205ed895205ed8PostConfirmation": {
+					"GROUP": "Users"
+				}
+			}
+		}
+	}
 }
