@@ -269,3 +269,17 @@ _NOTE_: Don't know yet how to deploy AppSync supporting only api key
 ## DynamoDB design
 
 AppSync supports only one table per one model design. According to AWS it's far away from optimal one table approach. However revriting generated Cloudformation files seems to be futile, as it breakes some AppSync annotation functionalities like @Connection or Unions.
+
+## Amplify bugs
+
+__1__:
+
+Auto generated trigger function name with env name fails to fit into LambdaExecutionRole name limit of 64.
+
+changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production
+
+| auto gne stack name      | trigger name             |-| env    |
+
+``` console
+CREATE_FAILED      LambdaExecutionRole                                                                                  AWS::IAM::Role             Tue Aug 27 2019 12:30:39 GMT+0200 (Central European Summer Time) 1 validation error detected: Value 'changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production' at 'roleName' failed to satisfy constraint: Member must have length less than or equal to 64 (Service: AmazonIdentityManagement; Status Code: 400; Error Code: ValidationError; Request ID: b68e1005-c8b5-11e9-802b-b9c99487764f)
+```
