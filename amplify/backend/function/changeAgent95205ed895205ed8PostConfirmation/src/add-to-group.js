@@ -1,6 +1,11 @@
 /* eslint-disable-line */ const aws = require('aws-sdk');
 
 exports.handler = async (event, context, callback) => {
+  // Amplify sometimes fails to copy envs between envs during merging. 
+  if( typeof process.env.GROUP === 'undefined' || process.env.GROUP === null ){
+    process.env.GROUP = 'Users'
+  }
+
   const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
   const groupParams = {
     GroupName: process.env.GROUP,

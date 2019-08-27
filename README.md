@@ -49,9 +49,9 @@ GraphQL API KEY: da2-azzbmxrblbefrf5wgkrqnmktni
 ### DEV - associated with develop branch
 
 ``` txt
-GraphQL endpoint: https://ricqyhf4ybal3ib5x3bv4ulwbm.appsync-api.eu-west-1.amazonaws.com/graphql
-UserPoolId: eu-west-1_QxtbkE3Ke
-UserPoolClientID: 5ua2na2j20sinc019kvrg2bluu
+GraphQL endpoint: https://jut2mouyk5fylif4rsfna5s6hm.appsync-api.eu-west-1.amazonaws.com/graphql
+UserPoolId: eu-west-1_M5v6C3Abw
+UserPoolClientID: jasm7515ka6crb2pgkrj7n4la
 ```
 
 __NOTE__ Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
