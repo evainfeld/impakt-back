@@ -9,18 +9,6 @@
             "UnauthRoleName": "change-agent-production-20190813163315-unauthRole",
             "StackName": "change-agent-production-20190813163315",
             "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-production-20190813163315/495ef910-bdd7-11e9-a43a-0a62311bc72a"
-        },
-        "categories": {
-            "auth": {
-                "changeAgent95205ed895205ed8": {}
-            },
-            "function": {
-                "changeAgent95205ed895205ed8CreateAuthChallenge": {},
-                "changeAgent95205ed895205ed8DefineAuthChallenge": {},
-                "changeAgent95205ed895205ed8PreSignup": {},
-                "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
-                "changeAgent95205ed895205ed8PostConfirmation": {}
-            }
         }
     },
     "develop": {
