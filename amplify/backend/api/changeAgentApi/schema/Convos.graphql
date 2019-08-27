@@ -27,7 +27,7 @@ type Message
 @key(fields: ["region", "conversationId", "createdAt"]) 
 {
     #  The author object. Note: `authorId` is only available because we list it in `extraAttributes` in `Conversation.messages`
-    author: User!
+    author: User! @connection(keyField: "cognitoId")
     #  The message content.
     content: String!
     #  The id of the Conversation this message belongs to. This is the table primary key.

@@ -33,17 +33,18 @@ type Category
 
 #getUser is called "me" and works withouth params. Just using context
 type User 
-@model( queries: { get: null, list: "listUser" }, mutations: {create: "createUser", update: "updateUser", delete: null})
+@model( queries: { get: "getUser", list: "listUser" }, mutations: {create: "createUser", update: "updateUser", delete: null})
 @key(fields: ["cognitoId"]) 
 @key(name: "org", fields: ["org", "username"], queryField: "listUsersByOrg" )
 {
-	#  A unique identifier for the user.
+  
+	#  A unique identifier for the user. cognito:sub
 	cognitoId: ID!
-  #  A unique identifier for the user.
-	cognitoGroup: String!
-	#  Generated id for a user. read-only
+  #  A unique identifier for the user. cognito:group
+	cognitoGroup: String! 
+  #  Generated id for a user. read-only
 	id: ID!
-	#  The username
+  	#  The username
 	username: String!
 	# is the user registered?
 	registered: Boolean

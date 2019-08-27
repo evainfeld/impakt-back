@@ -54,9 +54,9 @@ export const deleteConversation = `mutation DeleteConversation($input: DeleteCon
 export const createMessage = `mutation CreateMessage($input: CreateMessageInput!) {
   createMessage(input: $input) {
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -71,9 +71,9 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -97,9 +97,9 @@ export const createMessageConnection = `mutation CreateMessageConnection($input:
   createMessageConnection(input: $input) {
     messages {
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -127,9 +127,9 @@ export const updateMessageConnection = `mutation UpdateMessageConnection($input:
   updateMessageConnection(input: $input) {
     messages {
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -157,9 +157,9 @@ export const deleteMessageConnection = `mutation DeleteMessageConnection($input:
   deleteMessageConnection(input: $input) {
     messages {
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -218,9 +218,9 @@ export const deleteCategory = `mutation DeleteCategory($input: DeleteCategoryInp
 `;
 export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
+    id
     cognitoId
     cognitoGroup
-    id
     username
     registered
     org
@@ -231,9 +231,9 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
 `;
 export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input) {
+    id
     cognitoId
     cognitoGroup
-    id
     username
     registered
     org
@@ -246,9 +246,9 @@ export const createPropaganda = `mutation CreatePropaganda($input: CreatePropaga
   createPropaganda(input: $input) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -262,9 +262,9 @@ export const createPropaganda = `mutation CreatePropaganda($input: CreatePropaga
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -288,9 +288,9 @@ export const updatePropaganda = `mutation UpdatePropaganda($input: UpdatePropaga
   updatePropaganda(input: $input) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -304,9 +304,9 @@ export const updatePropaganda = `mutation UpdatePropaganda($input: UpdatePropaga
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -330,9 +330,9 @@ export const deletePropaganda = `mutation DeletePropaganda($input: DeletePropaga
   deletePropaganda(input: $input) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -346,9 +346,9 @@ export const deletePropaganda = `mutation DeletePropaganda($input: DeletePropaga
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -372,9 +372,9 @@ export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
   createEvent(input: $input) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -388,9 +388,9 @@ export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -414,9 +414,9 @@ export const updateEvent = `mutation UpdateEvent($input: UpdateEventInput!) {
   updateEvent(input: $input) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -430,9 +430,9 @@ export const updateEvent = `mutation UpdateEvent($input: UpdateEventInput!) {
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -456,9 +456,9 @@ export const deleteEvent = `mutation DeleteEvent($input: DeleteEventInput!) {
   deleteEvent(input: $input) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -472,9 +472,9 @@ export const deleteEvent = `mutation DeleteEvent($input: DeleteEventInput!) {
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -498,9 +498,9 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
   createAnnouncement(input: $input) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -514,9 +514,9 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -541,9 +541,9 @@ export const createResource = `mutation CreateResource($input: CreateResourceInp
     id
     name
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -563,9 +563,9 @@ export const updateResource = `mutation UpdateResource($input: UpdateResourceInp
     id
     name
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -585,9 +585,9 @@ export const deleteResource = `mutation DeleteResource($input: DeleteResourceInp
     id
     name
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org

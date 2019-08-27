@@ -6,9 +6,9 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
     ... on Announcement {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -22,9 +22,9 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         id
         name
         author {
+          id
           cognitoId
           cognitoGroup
-          id
           username
           registered
           org
@@ -45,9 +45,9 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
     ... on Event {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -61,9 +61,9 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         id
         name
         author {
+          id
           cognitoId
           cognitoGroup
-          id
           username
           registered
           org
@@ -86,9 +86,9 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
 `;
 export const me = `query Me {
   me {
+    id
     cognitoId
     cognitoGroup
-    id
     username
     registered
     org
@@ -167,9 +167,9 @@ export const getMessage = `query GetMessage(
     createdAt: $createdAt
   ) {
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -184,9 +184,9 @@ export const getMessage = `query GetMessage(
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -222,9 +222,9 @@ export const listMessage = `query ListMessage(
   ) {
     items {
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -252,9 +252,9 @@ export const getMessageConnection = `query GetMessageConnection($id: ID!) {
   getMessageConnection(id: $id) {
     messages {
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -379,6 +379,19 @@ export const listCategory = `query ListCategory(
   }
 }
 `;
+export const getUser = `query GetUser($cognitoId: ID!) {
+  getUser(cognitoId: $cognitoId) {
+    id
+    cognitoId
+    cognitoGroup
+    username
+    registered
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
 export const listUser = `query ListUser(
   $cognitoId: ID
   $filter: ModelUserFilterInput
@@ -392,9 +405,9 @@ export const listUser = `query ListUser(
     nextToken: $nextToken
   ) {
     items {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -409,9 +422,9 @@ export const getPropaganda = `query GetPropaganda($region: String!, $category: S
   getPropaganda(region: $region, category: $category, title: $title) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -425,9 +438,9 @@ export const getPropaganda = `query GetPropaganda($region: String!, $category: S
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -464,9 +477,9 @@ export const listPropaganda = `query ListPropaganda(
     items {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -493,9 +506,9 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
   getEvent(region: $region, category: $category, title: $title) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -509,9 +522,9 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -548,9 +561,9 @@ export const listEvent = `query ListEvent(
     items {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -577,9 +590,9 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
   getAnnouncement(region: $region, category: $category, title: $title) {
     id
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -593,9 +606,9 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -632,9 +645,9 @@ export const listAnnouncement = `query ListAnnouncement(
     items {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -662,9 +675,9 @@ export const getResource = `query GetResource($id: ID!) {
     id
     name
     author {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -689,9 +702,9 @@ export const listResources = `query ListResources(
       id
       name
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -723,9 +736,9 @@ export const listUsersByOrg = `query ListUsersByOrg(
     nextToken: $nextToken
   ) {
     items {
+      id
       cognitoId
       cognitoGroup
-      id
       username
       registered
       org
@@ -753,9 +766,9 @@ export const listPropagandaByOrg = `query ListPropagandaByOrg(
     items {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -795,9 +808,9 @@ export const listEventByOrg = `query ListEventByOrg(
     items {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org
@@ -837,9 +850,9 @@ export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
     items {
       id
       author {
+        id
         cognitoId
         cognitoGroup
-        id
         username
         registered
         org

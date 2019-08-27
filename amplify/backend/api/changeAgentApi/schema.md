@@ -2,5 +2,7 @@
 
 Optionally break up your schema into many files. You must remove schema.graphql to use this.
 
-- Query.graphql
-- Post.graphql
+- Convos.graphql -> chat related types
+- Dependencies.graphql -> general common types
+- Events.graphql -> notifications related types
+- Storage.graphql -> S3 storage related types

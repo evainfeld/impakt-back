@@ -9,7 +9,7 @@ type Resource
   {
   id: ID!
   name: String
-  author: User!
+  author: User! @connection(keyField: "cognitoId")
 
   # Reference the S3Object type from a field.
   file: S3Object
