@@ -1,6 +1,5 @@
 {
   "rules": [
-      "defined-types-are-used",
       "enum-values-all-caps",
       "enum-values-sorted-alphabetically",
       "fields-are-camel-cased",

@@ -283,3 +283,22 @@ changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production
 ``` console
 CREATE_FAILED      LambdaExecutionRole                                                                                  AWS::IAM::Role             Tue Aug 27 2019 12:30:39 GMT+0200 (Central European Summer Time) 1 validation error detected: Value 'changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production' at 'roleName' failed to satisfy constraint: Member must have length less than or equal to 64 (Service: AmazonIdentityManagement; Status Code: 400; Error Code: ValidationError; Request ID: b68e1005-c8b5-11e9-802b-b9c99487764f)
 ```
+
+__2__:
+
+GSI Key name has to be uppercase allways:
+
+``` graphql
+@key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg" )
+```
+
+Otherwise schema is wrong.
+
+__3__:
+
+Some model types are always created even if not used.
+
+``` console
+input ModelIntFilterInput
+input ModelFloatFilterInput
+```
