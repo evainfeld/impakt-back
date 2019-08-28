@@ -14,7 +14,6 @@ import { BehaviorSubject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent {
-
   public sms = new FormControl('');
 
   private busy_ = new BehaviorSubject(false);
@@ -23,7 +22,7 @@ export class SignInComponent {
   private errorMessage_ = new BehaviorSubject('');
   public errorMessage = this.errorMessage_.asObservable();
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) {}
 
   public async signIn() {
     this.busy_.next(true);

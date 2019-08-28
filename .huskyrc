@@ -1,5 +1,5 @@
 {
   "hooks": {
-    "pre-commit": "npm run lint:graqphql && npm test"
+    "pre-commit": "pretty-quick --staged && npm run lint:graqphql && npm run lint:js && npm test"
   }
 }

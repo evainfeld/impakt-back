@@ -4,25 +4,34 @@
 -->
 
 <mat-card fxFlex="1 1 auto" ngClass="app-card">
-
   <mat-card-header>
     <mat-icon mat-card-avatar>lock</mat-icon>
     <mat-card-title>Please Sign In</mat-card-title>
-    <mat-card-subtitle>Enter your phone number you registered with and we'll send you a one-time secret sign-in code via SMS. Your phone # is your username.</mat-card-subtitle>
+    <mat-card-subtitle
+      >Enter your phone number you registered with and we'll send you a one-time secret sign-in code
+      via SMS. Your phone # is your username.</mat-card-subtitle
+    >
   </mat-card-header>
 
   <mat-card-content>
     <form fxLayout="column">
       <mat-form-field>
-        <input matInput placeholder="Phone Number" [formControl]="sms" type="sms" sms name="sms"
-          autocomplete="username sms" />
+        <input
+          matInput
+          placeholder="Phone Number"
+          [formControl]="sms"
+          type="sms"
+          sms
+          name="sms"
+          autocomplete="username sms"
+        />
       </mat-form-field>
     </form>
   </mat-card-content>
 
   <mat-card-actions>
     <div fxFlex></div>
-    <button mat-stroked-button color="primary" (click)="signIn()" [disabled]="(busy | async)">
+    <button mat-stroked-button color="primary" (click)="signIn()" [disabled]="busy | async">
       <div fxFlex></div>
       <div *ngIf="!(busy | async)">SEND SIGN-IN CODE</div>
       <mat-spinner *ngIf="busy | async" [diameter]="35"></mat-spinner>
@@ -35,7 +44,6 @@
 
   <mat-card-content>
     <div fxFlex></div>
-    <p>Not registered yet? <a routerLink='/sign-up' routerLinkActive="active">Sign up</a></p>
+    <p>Not registered yet? <a routerLink="/sign-up" routerLinkActive="active">Sign up</a></p>
   </mat-card-content>
-
 </mat-card>

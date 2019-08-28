@@ -5,19 +5,30 @@
   "main": "index.js",
   "scripts": {
     "lint:graqphql": "amplify api gql-compile; node_modules/.bin/graphql-schema-linter amplify/backend/api/changeAgentApi/build/schema.graphql __tools__/appsync/aws_appsync.graphql",
+    "lint:js": "./node_modules/.bin/eslint .",
     "test": "jest --verbose --coverage --passWithNoTests"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-appsync": "^1.8.1",
-    "aws-sdk": "^2.518.0",
-    "ws": "^7.1.2"
+    "acorn": "7.0.0",
+    "aws-appsync": "1.8.1",
+    "aws-sdk": "2.518.0",
+    "graphql": "14.5.3",
+    "graphql-tag-pluck": "0.8.4",
+    "ws": "7.1.2"
   },
   "devDependencies": {
-    "@graphql-inspector/cli": "^1.23.1",
-    "graphql-schema-linter": "^0.2.1",
+    "@graphql-inspector/cli": "1.23.1",
+    "eslint": "6.2.2",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-prettier": "6.1.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jest": "22.15.2",
+    "graphql-schema-linter": "0.2.1",
     "husky": "^3.0.4",
-    "jest": "^24.9.0"
+    "jest": "24.9.0",
+    "prettier": "1.18.2",
+    "pretty-quick": "^1.11.1"
   }
 }

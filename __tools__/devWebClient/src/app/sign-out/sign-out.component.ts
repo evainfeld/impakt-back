@@ -12,12 +12,10 @@ import { AuthService } from '../auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignOutComponent implements AfterViewInit {
-
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {}
 
   async ngAfterViewInit() {
     await this.auth.signOut();
     this.router.navigate(['/sign-in']);
   }
-
 }

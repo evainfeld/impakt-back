@@ -6,11 +6,10 @@ import { CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IsAuthenticated implements CanActivate {
-
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {}
 
   async canActivate(): Promise<boolean> {
     if (await this.auth.isAuthenticated()) {
@@ -22,14 +21,13 @@ export class IsAuthenticated implements CanActivate {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IsNotAuthenticated implements CanActivate {
-
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {}
 
   async canActivate(): Promise<boolean> {
-    if (!await this.auth.isAuthenticated()) {
+    if (!(await this.auth.isAuthenticated())) {
       return true;
     }
     this.router.navigate(['/private']);

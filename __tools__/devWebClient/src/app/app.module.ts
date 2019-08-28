@@ -42,7 +42,7 @@ const MAT_MODULES = [
     PrivateComponent,
     AnswerChallengeComponent,
     SignOutComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +54,6 @@ const MAT_MODULES = [
     ...MAT_MODULES,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

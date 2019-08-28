@@ -1,19 +1,20 @@
-
 enum ConversationType {
   EVENT
   REGION
 }
 
-type Conversation 
-@model( queries: { get: "getConversation", list: "listConversation" }, mutations: {create: "createConversation", update: null, delete: "deleteConversation"})
-@key(fields: ["region", "type", "name"]) 
-{
-	#  A unique identifier for the Conversation.
-	id: ID!
-	#  The Conversation's messages.
-	messages(after: String, first: Int): MessageConnection
-	#  The Conversation's name. 
-	name: String!
+type Conversation
+  @model(
+    queries: { get: "getConversation", list: "listConversation" }
+    mutations: { create: "createConversation", update: null, delete: "deleteConversation" }
+  )
+  @key(fields: ["region", "type", "name"]) {
+  #  A unique identifier for the Conversation.
+  id: ID!
+  #  The Conversation's messages.
+  messages(after: String, first: Int): MessageConnection
+  #  The Conversation's name.
+  name: String!
   type: ConversationType!
   region: String!
   org: String!
@@ -22,31 +23,31 @@ type Conversation
   updatedAt: AWSDateTime
 }
 
-type Message 
-@model( queries: { get: "getMessage", list: "listMessage" }, mutations: {create: "createMessage", update: null, delete: null})
-@key(fields: ["region", "conversationId", "createdAt"]) 
-{
-    #  The author object. Note: `authorId` is only available because we list it in `extraAttributes` in `Conversation.messages`
-    author: User! @connection(keyField: "cognitoId")
-    #  The message content.
-    content: String!
-    #  The id of the Conversation this message belongs to. This is the table primary key.
-    conversationId: ID!
-    #  Generated id for a message -- read-only
-    id: ID!
-    #  Flag denoting if this message has been accepted by the server or not.
-    isSent: Boolean
-    resources: [Resource]
-    region: String!
-    org: String!
-    #### autogen
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime
+type Message
+  @model(
+    queries: { get: "getMessage", list: "listMessage" }
+    mutations: { create: "createMessage", update: null, delete: null }
+  )
+  @key(fields: ["region", "conversationId", "createdAt"]) {
+  #  The author object. Note: `authorId` is only available because we list it in `extraAttributes` in `Conversation.messages`
+  author: User! @connection(keyField: "cognitoId")
+  #  The message content.
+  content: String!
+  #  The id of the Conversation this message belongs to. This is the table primary key.
+  conversationId: ID!
+  #  Generated id for a message -- read-only
+  id: ID!
+  #  Flag denoting if this message has been accepted by the server or not.
+  isSent: Boolean
+  resources: [Resource]
+  region: String!
+  org: String!
+  #### autogen
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
 }
 
-type MessageConnection 
-@model 
-{
-	messages: [Message]
-	nextToken: String
+type MessageConnection @model {
+  messages: [Message]
+  nextToken: String
 }

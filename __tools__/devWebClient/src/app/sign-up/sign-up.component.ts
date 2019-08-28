@@ -14,7 +14,6 @@ import { BehaviorSubject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent {
-
   sms = new FormControl('');
 
   private busy_ = new BehaviorSubject(false);
@@ -23,17 +22,17 @@ export class SignUpComponent {
   private errorMessage_ = new BehaviorSubject('');
   public errorMessage = this.errorMessage_.asObservable();
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) {}
 
   public async signup() {
     this.errorMessage_.next('');
     this.busy_.next(true);
     try {
-      console.log("1");
+      console.log('1');
       await this.auth.signUp(this.sms.value);
-      console.log("2");
+      console.log('2');
       await this.auth.signIn(this.sms.value);
-      console.log("3");
+      console.log('3');
       this.router.navigate(['/enter-secret-code']);
     } catch (err) {
       console.log(err);

@@ -18,8 +18,9 @@ Amplify.configure({
     region: environment.region,
     userPoolId: environment.userPoolId,
     userPoolWebClientId: environment.userPoolWebClientId,
-  }
+  },
 });
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
   .catch(err => console.error(err));

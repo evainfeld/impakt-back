@@ -41,22 +41,22 @@ As long as, API is "protected" using API KEY remember to add `x-api-key` param t
 
 ### PROD - associated with master branch
 
-``` txt
+```txt
 GraphQL endpoint: https://mz7qtaidlneyhja4wc3cpki26m.appsync-api.eu-west-1.amazonaws.com/graphql
 
 ```
 
 ### DEV - associated with develop branch
 
-``` txt
+```txt
 GraphQL endpoint: https://jut2mouyk5fylif4rsfna5s6hm.appsync-api.eu-west-1.amazonaws.com/graphql
 UserPoolId: eu-west-1_M5v6C3Abw
 UserPoolClientID: jasm7515ka6crb2pgkrj7n4la
 ```
 
-__NOTE__ Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
+**NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
 
-__Obtaining JWT Token__ To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:
+**Obtaining JWT Token** To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:
 
 - go to `devWebClient`
 - edit `src/environments/environment.ts` with UserPoolId and UserPoolClientID
@@ -80,11 +80,11 @@ __Obtaining JWT Token__ To call any Graphql you need to provide valid JWT Access
 
 ### Graphql queries
 
-__listCategory__:
+**listCategory**:
 
 schema:
 
-``` grqphql
+```grqphql
 listCategory(org: String, regionName: ModelCategoryPrimaryCompositeKeyConditionInput, filter: ModelCategoryFilterInput, limit: Int, nextToken: String): ModelCategoryConnection
 ```
 
@@ -97,8 +97,8 @@ parametes to look for all Categiories within region created after some date:
     "beginsWith": {
       "category": "Prawo",
       "title": ""
-      }
-    },
+    }
+  },
   "filter": {
     "createdAt": {
       "gt": "YYYY-MM-DDThh:mm:ss.sssZ"
@@ -109,7 +109,7 @@ parametes to look for all Categiories within region created after some date:
 }
 ```
 
-__note_: Category might change due to not optimal Key schema. However it'd still might be used as reference, becouse it follows general convention.
+\__note_: Category might change due to not optimal Key schema. However it'd still might be used as reference, becouse it follows general convention.
 
 ## Components
 
@@ -134,7 +134,7 @@ Team-member can work on their own sandbox environment and then merge changes to 
 We have two independent environments (master & dev) in the cloud and have corresponding git branches with our amplify backend infrastructure code on Git.
 Suppose a team member wants to work on the same Amplify project, add some features to it and then push changes to the dev environment to test some changes. They would perform the following steps:
 
-``` bash
+```bash
 $ git checkout -b mysandbox |or| git-flow feature start mysandbox
 $ amplify init
 ? Do you want to use an existing environment? No
@@ -147,9 +147,9 @@ $ git push -u origin mysandbox
 
 Next, suppose the team-member wants to move these changes to dev and master environments/branches:
 
-__Note__: this is an example. Merging to develop is recommended to be done throughout PR.
+**Note**: this is an example. Merging to develop is recommended to be done throughout PR.
 
-``` bash
+```bash
 $ git checkout develop
 $ amplify init
 ? Do you want to use an existing environment? true
@@ -163,9 +163,9 @@ $ git push -u origin dev
 
 After testing that everything works fine in the dev stage, you could now merge dev to the master git branch:
 
-__Note__: this is an example. Merging to master is only possible throughout PR.
+**Note**: this is an example. Merging to master is only possible throughout PR.
 
-``` bash
+```bash
 $ git checkout master
 $ amplify init
 ? Do you want to use an existing environment? true
@@ -177,11 +177,11 @@ $ amplify push
 $ git push -u origin master
 ```
 
-__IMPORTANT__: remember to update Graphql operations using `amplify codegen` after each schema change.
+**IMPORTANT**: remember to update Graphql operations using `amplify codegen` after each schema change.
 
 ### Switching between envs
 
-``` bash
+```bash
 // delete
 amplify env remove apifeature
 // create
@@ -212,16 +212,13 @@ Remeber to change Runtime in `*-cloudformation-template.json` to version 10 ex. 
 
 If there is a need to call another AWS service, it's crutial to add Lambda function aprioprate privilidge in `*-cloudformation-template.json` file. Like:
 
-``` json
+```json
 {
-"PolicyDocument": {
+  "PolicyDocument": {
     "Effect": "Allow",
-    "Action": [
-        "mobiletargeting:*~",
-        "sns:*"
-        ],
+    "Action": ["mobiletargeting:*~", "sns:*"],
     "Resource": "*"
-    }
+  }
 }
 ```
 
@@ -229,7 +226,7 @@ If you wan't to edit name of `custom.js` file remember to edit `package.json` an
 
 Env variables can be also passed using Amplify env defining file `team-provider-info.json`
 
-__NOTE__: `pre-signup` trigger is the best place to add some blacklist for users.
+**NOTE**: `pre-signup` trigger is the best place to add some blacklist for users.
 
 What is important, calling `amplify auth update` may override some of your configuration or add useless files to your previously written triggers. Look carefully to you current GIT status. To revert changes to current cloud configuration call `amplify env pull --restore`
 
@@ -237,14 +234,14 @@ What is important, calling `amplify auth update` may override some of your confi
 
 When using custom Cognito auth procedure it's important to take a look on `UserPoolClient`. By default Amplify creates two of them: `UserPoolClient`, `UserPoolClientWeb` in `change-agent/amplify/backend/auth/**/*-cloudformation-template.yml`. First of them needs to stay as generated bcouse it's required for connecting to S3 buckets used by Amplify. However second is completely editable including name. What is important is to add two lines into CloudFormation:
 
-``` yaml
-  UserPoolClientWeb:
-    Properties:
-      #otherwise Client has it's own secret key that overrides those generated in custom flow
-      GenerateSecret: false
-      #we're supporting only custom flow using Lambda triggers
-      ExplicitAuthFlows:
-        - CUSTOM_AUTH_FLOW_ONLY
+```yaml
+UserPoolClientWeb:
+  Properties:
+    #otherwise Client has it's own secret key that overrides those generated in custom flow
+    GenerateSecret: false
+    #we're supporting only custom flow using Lambda triggers
+    ExplicitAuthFlows:
+      - CUSTOM_AUTH_FLOW_ONLY
 ```
 
 Sample app for obtaining tokens from dev envs is available in `devWebClient/angular`. It has separate readme available there.
@@ -259,7 +256,7 @@ From root dir:
 - `amplify publish`
 - `grep aws_user_pools_id src/aws-exports.js`
 - `./backend/template.sh`
-- `aws cloudformation create-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=<aws_user_pools_id> --capabilities CAPABILITY_IAM --region <region> --profile <profile_name>` ex. `aws cloudformation update-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=eu-central-1_am477BG4a --capabilities CAPABILITY_IAM --region eu-central-1  --profile change-agent`
+- `aws cloudformation create-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=<aws_user_pools_id> --capabilities CAPABILITY_IAM --region <region> --profile <profile_name>` ex. `aws cloudformation update-stack --stack-name changeAgent --template-body file://backend/deploy-cfn.yml --parameters ParameterKey=userPoolId,ParameterValue=eu-central-1_am477BG4a --capabilities CAPABILITY_IAM --region eu-central-1 --profile change-agent`
 - `aws cloudformation describe-stacks --stack-name changeAgent --query Stacks[0].Outputs --region eu-central-1 --profile change-agent`
 - `aws cloudformation delete-stack --stack-name changeAgent --region eu-central-1 --profile change-agent`
 
@@ -272,33 +269,33 @@ AppSync supports only one table per one model design. According to AWS it's far 
 
 ## Amplify bugs
 
-__1__:
+**1**:
 
 Auto generated trigger function name with env name fails to fit into LambdaExecutionRole name limit of 64.
 
 changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production
 
-| auto gne stack name      | trigger name             |-| env    |
+| auto gne stack name | trigger name |-| env |
 
-``` console
+```console
 CREATE_FAILED      LambdaExecutionRole                                                                                  AWS::IAM::Role             Tue Aug 27 2019 12:30:39 GMT+0200 (Central European Summer Time) 1 validation error detected: Value 'changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production' at 'roleName' failed to satisfy constraint: Member must have length less than or equal to 64 (Service: AmazonIdentityManagement; Status Code: 400; Error Code: ValidationError; Request ID: b68e1005-c8b5-11e9-802b-b9c99487764f)
 ```
 
-__2__:
+**2**:
 
 GSI Key name has to be uppercase allways:
 
-``` graphql
+```graphql
 @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg" )
 ```
 
 Otherwise schema is wrong.
 
-__3__:
+**3**:
 
 Some model types are always created even if not used.
 
-``` console
+```console
 input ModelIntFilterInput
 input ModelFloatFilterInput
 ```

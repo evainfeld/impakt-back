@@ -7,10 +7,9 @@ import { Auth } from 'aws-amplify';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private cognitoUser: CognitoUser & { challengeParam: { sms: string } };
 
   // Get access to window object in the Angular way
@@ -41,8 +40,8 @@ export class AuthService {
       username: sms,
       password: this.getRandomString(30),
       attributes: {
-        phone_number: sms
-      }
+        phone_number: sms,
+      },
     };
     await Auth.signUp(params);
   }
@@ -50,7 +49,9 @@ export class AuthService {
   private getRandomString(bytes: number) {
     const randomValues = new Uint8Array(bytes);
     this.window.crypto.getRandomValues(randomValues);
-    return Array.from(randomValues).map(this.intToHex).join('');
+    return Array.from(randomValues)
+      .map(this.intToHex)
+      .join('');
   }
 
   private intToHex(nr: number) {
@@ -74,8 +75,6 @@ export class AuthService {
   }
 
   public async getSessionDetails() {
- 
     return await Auth.currentSession();
   }
-
 }

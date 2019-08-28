@@ -132,6 +132,7 @@ export const listConversation = `query ListConversation(
   $filter: ModelConversationFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listConversation(
     region: $region
@@ -139,6 +140,7 @@ export const listConversation = `query ListConversation(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -212,6 +214,7 @@ export const listMessage = `query ListMessage(
   $filter: ModelMessageFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listMessage(
     region: $region
@@ -219,6 +222,7 @@ export const listMessage = `query ListMessage(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       author {
@@ -322,6 +326,7 @@ export const listLocation = `query ListLocation(
   $filter: ModelLocationFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listLocation(
     org: $org
@@ -329,6 +334,7 @@ export const listLocation = `query ListLocation(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -359,6 +365,7 @@ export const listCategory = `query ListCategory(
   $filter: ModelCategoryFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listCategory(
     org: $org
@@ -366,6 +373,7 @@ export const listCategory = `query ListCategory(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -397,12 +405,14 @@ export const listUser = `query ListUser(
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listUser(
     cognitoId: $cognitoId
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       cognitoId
@@ -466,6 +476,7 @@ export const listPropaganda = `query ListPropaganda(
   $filter: ModelPropagandaFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listPropaganda(
     region: $region
@@ -473,6 +484,7 @@ export const listPropaganda = `query ListPropaganda(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -550,6 +562,7 @@ export const listEvent = `query ListEvent(
   $filter: ModelEventFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listEvent(
     region: $region
@@ -557,6 +570,7 @@ export const listEvent = `query ListEvent(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -634,6 +648,7 @@ export const listAnnouncement = `query ListAnnouncement(
   $filter: ModelAnnouncementFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
   listAnnouncement(
     region: $region
@@ -641,6 +656,7 @@ export const listAnnouncement = `query ListAnnouncement(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -724,6 +740,7 @@ export const listResources = `query ListResources(
 export const listUsersByOrg = `query ListUsersByOrg(
   $org: String
   $username: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
@@ -731,6 +748,7 @@ export const listUsersByOrg = `query ListUsersByOrg(
   listUsersByOrg(
     org: $org
     username: $username
+    sortDirection: $sortDirection
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -751,7 +769,8 @@ export const listUsersByOrg = `query ListUsersByOrg(
 `;
 export const listPropagandaByOrg = `query ListPropagandaByOrg(
   $org: String
-  $categoryTitle: ModelPropagandaorgCompositeKeyConditionInput
+  $categoryTitle: ModelPropagandaOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
   $filter: ModelPropagandaFilterInput
   $limit: Int
   $nextToken: String
@@ -759,6 +778,7 @@ export const listPropagandaByOrg = `query ListPropagandaByOrg(
   listPropagandaByOrg(
     org: $org
     categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -793,7 +813,8 @@ export const listPropagandaByOrg = `query ListPropagandaByOrg(
 `;
 export const listEventByOrg = `query ListEventByOrg(
   $org: String
-  $categoryTitle: ModelEventorgCompositeKeyConditionInput
+  $categoryTitle: ModelEventOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
   $filter: ModelEventFilterInput
   $limit: Int
   $nextToken: String
@@ -801,6 +822,7 @@ export const listEventByOrg = `query ListEventByOrg(
   listEventByOrg(
     org: $org
     categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -835,7 +857,8 @@ export const listEventByOrg = `query ListEventByOrg(
 `;
 export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
   $org: String
-  $categoryTitle: ModelAnnouncementorgCompositeKeyConditionInput
+  $categoryTitle: ModelAnnouncementOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
   $filter: ModelAnnouncementFilterInput
   $limit: Int
   $nextToken: String
@@ -843,6 +866,7 @@ export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
   listAnnouncementByOrg(
     org: $org
     categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
     filter: $filter
     limit: $limit
     nextToken: $nextToken

@@ -16,7 +16,11 @@ import { IsAuthenticated, IsNotAuthenticated } from './auth.guard';
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent, canActivate: [IsNotAuthenticated] },
   { path: 'sign-up', component: SignUpComponent, canActivate: [IsNotAuthenticated] },
-  { path: 'enter-secret-code', component: AnswerChallengeComponent, canActivate: [IsNotAuthenticated] },
+  {
+    path: 'enter-secret-code',
+    component: AnswerChallengeComponent,
+    canActivate: [IsNotAuthenticated],
+  },
   { path: 'sign-out', component: SignOutComponent, canActivate: [IsAuthenticated] },
   { path: 'private', component: PrivateComponent, canActivate: [IsAuthenticated] },
   { path: '', redirectTo: '/private', pathMatch: 'full' },
@@ -25,6 +29,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
