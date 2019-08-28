@@ -13,3 +13,5 @@ dist/
 node_modules/
 aws-exports.js
 awsconfiguration.json
+
+!amplify/backend/api/changeAgentApi/build/*.graphql
