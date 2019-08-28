@@ -14,7 +14,17 @@ async function sendSMSviaSNS(phoneNumber, secretLoginCode) {
     Message: `Change Agent: ${secretLoginCode}`,
     PhoneNumber: phoneNumber,
   };
+  if (typeof process.env.envType !== 'undefined' && process.env.envType === 'dev') {
+    return;
+  }
   await sns.publish(params).promise();
+}
+
+function generateSecret(digits) {
+  if (typeof process.env.envType !== 'undefined' && process.env.envType === 'dev') {
+    return '111111';
+  }
+  return cryptoSecureRandomDigit.randomDigits(digits).join('');
 }
 
 // Main handler
@@ -24,7 +34,7 @@ exports.handler = async event => {
     const phoneNumber = event.request.userAttributes.phone_number;
     // This is a new auth session
     // Generate a new secret login code and text it to the user
-    secretLoginCode = cryptoSecureRandomDigit.randomDigits(6).join('');
+    secretLoginCode = generateSecret(6);
     await sendSMSviaSNS(phoneNumber, secretLoginCode); // use SNS for sending SMS
   } else {
     // There's an existing session. Don't generate new digits but

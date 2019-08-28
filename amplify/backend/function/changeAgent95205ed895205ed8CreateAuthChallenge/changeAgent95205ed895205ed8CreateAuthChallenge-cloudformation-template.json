@@ -2,6 +2,10 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Lambda resource stack creation using Amplify CLI",
   "Parameters": {
+    "envType": {
+      "Type": "String",
+      "Default": ""
+    },
     "resourceName": {
       "Type": "String",
       "Default": ""
@@ -79,6 +83,9 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "envType": {
+              "Ref": "envType"
             }
           }
         },
@@ -89,7 +96,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "change-agent-ref-20190828153335-deployment",
-          "S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-57583773703872394164-build.zip"
+          "S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-504432666e69616c6470-build.zip"
         }
       }
     },
