@@ -57,7 +57,7 @@
         "aws:asset:property": "Code"
       },
       "Properties": {
-        "Handler": "create-auth.handler",
+        "Handler": "handler/create-auth.handler",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
@@ -96,7 +96,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "change-agent-ref-20190828153335-deployment",
-          "S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-504432666e69616c6470-build.zip"
+          "S3Key": "amplify-builds/changeAgent95205ed895205ed8CreateAuthChallenge-396f53304d3451376e73-build.zip"
         }
       }
     },

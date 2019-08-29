@@ -53,7 +53,7 @@
         "aws:asset:property": "Code"
       },
       "Properties": {
-        "Handler": "verify-auth.handler",
+        "Handler": "handler/verify-auth.handler",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
@@ -89,7 +89,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "change-agent-ref-20190828153335-deployment",
-          "S3Key": "amplify-builds/changeAgent95205ed895205ed8VerifyAuthChallengeResponse-3379484454626f556c6d-build.zip"
+          "S3Key": "amplify-builds/changeAgent95205ed895205ed8VerifyAuthChallengeResponse-6e4241784d794c4b4957-build.zip"
         }
       }
     },

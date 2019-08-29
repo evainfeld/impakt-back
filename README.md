@@ -299,3 +299,40 @@ Some model types are always created even if not used.
 input ModelIntFilterInput
 input ModelFloatFilterInput
 ```
+
+**4**:
+
+Functions: package.json has to be in src:
+
+`ENOENT: no such file or directory, stat 'amplify/backend/function/changeAgent95205ed895205ed8CreateAuthChallenge/src/package.json'`
+
+can't have structure like this in repo:
+
+```txt
+changeAgent95205ed895205ed8CreateAuthChallenge
+          - lambda
+            - src
+            - __test__
+            - package.json
+          - config_files
+```
+
+however this in repo:
+
+```txt
+changeAgent95205ed895205ed8CreateAuthChallenge
+          - src
+            - handler
+            - __test__
+            - package.json
+          - config_files
+```
+
+transforms into this on cloud:
+
+```txt
+changeAgent95205ed895205ed8CreateAuthChallenge
+            - handler
+            - __test__
+            - package.json
+```

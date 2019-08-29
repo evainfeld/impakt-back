@@ -1,8 +1,5 @@
-const cryptoSecureRandomDigit = require('crypto-secure-random-digit');
+const cryptoSec = require('crypto-secure-random-digit');
 const AWS = require('aws-sdk');
-
-// Create a new Pinpoint object.
-const sns = new AWS.SNS();
 
 // Get Pinpoint Project ID from environment variable
 // var poinpointProjectID = process.env.PINPOINT_PROJECT_ID;
@@ -17,14 +14,15 @@ async function sendSMSviaSNS(phoneNumber, secretLoginCode) {
   if (typeof process.env.envType !== 'undefined' && process.env.envType === 'dev') {
     return;
   }
-  await sns.publish(params).promise();
+  // Create a new Pinpoint object.
+  await new AWS.SNS().publish(params).promise();
 }
 
 function generateSecret(digits) {
   if (typeof process.env.envType !== 'undefined' && process.env.envType === 'dev') {
     return '111111';
   }
-  return cryptoSecureRandomDigit.randomDigits(digits).join('');
+  return cryptoSec.randomDigits(digits).join('');
 }
 
 // Main handler
