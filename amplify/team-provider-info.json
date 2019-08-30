@@ -27,25 +27,23 @@
       }
     }
   },
-  "develop": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "change-agent-develop-20190820160039-authRole",
-      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190820160039-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-develop-20190820160039-authRole",
+      "AuthRoleName": "change-agent-dev-20190830131128-authRole",
+      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190830131128-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190830131128-authRole",
       "Region": "eu-west-1",
-      "DeploymentBucketName": "change-agent-develop-20190820160039-deployment",
-      "UnauthRoleName": "change-agent-develop-20190820160039-unauthRole",
-      "StackName": "change-agent-develop-20190820160039",
-      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-develop-20190820160039/e4724760-c352-11e9-9230-06e26620325a"
+      "DeploymentBucketName": "change-agent-dev-20190830131128-deployment",
+      "UnauthRoleName": "change-agent-dev-20190830131128-unauthRole",
+      "StackName": "change-agent-dev-20190830131128",
+      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-dev-20190830131128/ea35bc60-cb16-11e9-beb6-06b1980d26e6"
     },
     "categories": {
       "auth": {
         "changeAgent95205ed895205ed8": {}
       },
       "function": {
-        "changeAgent95205ed895205ed8CreateAuthChallenge": {
-          "envType": "dev"
-        },
+        "changeAgent95205ed895205ed8CreateAuthChallenge": {},
         "changeAgent95205ed895205ed8DefineAuthChallenge": {},
         "changeAgent95205ed895205ed8PreSignup": {},
         "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},

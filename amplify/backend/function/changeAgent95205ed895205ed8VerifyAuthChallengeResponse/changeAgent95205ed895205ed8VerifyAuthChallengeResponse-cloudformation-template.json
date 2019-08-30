@@ -88,8 +88,8 @@
         "Runtime": "nodejs10.x",
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "change-agent-ref-20190828153335-deployment",
-          "S3Key": "amplify-builds/changeAgent95205ed895205ed8VerifyAuthChallengeResponse-6e4241784d794c4b4957-build.zip"
+          "S3Bucket": "change-agent-dev-20190830131128-deployment",
+          "S3Key": "amplify-builds/changeAgent95205ed895205ed8VerifyAuthChallengeResponse-7a424b3039674b53426f-build.zip"
         }
       }
     },

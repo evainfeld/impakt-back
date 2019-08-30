@@ -373,3 +373,11 @@ type Query {
 ```
 
 Amplify will fail to declare type `ModelUserConnection` for your `listUsersByOrg` query. You need `queries:` `get:` to be set to different value than `null`.
+
+**8**:
+
+GSI update limit is a crap. After PR from feature branch there're usually many changes in graphql model and autogen CF files. Usually there's a need to recreate env after merging.
+
+**9**:
+
+S3 buckets used during stack deploymnet are not deleted after env deletation.
