@@ -1,0 +1,27 @@
+{
+  "version": "1",
+  "region": "eu-west-1",
+  "userPoolId": "eu-west-1_kPGxP7drL",
+  "userName": "e095981c-a0e6-4ff9-bde4-d212085435ac",
+  "callerContext": {
+    "awsSdkVersion": "aws-sdk-unknown-unknown",
+    "clientId": "7de04ue7pr11i0kj2jcekin7bv"
+  },
+  "triggerSource": "VerifyAuthChallengeResponse_Authentication",
+  "request": {
+    "userAttributes": {
+      "sub": "e095981c-a0e6-4ff9-bde4-d212085435ac",
+      "cognito:user_status": "CONFIRMED",
+      "phone_number_verified": "true",
+      "cognito:phone_number_alias": "+66606606606",
+      "phone_number": "+66606606606"
+    },
+    "privateChallengeParameters": {
+      "secretLoginCode": "111111"
+    },
+    "challengeAnswer": "222222"
+  },
+  "response": {
+    "answerCorrect": false
+  }
+}

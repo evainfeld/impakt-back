@@ -1,17 +1,15 @@
 {
-    "projectName": "change-agent",
-    "version": "2.0",
-    "frontend": "javascript",
-    "javascript": {
-        "framework": "react-native",
-        "config": {
-            "SourceDir": "src",
-            "DistributionDir": "dst",
-            "BuildCommand": "npm run-script build",
-            "StartCommand": "npm run-script start"
-        }
-    },
-    "providers": [
-        "awscloudformation"
-    ]
+  "projectName": "change-agent",
+  "version": "2.0",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react-native",
+    "config": {
+      "SourceDir": "app",
+      "DistributionDir": "dst",
+      "BuildCommand": "npm run-script build",
+      "StartCommand": "npm run-script start"
+    }
+  },
+  "providers": ["awscloudformation"]
 }

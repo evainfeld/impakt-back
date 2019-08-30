@@ -1,13 +1,19 @@
-type Propaganda 
-  @model( queries: { get: "getPropaganda", list: "listPropaganda" }, mutations: {create: "createPropaganda", update: "updatePropaganda", delete: "deletePropaganda"})
+type Propaganda
+  @model(
+    queries: { get: "getPropaganda", list: "listPropaganda" }
+    mutations: {
+      create: "createPropaganda"
+      update: "updatePropaganda"
+      delete: "deletePropaganda"
+    }
+  )
   @key(fields: ["region", "category", "title"])
-  @key(name: "org", fields: ["org", "category", "title"], queryField: "listPropagandaByOrg" )
+  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listPropagandaByOrg") {
   #@auth(
   #  rules: [
   #    {allow: owner, ownerField: "cognitoId", identityField: "cognito:sub" , operations: [create, update, delete, read]},
   #  ])
   # more:  https://github.com/aws-amplify/amplify-cli/issues/1277
-{
   id: ID
   author: User! @connection(keyField: "cognitoId")
   category: String!
@@ -22,12 +28,13 @@ type Propaganda
   updatedAt: AWSDateTime
 }
 
-
 type Event
-  @model( queries: { get: "getEvent", list: "listEvent" }, mutations: {create: "createEvent", update: "updateEvent", delete: "deleteEvent"})
+  @model(
+    queries: { get: "getEvent", list: "listEvent" }
+    mutations: { create: "createEvent", update: "updateEvent", delete: "deleteEvent" }
+  )
   @key(fields: ["region", "category", "title"])
-  @key(name: "org", fields: ["org", "category", "title"], queryField: "listEventByOrg" )
-{
+  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg") {
   id: ID
   author: User! @connection(keyField: "cognitoId")
   category: String!
@@ -43,10 +50,12 @@ type Event
 }
 
 type Announcement
-  @model( queries: { get: "getAnnouncement", list: "listAnnouncement" }, mutations: {create: "createAnnouncement", update: null, delete: null})
+  @model(
+    queries: { get: "getAnnouncement", list: "listAnnouncement" }
+    mutations: { create: "createAnnouncement", update: null, delete: null }
+  )
   @key(fields: ["region", "category", "title"])
-  @key(name: "org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg" )
-{
+  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg") {
   id: ID
   author: User! @connection(keyField: "cognitoId")
   category: String!
@@ -64,7 +73,7 @@ type Announcement
 #for "aktualnosci page"
 union Important = Announcement | Event
 type Query {
-    listAllImportantNotifications(region: String!): [Important]
-    #  Get my user.
-	  me: User
+  listAllImportantNotifications(region: String!): [Important]
+  #  Get my user.
+  me: User
 }
