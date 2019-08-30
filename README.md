@@ -306,6 +306,27 @@ Functions: package.json has to be in src:
 
 `ENOENT: no such file or directory, stat 'amplify/backend/function/changeAgent95205ed895205ed8CreateAuthChallenge/src/package.json'`
 
+basically whole lambda filestructure is hardcoded in `amplify-cli/packages/amplify-category-function/provider-utils/awscloudformation/index.js`:
+
+```js
+      {
+        dir: pluginDir,
+        template: triggerIndexPath,
+        target: `${targetDir}/${category}/${options.resourceName}/src/index.js`,
+        paramsFile: `${targetDir}/${category}/${options.resourceName}/parameters.json`,
+      },
+      {
+        dir: pluginDir,
+        template: triggerEventPath,
+        target: `${targetDir}/${category}/${options.resourceName}/src/event.json`,
+      },
+      {
+        dir: pluginDir,
+        template: triggerPackagePath,
+        target: `${targetDir}/${category}/${options.resourceName}/src/package.json`,
+      }
+```
+
 can't have structure like this in repo:
 
 ```txt
