@@ -380,4 +380,4 @@ GSI update limit is a crap. After PR from feature branch there're usually many c
 
 **9**:
 
-S3 buckets used during stack deploymnet are not deleted after env deletation.
+S3 buckets used during stack deploymnet are not deleted after env deletation. If you want to recreate env called ex `develop` you need to manually remove each S3 with `develop` suffix and prefix. Otherwise `amplify env add` will fail.
