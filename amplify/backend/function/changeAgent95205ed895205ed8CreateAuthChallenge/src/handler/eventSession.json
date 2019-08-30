@@ -17,7 +17,13 @@
       "phone_number": "+66606606606"
     },
     "challengeName": "CUSTOM_CHALLENGE",
-    "session": []
+    "session": [
+      {
+        "challengeName": "CUSTOM_CHALLENGE",
+        "challengeResult": false,
+        "challengeMetadata": "CODE-123456"
+      }
+    ]
   },
   "response": {}
 }

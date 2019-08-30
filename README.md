@@ -336,3 +336,40 @@ changeAgent95205ed895205ed8CreateAuthChallenge
             - __test__
             - package.json
 ```
+
+**5**:
+
+Carefully look into #current-cloud-backend. Sometimes during push copy of `auth` is generated, but not deployed.
+As a result `amplify env pull --restore` may create some duplicated inputs in your source tree.
+
+**6**:
+
+`amplify update auth` -> walkthough. Even if you skipp update of Lambda triggers some js files might be generated based on json config files.
+Amplify strongly urge user to use it's naming convension. Please note that if you made some custom changes in `amplify/backend/auth/*/*-cloudformation-template.yml`
+they'll be overwritten.
+
+**7**:
+
+If you put following into your aws graphql:
+
+```graphql
+#getUser is called "me" and works withouth params. Just using context
+type User
+  @model(
+    queries: { get: null, list: null }
+    mutations: { create: "createUser", update: "updateUser", delete: null }
+  )
+  @key(fields: ["cognitoId"])
+  @key(name: "org", fields: ["org", "username"], queryField: "listUsersByOrg") {
+  #  A unique identifier for the user. cognito:sub
+  cognitoId: ID!
+  #  A unique identifier for the user. cognito:group
+  cognitoGroup: String!
+}
+
+type Query {
+  me: User
+}
+```
+
+Amplify will fail to declare type `ModelUserConnection` for your `listUsersByOrg` query. You need `queries:` `get:` to be set to different value than `null`.

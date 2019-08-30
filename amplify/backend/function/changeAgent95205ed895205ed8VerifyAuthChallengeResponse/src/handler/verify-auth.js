@@ -6,5 +6,5 @@ exports.handler = async event => {
   } else {
     eventResponse.response.answerCorrect = false;
   }
-  return event;
+  return eventResponse;
 };

@@ -16,7 +16,23 @@
       "cognito:phone_number_alias": "+66606606606",
       "phone_number": "+66606606606"
     },
-    "session": []
+    "session": [
+      {
+        "challengeName": "CUSTOM_CHALLENGE",
+        "challengeResult": false,
+        "challengeMetadata": "CODE-111111"
+      },
+      {
+        "challengeName": "CUSTOM_CHALLENGE",
+        "challengeResult": false,
+        "challengeMetadata": "CODE-111111"
+      },
+      {
+        "challengeName": "CUSTOM_CHALLENGE",
+        "challengeResult": false,
+        "challengeMetadata": "CODE-111111"
+      }
+    ]
   },
   "response": {}
 }

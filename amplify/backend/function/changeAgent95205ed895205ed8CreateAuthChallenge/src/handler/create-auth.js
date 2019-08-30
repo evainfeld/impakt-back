@@ -6,34 +6,31 @@ const AWS = require('aws-sdk');
 
 // Send secret code over SMS via Amazon Simple Notification Service (SNS)
 // Requirements: Permission for this function to publish to SNS
-async function sendSMSviaSNS(phoneNumber, secretLoginCode) {
+async function sendSMSviaSNS(phoneNumber, secretLoginCode, isDev) {
+  if (isDev) return;
   const params = {
     Message: `Change Agent: ${secretLoginCode}`,
     PhoneNumber: phoneNumber,
   };
-  if (typeof process.env.envType !== 'undefined' && process.env.envType === 'dev') {
-    return;
-  }
   // Create a new Pinpoint object.
   await new AWS.SNS().publish(params).promise();
 }
 
-function generateSecret(digits) {
-  if (typeof process.env.envType !== 'undefined' && process.env.envType === 'dev') {
-    return '111111';
-  }
-  return cryptoSec.randomDigits(digits).join('');
+function generateSecret(digits, isDev) {
+  return isDev ? '111111' : cryptoSec.randomDigits(digits).join('');
 }
 
 // Main handler
 exports.handler = async event => {
   let secretLoginCode;
+  const isDev = typeof process.env.envType !== 'undefined' && process.env.envType === 'dev';
+
   if (!event.request.session || !event.request.session.length) {
     const phoneNumber = event.request.userAttributes.phone_number;
     // This is a new auth session
     // Generate a new secret login code and text it to the user
-    secretLoginCode = generateSecret(6);
-    await sendSMSviaSNS(phoneNumber, secretLoginCode); // use SNS for sending SMS
+    secretLoginCode = generateSecret(6, isDev);
+    await sendSMSviaSNS(phoneNumber, secretLoginCode, isDev); // use SNS for sending SMS
   } else {
     // There's an existing session. Don't generate new digits but
     // re-use the code from the current session. This allows the user to
