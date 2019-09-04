@@ -43,12 +43,13 @@ As long as, API is "protected" using API KEY remember to add `x-api-key` param t
 
 ```txt
 GraphQL endpoint: https://mz7qtaidlneyhja4wc3cpki26m.appsync-api.eu-west-1.amazonaws.com/graphql
+key: da2-q6ouymozfvddrovdoejfj4u6ha
 ```
 
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://7lg3wmzsaza5telkgmyd77umji.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL endpoint: https://uxd3tc7zrrc5ddycj5jzr3zobi.appsync-api.eu-west-1.amazonaws.com/graphql
 UserPoolId: eu-west-1_EkxY3kbsJ
 UserPoolClientID: 4rv6ou65udfnt9hfckrfmvb2pr
 ```
@@ -282,7 +283,7 @@ CREATE_FAILED      LambdaExecutionRole                                          
 
 **2**:
 
-GSI Key name has to be uppercase allways:
+GSI Key name has to be uppercase allways if using composite keys as SK:
 
 ```graphql
 @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg" )
@@ -401,3 +402,16 @@ GSI update limit is a crap. After PR from feature branch there're usually many c
 **9**:
 
 S3 buckets used during stack deploymnet are not deleted after env deletation. If you want to recreate env called ex `develop` you need to manually remove each S3 with `develop` suffix and prefix. Otherwise `amplify env add` will fail.
+
+**10**:
+
+Custom attributes for Cognito could be only created by manually adding
+
+```yaml
+- Name: custom_attr
+  AttributeDataType: String
+  Required: false
+  Mutable: true
+```
+
+into `amplify/backend/auth/*/*-cloudformation-template.yml`, every call of `amplify auth update` will rewrite that. What's more parameters.json files has some attributes customizing pairs but they're not used by template!

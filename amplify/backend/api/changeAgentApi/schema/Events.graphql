@@ -14,7 +14,6 @@ type Propaganda
   #    {allow: owner, ownerField: "cognitoId", identityField: "cognito:sub" , operations: [create, update, delete, read]},
   #  ])
   # more:  https://github.com/aws-amplify/amplify-cli/issues/1277
-  id: ID
   author: User! @connection(keyField: "cognitoId")
   category: String!
   title: String!
@@ -35,8 +34,7 @@ type Event
   )
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg") {
-  id: ID
-  author: User! @connection(keyField: "cognitoId")
+  author: User! @connection(keyField: "cognitoId", sortField: "username")
   category: String!
   title: String!
   # org_range: MY_ORG::WWA::WTF
@@ -44,6 +42,7 @@ type Event
   resources: [Resource]
   region: String!
   org: String!
+  conversation: Conversation @connection
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
@@ -56,7 +55,6 @@ type Announcement
   )
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg") {
-  id: ID
   author: User! @connection(keyField: "cognitoId")
   category: String!
   title: String!

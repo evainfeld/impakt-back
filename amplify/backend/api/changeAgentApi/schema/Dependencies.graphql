@@ -1,10 +1,10 @@
-
 # storing all available regions in application
-type Location 
-  @model( queries: { get: "getLocation", list: "listLocation" }, mutations: {create: "createLocation", update: null, delete: null})
-  @key(fields: ["org", "region"])
- {
-  id: ID
+type Location
+  @model(
+    queries: { get: "getLocation", list: "listLocation" }
+    mutations: { create: "createLocation", update: null, delete: null }
+  )
+  @key(fields: ["org", "region"]) {
   # ex ORG1#PL#WAW
   region: String!
   # ex ORG1
@@ -16,11 +16,12 @@ type Location
 }
 
 # storing all available message categories in application
-type Category 
-  @model( queries: { get: "getCategory", list: "listCategory" }, mutations: {create: "createCategory", update: null, delete: "deleteCategory" }  )
-  @key(fields: ["org", "region", "name" ])
- {
-  id: ID
+type Category
+  @model(
+    queries: { get: "getCategory", list: "listCategory" }
+    mutations: { create: "createCategory", update: null, delete: "deleteCategory" }
+  )
+  @key(fields: ["org", "region", "name"]) {
   # ex ORG1#PL#WAW
   region: String!
   # ex ORG1
@@ -32,24 +33,27 @@ type Category
 }
 
 #getUser is called "me" and works withouth params. Just using context
-type User 
-@model( queries: { get: "getUser", list: "listUser" }, mutations: {create: "createUser", update: "updateUser", delete: null})
-@key(fields: ["cognitoId"]) 
-@key(name: "org", fields: ["org", "username"], queryField: "listUsersByOrg" )
-{
-  
-	#  A unique identifier for the user. cognito:sub
-	cognitoId: ID!
+type User
+  @model(
+    queries: { get: "getUser", list: "listUser" }
+    mutations: { create: "createUser", update: "updateUser", delete: null }
+  )
+  @key(fields: ["cognitoId", "username"])
+  @key(name: "Org", fields: ["org", "username"], queryField: "listUsersByOrg") {
+  #  A unique identifier for the user. cognito:sub
+  cognitoId: ID!
   #  A unique identifier for the user. cognito:group
-	cognitoGroup: String! 
+  cognitoGroup: String!
   #  Generated id for a user. read-only
-	id: ID!
-  	#  The username
-	username: String!
-	# is the user registered?
-	registered: Boolean
-  # 
-	org: String!
+  #id: ID!
+  #  The username
+  username: String!
+  # is the user registered?
+  registered: Boolean
+  # is the user registered?
+  pubKey: String
+  #
+  org: String!
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime

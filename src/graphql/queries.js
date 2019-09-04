@@ -4,13 +4,12 @@
 export const listAllImportantNotifications = `query ListAllImportantNotifications($region: String!) {
   listAllImportantNotifications(region: $region) {
     ... on Announcement {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -24,9 +23,9 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         author {
           cognitoId
           cognitoGroup
-          id
           username
           registered
+          pubKey
           org
           createdAt
           updatedAt
@@ -43,13 +42,12 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
       updatedAt
     }
     ... on Event {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -63,9 +61,9 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         author {
           cognitoId
           cognitoGroup
-          id
           username
           registered
+          pubKey
           org
           createdAt
           updatedAt
@@ -78,6 +76,21 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
       }
       region
       org
+      conversation {
+        id
+        messages {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -88,9 +101,9 @@ export const me = `query Me {
   me {
     cognitoId
     cognitoGroup
-    id
     username
     registered
+    pubKey
     org
     createdAt
     updatedAt
@@ -108,9 +121,21 @@ export const getConversation = `query GetConversation(
       messages {
         content
         conversationId
-        id
         isSent
         region
+        org
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        cognitoId
+        cognitoGroup
+        username
+        registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -147,6 +172,9 @@ export const listConversation = `query ListConversation(
       messages {
         nextToken
       }
+      users {
+        nextToken
+      }
       name
       type
       region
@@ -171,16 +199,15 @@ export const getMessage = `query GetMessage(
     author {
       cognitoId
       cognitoGroup
-      id
       username
       registered
+      pubKey
       org
       createdAt
       updatedAt
     }
     content
     conversationId
-    id
     isSent
     resources {
       id
@@ -188,9 +215,9 @@ export const getMessage = `query GetMessage(
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -228,16 +255,15 @@ export const listMessage = `query ListMessage(
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
       }
       content
       conversationId
-      id
       isSent
       resources {
         id
@@ -258,16 +284,15 @@ export const getMessageConnection = `query GetMessageConnection($id: ID!) {
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
       }
       content
       conversationId
-      id
       isSent
       resources {
         id
@@ -296,7 +321,6 @@ export const listMessageConnections = `query ListMessageConnections(
       messages {
         content
         conversationId
-        id
         isSent
         region
         org
@@ -311,7 +335,6 @@ export const listMessageConnections = `query ListMessageConnections(
 `;
 export const getLocation = `query GetLocation($org: String!, $region: String!) {
   getLocation(org: $org, region: $region) {
-    id
     region
     org
     name
@@ -337,7 +360,6 @@ export const listLocation = `query ListLocation(
     sortDirection: $sortDirection
   ) {
     items {
-      id
       region
       org
       name
@@ -350,7 +372,6 @@ export const listLocation = `query ListLocation(
 `;
 export const getCategory = `query GetCategory($org: String!, $region: String!, $name: String!) {
   getCategory(org: $org, region: $region, name: $name) {
-    id
     region
     org
     name
@@ -376,7 +397,6 @@ export const listCategory = `query ListCategory(
     sortDirection: $sortDirection
   ) {
     items {
-      id
       region
       org
       name
@@ -387,13 +407,13 @@ export const listCategory = `query ListCategory(
   }
 }
 `;
-export const getUser = `query GetUser($cognitoId: ID!) {
-  getUser(cognitoId: $cognitoId) {
+export const getUser = `query GetUser($cognitoId: ID!, $username: String!) {
+  getUser(cognitoId: $cognitoId, username: $username) {
     cognitoId
     cognitoGroup
-    id
     username
     registered
+    pubKey
     org
     createdAt
     updatedAt
@@ -402,6 +422,7 @@ export const getUser = `query GetUser($cognitoId: ID!) {
 `;
 export const listUser = `query ListUser(
   $cognitoId: ID
+  $username: ModelStringKeyConditionInput
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
@@ -409,6 +430,7 @@ export const listUser = `query ListUser(
 ) {
   listUser(
     cognitoId: $cognitoId
+    username: $username
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -417,9 +439,9 @@ export const listUser = `query ListUser(
     items {
       cognitoId
       cognitoGroup
-      id
       username
       registered
+      pubKey
       org
       createdAt
       updatedAt
@@ -430,13 +452,12 @@ export const listUser = `query ListUser(
 `;
 export const getPropaganda = `query GetPropaganda($region: String!, $category: String!, $title: String!) {
   getPropaganda(region: $region, category: $category, title: $title) {
-    id
     author {
       cognitoId
       cognitoGroup
-      id
       username
       registered
+      pubKey
       org
       createdAt
       updatedAt
@@ -450,9 +471,9 @@ export const getPropaganda = `query GetPropaganda($region: String!, $category: S
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -487,13 +508,12 @@ export const listPropaganda = `query ListPropaganda(
     sortDirection: $sortDirection
   ) {
     items {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -516,13 +536,12 @@ export const listPropaganda = `query ListPropaganda(
 `;
 export const getEvent = `query GetEvent($region: String!, $category: String!, $title: String!) {
   getEvent(region: $region, category: $category, title: $title) {
-    id
     author {
       cognitoId
       cognitoGroup
-      id
       username
       registered
+      pubKey
       org
       createdAt
       updatedAt
@@ -536,9 +555,9 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -551,6 +570,21 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
     }
     region
     org
+    conversation {
+      id
+      messages {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+      name
+      type
+      region
+      org
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -573,13 +607,12 @@ export const listEvent = `query ListEvent(
     sortDirection: $sortDirection
   ) {
     items {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -593,6 +626,15 @@ export const listEvent = `query ListEvent(
       }
       region
       org
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -602,13 +644,12 @@ export const listEvent = `query ListEvent(
 `;
 export const getAnnouncement = `query GetAnnouncement($region: String!, $category: String!, $title: String!) {
   getAnnouncement(region: $region, category: $category, title: $title) {
-    id
     author {
       cognitoId
       cognitoGroup
-      id
       username
       registered
+      pubKey
       org
       createdAt
       updatedAt
@@ -622,9 +663,9 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -659,13 +700,12 @@ export const listAnnouncement = `query ListAnnouncement(
     sortDirection: $sortDirection
   ) {
     items {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -693,9 +733,9 @@ export const getResource = `query GetResource($id: ID!) {
     author {
       cognitoId
       cognitoGroup
-      id
       username
       registered
+      pubKey
       org
       createdAt
       updatedAt
@@ -720,9 +760,9 @@ export const listResources = `query ListResources(
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -732,6 +772,39 @@ export const listResources = `query ListResources(
         region
         key
       }
+    }
+    nextToken
+  }
+}
+`;
+export const listCoversationsByIndex = `query ListCoversationsByIndex(
+  $id: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelConversationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCoversationsByIndex(
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      messages {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+      name
+      type
+      region
+      org
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -756,9 +829,9 @@ export const listUsersByOrg = `query ListUsersByOrg(
     items {
       cognitoId
       cognitoGroup
-      id
       username
       registered
+      pubKey
       org
       createdAt
       updatedAt
@@ -784,13 +857,12 @@ export const listPropagandaByOrg = `query ListPropagandaByOrg(
     nextToken: $nextToken
   ) {
     items {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -828,13 +900,12 @@ export const listEventByOrg = `query ListEventByOrg(
     nextToken: $nextToken
   ) {
     items {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
@@ -848,6 +919,15 @@ export const listEventByOrg = `query ListEventByOrg(
       }
       region
       org
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -872,13 +952,12 @@ export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
     nextToken: $nextToken
   ) {
     items {
-      id
       author {
         cognitoId
         cognitoGroup
-        id
         username
         registered
+        pubKey
         org
         createdAt
         updatedAt
