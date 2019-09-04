@@ -271,6 +271,7 @@ export const createPropaganda = `mutation CreatePropaganda($input: CreatePropaga
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -312,6 +313,7 @@ export const updatePropaganda = `mutation UpdatePropaganda($input: UpdatePropaga
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -353,6 +355,7 @@ export const deletePropaganda = `mutation DeletePropaganda($input: DeletePropaga
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -394,6 +397,7 @@ export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -450,6 +454,7 @@ export const updateEvent = `mutation UpdateEvent($input: UpdateEventInput!) {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -506,6 +511,7 @@ export const deleteEvent = `mutation DeleteEvent($input: DeleteEventInput!) {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -562,6 +568,7 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content

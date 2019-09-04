@@ -38,15 +38,13 @@ type User
     queries: { get: "getUser", list: "listUser" }
     mutations: { create: "createUser", update: "updateUser", delete: null }
   )
-  @key(fields: ["cognitoId", "username"])
-  @key(name: "Org", fields: ["org", "username"], queryField: "listUsersByOrg") {
+  @key(fields: ["cognitoId"])
+  @key(name: "Org", fields: ["org", "cognitoGroup"], queryField: "listUsersByOrg") {
   #  A unique identifier for the user. cognito:sub
   cognitoId: ID!
-  #  A unique identifier for the user. cognito:group
+  #  cognito:group
   cognitoGroup: String!
-  #  Generated id for a user. read-only
-  #id: ID!
-  #  The username
+  #  last known ephemeric username
   username: String!
   # is the user registered?
   registered: Boolean

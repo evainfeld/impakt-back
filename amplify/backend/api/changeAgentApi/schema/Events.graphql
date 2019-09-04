@@ -14,7 +14,10 @@ type Propaganda
   #    {allow: owner, ownerField: "cognitoId", identityField: "cognito:sub" , operations: [create, update, delete, read]},
   #  ])
   # more:  https://github.com/aws-amplify/amplify-cli/issues/1277
-  author: User! @connection(keyField: "cognitoId")
+  #real identity, used for auth and possible banning evil users
+  author: User! @connection(keyField: "authorId")
+  #ephemeric string used as a nick during creation - should be visible in FE
+  authorNick: String!
   category: String!
   title: String!
   # org_range: MY_ORG::WWA::WTF
@@ -34,7 +37,10 @@ type Event
   )
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg") {
-  author: User! @connection(keyField: "cognitoId", sortField: "username")
+  #real identity, used for auth and possible banning evil users
+  author: User! @connection(keyField: "authorId")
+  #ephemeric string used as a nick during creation - should be visible in FE
+  authorNick: String!
   category: String!
   title: String!
   # org_range: MY_ORG::WWA::WTF
@@ -55,7 +61,10 @@ type Announcement
   )
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg") {
-  author: User! @connection(keyField: "cognitoId")
+  #real identity, used for auth and possible banning evil users
+  author: User! @connection(keyField: "authorId")
+  #ephemeric string used as a nick during creation - should be visible in FE
+  authorNick: String!
   category: String!
   title: String!
   # org_range: MY_ORG::WWA::WTF

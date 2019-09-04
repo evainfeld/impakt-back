@@ -271,6 +271,7 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -312,6 +313,7 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -353,6 +355,7 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -394,6 +397,7 @@ export const onCreateEvent = `subscription OnCreateEvent {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -450,6 +454,7 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -506,6 +511,7 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -562,6 +568,7 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content

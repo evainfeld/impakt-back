@@ -14,6 +14,7 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content
@@ -52,6 +53,7 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content
@@ -407,8 +409,8 @@ export const listCategory = `query ListCategory(
   }
 }
 `;
-export const getUser = `query GetUser($cognitoId: ID!, $username: String!) {
-  getUser(cognitoId: $cognitoId, username: $username) {
+export const getUser = `query GetUser($cognitoId: ID!) {
+  getUser(cognitoId: $cognitoId) {
     cognitoId
     cognitoGroup
     username
@@ -422,7 +424,6 @@ export const getUser = `query GetUser($cognitoId: ID!, $username: String!) {
 `;
 export const listUser = `query ListUser(
   $cognitoId: ID
-  $username: ModelStringKeyConditionInput
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
@@ -430,7 +431,6 @@ export const listUser = `query ListUser(
 ) {
   listUser(
     cognitoId: $cognitoId
-    username: $username
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -462,6 +462,7 @@ export const getPropaganda = `query GetPropaganda($region: String!, $category: S
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -518,6 +519,7 @@ export const listPropaganda = `query ListPropaganda(
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content
@@ -546,6 +548,7 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -617,6 +620,7 @@ export const listEvent = `query ListEvent(
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content
@@ -654,6 +658,7 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
       createdAt
       updatedAt
     }
+    authorNick
     category
     title
     content
@@ -710,6 +715,7 @@ export const listAnnouncement = `query ListAnnouncement(
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content
@@ -812,7 +818,7 @@ export const listCoversationsByIndex = `query ListCoversationsByIndex(
 `;
 export const listUsersByOrg = `query ListUsersByOrg(
   $org: String
-  $username: ModelStringKeyConditionInput
+  $cognitoGroup: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
   $filter: ModelUserFilterInput
   $limit: Int
@@ -820,7 +826,7 @@ export const listUsersByOrg = `query ListUsersByOrg(
 ) {
   listUsersByOrg(
     org: $org
-    username: $username
+    cognitoGroup: $cognitoGroup
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -867,6 +873,7 @@ export const listPropagandaByOrg = `query ListPropagandaByOrg(
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content
@@ -910,6 +917,7 @@ export const listEventByOrg = `query ListEventByOrg(
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content
@@ -962,6 +970,7 @@ export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
         createdAt
         updatedAt
       }
+      authorNick
       category
       title
       content

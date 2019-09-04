@@ -54,5 +54,33 @@
         }
       }
     }
+  },
+  "sub": {
+    "awscloudformation": {
+      "AuthRoleName": "change-agent-sub-20190904164653-authRole",
+      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-sub-20190904164653-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-sub-20190904164653-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "change-agent-sub-20190904164653-deployment",
+      "UnauthRoleName": "change-agent-sub-20190904164653-unauthRole",
+      "StackName": "change-agent-sub-20190904164653",
+      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-sub-20190904164653/d5ea98b0-cf22-11e9-8746-0a25aff68e4e"
+    },
+    "categories": {
+      "auth": {
+        "changeAgent95205ed895205ed8": {}
+      },
+      "function": {
+        "changeAgent95205ed895205ed8CreateAuthChallenge": {
+          "envType": "dev"
+        },
+        "changeAgent95205ed895205ed8DefineAuthChallenge": {},
+        "changeAgent95205ed895205ed8PreSignup": {},
+        "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
+        "changeAgent95205ed895205ed8PostConfirmation": {
+          "GROUP": "Users"
+        }
+      }
+    }
   }
 }
