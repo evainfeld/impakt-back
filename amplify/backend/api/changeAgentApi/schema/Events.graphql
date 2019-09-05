@@ -57,7 +57,11 @@ type Event
 type Announcement
   @model(
     queries: { get: "getAnnouncement", list: "listAnnouncement" }
-    mutations: { create: "createAnnouncement", update: null, delete: null }
+    mutations: {
+      create: "createAnnouncement"
+      update: "updateAnnouncement"
+      delete: "deleteAnnouncement"
+    }
   )
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg") {
