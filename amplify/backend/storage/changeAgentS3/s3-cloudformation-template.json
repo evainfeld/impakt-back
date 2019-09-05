@@ -71,17 +71,14 @@
     "triggerFunction": {
       "Type": "String"
     },
-
     "functionS3Triggerbe81f2e2Name": {
       "Type": "String",
       "Default": "functionS3Triggerbe81f2e2Name"
     },
-
     "functionS3Triggerbe81f2e2Arn": {
       "Type": "String",
       "Default": "functionS3Triggerbe81f2e2Arn"
     },
-
     "functionS3Triggerbe81f2e2LambdaExecutionRole": {
       "Type": "String",
       "Default": "functionS3Triggerbe81f2e2LambdaExecutionRole"
@@ -99,56 +96,96 @@
     "CreateAuthPublic": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "s3PermissionsAuthenticatedPublic" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "s3PermissionsAuthenticatedPublic"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     },
     "CreateAuthProtected": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "s3PermissionsAuthenticatedProtected" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "s3PermissionsAuthenticatedProtected"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     },
     "CreateAuthPrivate": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "s3PermissionsAuthenticatedPrivate" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "s3PermissionsAuthenticatedPrivate"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     },
     "CreateAuthUploads": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "s3PermissionsAuthenticatedUploads" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "s3PermissionsAuthenticatedUploads"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     },
     "CreateGuestPublic": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "s3PermissionsGuestPublic" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "s3PermissionsGuestPublic"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     },
     "CreateGuestUploads": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "s3PermissionsGuestUploads" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "s3PermissionsGuestUploads"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     },
     "AuthReadAndList": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "AuthenticatedAllowList" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "AuthenticatedAllowList"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     },
     "GuestReadAndList": {
       "Fn::Not": [
         {
-          "Fn::Equals": [{ "Ref": "GuestAllowList" }, "DISALLOW"]
+          "Fn::Equals": [
+            {
+              "Ref": "GuestAllowList"
+            },
+            "DISALLOW"
+          ]
         }
       ]
     }
@@ -156,9 +193,7 @@
   "Resources": {
     "S3Bucket": {
       "Type": "AWS::S3::Bucket",
-
       "DependsOn": ["TriggerPermissions"],
-
       "DeletionPolicy": "Retain",
       "Properties": {
         "BucketName": {
@@ -183,24 +218,30 @@
             }
           ]
         },
-
         "NotificationConfiguration": {
           "LambdaConfigurations": [
             {
               "Event": "s3:ObjectCreated:*",
-              "Function": {
-                "Ref": "functionS3Triggerbe81f2e2Arn"
-              }
-            },
-            {
-              "Event": "s3:ObjectRemoved:*",
+              "Filter": {
+                "S3Key": {
+                  "Rules": [
+                    {
+                      "Name": "suffix",
+                      "Value": ".json"
+                    },
+                    {
+                      "Name": "prefix",
+                      "Value": "__init__"
+                    }
+                  ]
+                }
+              },
               "Function": {
                 "Ref": "functionS3Triggerbe81f2e2Arn"
               }
             }
           ]
         },
-
         "CorsConfiguration": {
           "CorsRules": [
             {
@@ -220,7 +261,6 @@
         }
       }
     },
-
     "TriggerPermissions": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
@@ -299,7 +339,6 @@
         }
       }
     },
-
     "S3AuthPublicPolicy": {
       "DependsOn": ["S3Bucket"],
       "Condition": "CreateAuthPublic",
