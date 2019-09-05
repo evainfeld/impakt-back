@@ -618,6 +618,92 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
   }
 }
 `;
+export const onUpdateAnnouncement = `subscription OnUpdateAnnouncement {
+  onUpdateAnnouncement {
+    author {
+      cognitoId
+      cognitoGroup
+      currentNick
+      registered
+      pubKey
+      org
+      createdAt
+      updatedAt
+    }
+    authorNick
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        registered
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+      authorNick
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const onDeleteAnnouncement = `subscription OnDeleteAnnouncement {
+  onDeleteAnnouncement {
+    author {
+      cognitoId
+      cognitoGroup
+      currentNick
+      registered
+      pubKey
+      org
+      createdAt
+      updatedAt
+    }
+    authorNick
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        registered
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+      authorNick
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
 export const onCreateResource = `subscription OnCreateResource {
   onCreateResource {
     id

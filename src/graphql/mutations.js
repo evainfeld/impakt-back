@@ -618,6 +618,92 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
   }
 }
 `;
+export const updateAnnouncement = `mutation UpdateAnnouncement($input: UpdateAnnouncementInput!) {
+  updateAnnouncement(input: $input) {
+    author {
+      cognitoId
+      cognitoGroup
+      currentNick
+      registered
+      pubKey
+      org
+      createdAt
+      updatedAt
+    }
+    authorNick
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        registered
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+      authorNick
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const deleteAnnouncement = `mutation DeleteAnnouncement($input: DeleteAnnouncementInput!) {
+  deleteAnnouncement(input: $input) {
+    author {
+      cognitoId
+      cognitoGroup
+      currentNick
+      registered
+      pubKey
+      org
+      createdAt
+      updatedAt
+    }
+    authorNick
+    category
+    title
+    content
+    resources {
+      id
+      name
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        registered
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+      authorNick
+      file {
+        bucket
+        region
+        key
+      }
+    }
+    region
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
 export const createResource = `mutation CreateResource($input: CreateResourceInput!) {
   createResource(input: $input) {
     id
