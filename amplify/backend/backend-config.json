@@ -88,7 +88,14 @@
     "S3Triggerbe81f2e2": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
-      "build": true
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "changeAgentApi",
+          "attributes": ["GraphQLAPIIdOutput", "GraphQLAPIEndpointOutput"]
+        }
+      ]
     }
   }
 }
