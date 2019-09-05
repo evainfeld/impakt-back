@@ -43,7 +43,9 @@
         "changeAgent95205ed895205ed8": {}
       },
       "function": {
-        "changeAgent95205ed895205ed8CreateAuthChallenge": {},
+        "changeAgent95205ed895205ed8CreateAuthChallenge": {
+          "envType": "prod"
+        },
         "changeAgent95205ed895205ed8DefineAuthChallenge": {},
         "changeAgent95205ed895205ed8PreSignup": {},
         "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},

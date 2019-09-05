@@ -42,16 +42,16 @@ As long as, API is "protected" using API KEY remember to add `x-api-key` param t
 ### PROD - associated with master branch
 
 ```txt
-GraphQL endpoint: https://mz7qtaidlneyhja4wc3cpki26m.appsync-api.eu-west-1.amazonaws.com/graphql
-key: da2-q6ouymozfvddrovdoejfj4u6ha
+GraphQL endpoint: https://cegdp4fefram7l2i5k6f632oam.appsync-api.eu-west-1.amazonaws.com/graphql
+key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
 ```
 
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://uxd3tc7zrrc5ddycj5jzr3zobi.appsync-api.eu-west-1.amazonaws.com/graphql
-UserPoolId: eu-west-1_EkxY3kbsJ
-UserPoolClientID: 4rv6ou65udfnt9hfckrfmvb2pr
+GraphQL endpoint: https://fcw5yysmxbgqjecblhdemeyo5e.appsync-api.eu-west-1.amazonaws.com/graphql
+UserPoolId: eu-west-1_ziXwApzvo
+UserPoolClientID: 1ab8r1mkmel43gjd6u4fjv5nnn
 ```
 
 **NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
