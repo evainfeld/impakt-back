@@ -1,42 +1,14 @@
 {
-  "prod": {
+  "sch": {
     "awscloudformation": {
-      "AuthRoleName": "change-agent-prod-20190827124352-authRole",
-      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190827124352-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prod-20190827124352-authRole",
+      "AuthRoleName": "change-agent-sch-20190905101050-authRole",
+      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-sch-20190905101050-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-sch-20190905101050-authRole",
       "Region": "eu-west-1",
-      "DeploymentBucketName": "change-agent-prod-20190827124352-deployment",
-      "UnauthRoleName": "change-agent-prod-20190827124352-unauthRole",
-      "StackName": "change-agent-prod-20190827124352",
-      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-prod-20190827124352/8f8e9f90-c8b7-11e9-9f97-02135cc8443e"
-    },
-    "categories": {
-      "auth": {
-        "changeAgent95205ed895205ed8": {}
-      },
-      "function": {
-        "changeAgent95205ed895205ed8CreateAuthChallenge": {
-          "envType": "prod"
-        },
-        "changeAgent95205ed895205ed8DefineAuthChallenge": {},
-        "changeAgent95205ed895205ed8PreSignup": {},
-        "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
-        "changeAgent95205ed895205ed8PostConfirmation": {
-          "GROUP": "Users"
-        }
-      }
-    }
-  },
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "change-agent-dev-20190904143755-authRole",
-      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190904143755-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-dev-20190904143755-authRole",
-      "Region": "eu-west-1",
-      "DeploymentBucketName": "change-agent-dev-20190904143755-deployment",
-      "UnauthRoleName": "change-agent-dev-20190904143755-unauthRole",
-      "StackName": "change-agent-dev-20190904143755",
-      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-dev-20190904143755/d1926750-cf10-11e9-82c8-024e38e0666a"
+      "DeploymentBucketName": "change-agent-sch-20190905101050-deployment",
+      "UnauthRoleName": "change-agent-sch-20190905101050-unauthRole",
+      "StackName": "change-agent-sch-20190905101050",
+      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-sch-20190905101050/aca18440-cfb4-11e9-a86d-0a99a68566c4"
     },
     "categories": {
       "auth": {
@@ -55,25 +27,23 @@
       }
     }
   },
-  "sub": {
+  "prd": {
     "awscloudformation": {
-      "AuthRoleName": "change-agent-sub-20190904164653-authRole",
-      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-sub-20190904164653-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-sub-20190904164653-authRole",
+      "AuthRoleName": "change-agent-prd-20190905112452-authRole",
+      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prd-20190905112452-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prd-20190905112452-authRole",
       "Region": "eu-west-1",
-      "DeploymentBucketName": "change-agent-sub-20190904164653-deployment",
-      "UnauthRoleName": "change-agent-sub-20190904164653-unauthRole",
-      "StackName": "change-agent-sub-20190904164653",
-      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-sub-20190904164653/d5ea98b0-cf22-11e9-8746-0a25aff68e4e"
+      "DeploymentBucketName": "change-agent-prd-20190905112452-deployment",
+      "UnauthRoleName": "change-agent-prd-20190905112452-unauthRole",
+      "StackName": "change-agent-prd-20190905112452",
+      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-prd-20190905112452/040dd7b0-cfbf-11e9-b22c-02de07166156"
     },
     "categories": {
       "auth": {
         "changeAgent95205ed895205ed8": {}
       },
       "function": {
-        "changeAgent95205ed895205ed8CreateAuthChallenge": {
-          "envType": "dev"
-        },
+        "changeAgent95205ed895205ed8CreateAuthChallenge": {},
         "changeAgent95205ed895205ed8DefineAuthChallenge": {},
         "changeAgent95205ed895205ed8PreSignup": {},
         "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},

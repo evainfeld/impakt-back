@@ -4,7 +4,10 @@ type Location
     queries: { get: "getLocation", list: "listLocation" }
     mutations: { create: "createLocation", update: null, delete: null }
   )
-  @key(fields: ["org", "region"]) {
+  @key(fields: ["org", "region"])
+  @key(name: "Index", fields: ["id"], queryField: "listLocationByIndex") {
+  #  The id of the Conversation this message belongs to. This is the table unique GSI key.
+  id: ID
   # ex ORG1#PL#WAW
   region: String!
   # ex ORG1
@@ -21,7 +24,10 @@ type Category
     queries: { get: "getCategory", list: "listCategory" }
     mutations: { create: "createCategory", update: null, delete: "deleteCategory" }
   )
-  @key(fields: ["org", "region", "name"]) {
+  @key(fields: ["org", "region", "name"])
+  @key(name: "Index", fields: ["id"], queryField: "listCategoryByIndex") {
+  #  The id of the Conversation this message belongs to. This is the table unique GSI key.
+  id: ID
   # ex ORG1#PL#WAW
   region: String!
   # ex ORG1
@@ -45,7 +51,7 @@ type User
   #  cognito:group
   cognitoGroup: String!
   #  last known ephemeric username
-  username: String!
+  currentNick: String!
   # is the user registered?
   registered: Boolean
   # is the user registered?

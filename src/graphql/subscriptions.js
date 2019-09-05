@@ -6,6 +6,7 @@ export const onCreateConversation = `subscription OnCreateConversation {
     id
     messages {
       messages {
+        authorNick
         content
         conversationId
         isSent
@@ -20,7 +21,7 @@ export const onCreateConversation = `subscription OnCreateConversation {
       items {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
@@ -43,6 +44,7 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
     id
     messages {
       messages {
+        authorNick
         content
         conversationId
         isSent
@@ -57,7 +59,7 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
       items {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
@@ -80,13 +82,14 @@ export const onCreateMessage = `subscription OnCreateMessage {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
       createdAt
       updatedAt
     }
+    authorNick
     content
     conversationId
     isSent
@@ -96,13 +99,14 @@ export const onCreateMessage = `subscription OnCreateMessage {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -122,19 +126,21 @@ export const onCreateMessageConnection = `subscription OnCreateMessageConnection
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       content
       conversationId
       isSent
       resources {
         id
         name
+        authorNick
       }
       region
       org
@@ -151,19 +157,21 @@ export const onUpdateMessageConnection = `subscription OnUpdateMessageConnection
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       content
       conversationId
       isSent
       resources {
         id
         name
+        authorNick
       }
       region
       org
@@ -180,19 +188,21 @@ export const onDeleteMessageConnection = `subscription OnDeleteMessageConnection
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       content
       conversationId
       isSent
       resources {
         id
         name
+        authorNick
       }
       region
       org
@@ -205,6 +215,7 @@ export const onDeleteMessageConnection = `subscription OnDeleteMessageConnection
 `;
 export const onCreateLocation = `subscription OnCreateLocation {
   onCreateLocation {
+    id
     region
     org
     name
@@ -215,6 +226,7 @@ export const onCreateLocation = `subscription OnCreateLocation {
 `;
 export const onCreateCategory = `subscription OnCreateCategory {
   onCreateCategory {
+    id
     region
     org
     name
@@ -225,6 +237,7 @@ export const onCreateCategory = `subscription OnCreateCategory {
 `;
 export const onDeleteCategory = `subscription OnDeleteCategory {
   onDeleteCategory {
+    id
     region
     org
     name
@@ -237,7 +250,7 @@ export const onCreateUser = `subscription OnCreateUser {
   onCreateUser {
     cognitoId
     cognitoGroup
-    username
+    currentNick
     registered
     pubKey
     org
@@ -250,7 +263,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
   onUpdateUser {
     cognitoId
     cognitoGroup
-    username
+    currentNick
     registered
     pubKey
     org
@@ -264,7 +277,7 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
@@ -281,13 +294,14 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -306,7 +320,7 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
@@ -323,13 +337,14 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -348,7 +363,7 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
@@ -365,13 +380,14 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -390,7 +406,7 @@ export const onCreateEvent = `subscription OnCreateEvent {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
@@ -407,13 +423,14 @@ export const onCreateEvent = `subscription OnCreateEvent {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -447,7 +464,7 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
@@ -464,13 +481,14 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -504,7 +522,7 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
@@ -521,13 +539,14 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -561,7 +580,7 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
@@ -578,13 +597,14 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
       author {
         cognitoId
         cognitoGroup
-        username
+        currentNick
         registered
         pubKey
         org
         createdAt
         updatedAt
       }
+      authorNick
       file {
         bucket
         region
@@ -605,13 +625,14 @@ export const onCreateResource = `subscription OnCreateResource {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
       createdAt
       updatedAt
     }
+    authorNick
     file {
       bucket
       region
@@ -627,13 +648,14 @@ export const onUpdateResource = `subscription OnUpdateResource {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
       createdAt
       updatedAt
     }
+    authorNick
     file {
       bucket
       region
@@ -649,13 +671,14 @@ export const onDeleteResource = `subscription OnDeleteResource {
     author {
       cognitoId
       cognitoGroup
-      username
+      currentNick
       registered
       pubKey
       org
       createdAt
       updatedAt
     }
+    authorNick
     file {
       bucket
       region

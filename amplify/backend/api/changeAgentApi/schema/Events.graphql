@@ -48,7 +48,7 @@ type Event
   resources: [Resource]
   region: String!
   org: String!
-  conversation: Conversation @connection
+  conversation: Conversation @connection(keyField: "conversationId")
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime

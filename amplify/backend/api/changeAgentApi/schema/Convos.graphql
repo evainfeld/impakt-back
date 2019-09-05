@@ -11,11 +11,11 @@ type Conversation
   @key(fields: ["region", "type", "name"])
   @key(name: "Index", fields: ["id"], queryField: "listCoversationsByIndex") {
   #  The id of the Conversation this message belongs to. This is the table unique GSI key.
-  id: ID!
+  id: ID
   #  The Conversation's messages.
   messages(after: String, first: Int): MessageConnection
   # users in channel - for pubkey retrival
-  users: [User] @connection(keyField: "cognitoId")
+  users: [User] @connection(keyField: "userId")
   #  The Conversation's name.
   name: String!
   type: ConversationType!
@@ -31,7 +31,7 @@ type Message
     queries: { get: "getMessage", list: "listMessage" }
     mutations: { create: "createMessage", update: null, delete: null }
   )
-  @key(fields: ["region", "conversationId", "createdAt"]) {
+  @key(fields: ["conversationId", "createdAt"]) {
   #real identity, used for auth and possible banning evil users
   author: User! @connection(keyField: "authorId")
   #ephemeric string used as a nick during creation - should be visible in FE
@@ -43,6 +43,8 @@ type Message
   #  Flag denoting if this message has been accepted by the server or not.
   isSent: Boolean
   resources: [Resource]
+  region: String!
+  org: String!
   #### autogen
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
