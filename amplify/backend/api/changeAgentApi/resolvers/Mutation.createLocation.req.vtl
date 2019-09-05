@@ -17,7 +17,7 @@ $util.qr($context.args.input.put("__typename", "Location"))
   "key": $util.toJson($modelObjectKey),
   "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
   "condition": {
-      "expression": "attribute_not_exists(#org) AND attribute_not_exists(range) AND attribute_not_exists(#region)",
+      "expression": "attribute_not_exists(#org) AND attribute_not_exists(#region)",
       "expressionNames": {
           "#org": "org",
           "#region": "region"

@@ -1,33 +1,25 @@
-
 ## [Start] Set the primary @key. **
 #set( $modelObjectKey = {
-  "org": $util.dynamodb.toDynamoDB($ctx.args.input.org),
-  "region#name": $util.dynamodb.toDynamoDB("${ctx.args.input.region}#${ctx.args.input.name}")
+  "conversationId": $util.dynamodb.toDynamoDB($ctx.args.input.conversationId),
+  "createdAt": $util.dynamodb.toDynamoDB($ctx.args.input.createdAt)
 } )
 ## [End] Set the primary @key. **
-#if( $util.isNull($dynamodbNameOverrideMap) )
-  #set( $dynamodbNameOverrideMap = {
-  "region#name": "regionName"
-} )
-#else
-  $util.qr($dynamodbNameOverrideMap.put("region#name", "regionName"))
-#end
-$util.qr($ctx.args.input.put("region#name","${ctx.args.input.region}#${ctx.args.input.name}"))
+
 ## [Start] Prepare DynamoDB PutItem Request. **
 $util.qr($context.args.input.put("id", $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.args.input.id, $util.autoId()))))
 $util.qr($context.args.input.put("createdAt", $util.defaultIfNull($ctx.args.input.createdAt, $util.time.nowISO8601())))
 $util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.input.updatedAt, $util.time.nowISO8601())))
-$util.qr($context.args.input.put("__typename", "Category"))
+$util.qr($context.args.input.put("__typename", "Message"))
 {
   "version": "2017-02-28",
   "operation": "PutItem",
   "key": $util.toJson($modelObjectKey),
   "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
   "condition": {
-      "expression": "attribute_not_exists(#org) AND attribute_not_exists(#region#name)",
+      "expression": "attribute_not_exists(#conversationId) AND attribute_not_exists(#createdAt)",
       "expressionNames": {
-          "#org": "org",
-          "#region#name": "region#name"
+          "#conversationId": "conversationId",
+          "#createdAt": "createdAt"
     }
   }
 }

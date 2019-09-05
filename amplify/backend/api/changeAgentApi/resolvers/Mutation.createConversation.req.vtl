@@ -1,39 +1,33 @@
-#if( $util.isNull($dynamodbNameOverrideMap) )
-  #set( $dynamodbNameOverrideMap = {
-  "category#title": "categoryTitle"
-} )
-#else
-  $util.qr($dynamodbNameOverrideMap.put("category#title", "categoryTitle"))
-#end
-$util.qr($ctx.args.input.put("category#title","${ctx.args.input.category}#${ctx.args.input.title}"))
+
 ## [Start] Set the primary @key. **
 #set( $modelObjectKey = {
   "region": $util.dynamodb.toDynamoDB($ctx.args.input.region),
-  "category#title": $util.dynamodb.toDynamoDB("${ctx.args.input.category}#${ctx.args.input.title}")
+  "type#name": $util.dynamodb.toDynamoDB("${ctx.args.input.type}#${ctx.args.input.name}")
 } )
 ## [End] Set the primary @key. **
 #if( $util.isNull($dynamodbNameOverrideMap) )
   #set( $dynamodbNameOverrideMap = {
-  "category#title": "categoryTitle"
+  "type#name": "typeName"
 } )
 #else
-  $util.qr($dynamodbNameOverrideMap.put("category#title", "categoryTitle"))
+  $util.qr($dynamodbNameOverrideMap.put("type#name", "typeName"))
 #end
-$util.qr($ctx.args.input.put("category#title","${ctx.args.input.category}#${ctx.args.input.title}"))
+$util.qr($ctx.args.input.put("type#name","${ctx.args.input.type}#${ctx.args.input.name}"))
 ## [Start] Prepare DynamoDB PutItem Request. **
+$util.qr($context.args.input.put("id", $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.args.input.id, $util.autoId()))))
 $util.qr($context.args.input.put("createdAt", $util.defaultIfNull($ctx.args.input.createdAt, $util.time.nowISO8601())))
 $util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.input.updatedAt, $util.time.nowISO8601())))
-$util.qr($context.args.input.put("__typename", "Event"))
+$util.qr($context.args.input.put("__typename", "Conversation"))
 {
   "version": "2017-02-28",
   "operation": "PutItem",
   "key": $util.toJson($modelObjectKey),
   "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
   "condition": {
-      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#category#title)",
+      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#type#name)",
       "expressionNames": {
           "#region": "region",
-          "#category#title": "category#title"
+          "#type#name": "type#name"
     }
   }
 }
