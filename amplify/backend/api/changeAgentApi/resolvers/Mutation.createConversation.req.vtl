@@ -24,10 +24,11 @@ $util.qr($context.args.input.put("__typename", "Conversation"))
   "key": $util.toJson($modelObjectKey),
   "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
   "condition": {
-      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#type#name)",
+      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#type#name) AND attribute_not_exists(#id)",
       "expressionNames": {
           "#region": "region",
-          "#type#name": "type#name"
+          "#type#name": "type#name",
+          "#id": "id"
     }
   }
 }
