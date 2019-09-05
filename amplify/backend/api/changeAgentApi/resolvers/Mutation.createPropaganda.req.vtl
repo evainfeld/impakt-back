@@ -1,0 +1,40 @@
+#if( $util.isNull($dynamodbNameOverrideMap) )
+  #set( $dynamodbNameOverrideMap = {
+  "category#title": "categoryTitle"
+} )
+#else
+  $util.qr($dynamodbNameOverrideMap.put("category#title", "categoryTitle"))
+#end
+$util.qr($ctx.args.input.put("category#title","${ctx.args.input.category}#${ctx.args.input.title}"))
+## [Start] Set the primary @key. **
+#set( $modelObjectKey = {
+  "region": $util.dynamodb.toDynamoDB($ctx.args.input.region),
+  "category#title": $util.dynamodb.toDynamoDB("${ctx.args.input.category}#${ctx.args.input.title}")
+} )
+## [End] Set the primary @key. **
+#if( $util.isNull($dynamodbNameOverrideMap) )
+  #set( $dynamodbNameOverrideMap = {
+  "category#title": "categoryTitle"
+} )
+#else
+  $util.qr($dynamodbNameOverrideMap.put("category#title", "categoryTitle"))
+#end
+$util.qr($ctx.args.input.put("category#title","${ctx.args.input.category}#${ctx.args.input.title}"))
+## [Start] Prepare DynamoDB PutItem Request. **
+$util.qr($context.args.input.put("createdAt", $util.defaultIfNull($ctx.args.input.createdAt, $util.time.nowISO8601())))
+$util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.input.updatedAt, $util.time.nowISO8601())))
+$util.qr($context.args.input.put("__typename", "Propaganda"))
+{
+  "version": "2017-02-28",
+  "operation": "PutItem",
+  "key": $util.toJson($modelObjectKey),
+  "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
+  "condition": {
+      "expression": "attribute_not_exists(#region) AND attribute_not_exists(range) AND attribute_not_exists(#category#title)",
+      "expressionNames": {
+          "#region": "region",
+          "#category#title": "category#title"
+    }
+  }
+}
+## [End] Prepare DynamoDB PutItem Request. **
