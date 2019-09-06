@@ -34,6 +34,10 @@ Never, ever, in any circumstances call `amplify delete` :)
 - Keys for multiple accounts configured according to documantation: `https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-multiple-profiles`
 - git-flow tool might be helpful (`npm install -g git-flow`)
 
+## Architecture
+
+![Alt text](__docs__/change-agent-arch.jpg 'diagram')
+
 ## Environments
 
 Prod and Dev envs are deployed automatically using AWS Amplify Console.
