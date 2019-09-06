@@ -5,6 +5,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "dependencies": {
+    "aws-amplify": "^1.1.38",
     "graphql-request": "^1.8.2"
   }
 }
