@@ -2,8 +2,12 @@ const aws = require('aws-sdk');
 
 exports.handler = async event => {
   // Amplify sometimes fails to copy envs between envs during merging.
-  const group = typeof process.env.GROUP === 'undefined' ? 'Users' : process.env.GROUP;
+  let group = typeof process.env.GROUP === 'undefined' ? 'Users' : process.env.GROUP;
 
+  // should be dynamodb query
+  group = event.request.userAttributes.phone_number === '+48000' ? 'Admins' : group;
+
+  // end of block
   const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18',
   });

@@ -25,7 +25,16 @@ exports.handler = async event => {
   let secretLoginCode;
   const isDev = typeof process.env.envType !== 'undefined' && process.env.envType === 'dev';
 
-  if (!event.request.session || !event.request.session.length) {
+  // should be logic with dynamodb call
+  if (event.request.userAttributes.phone_number === '+48000') {
+    const secretName = 'change-agent-admin-pass';
+    const req = {
+      Names: [secretName],
+      WithDecryption: true,
+    };
+    const resp = await new AWS.SSM().getParameters(req).promise();
+    secretLoginCode = resp.Parameters[0].Value;
+  } else if (!event.request.session || !event.request.session.length) {
     const phoneNumber = event.request.userAttributes.phone_number;
     // This is a new auth session
     // Generate a new secret login code and text it to the user
