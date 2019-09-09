@@ -1,5 +1,5 @@
 {
   "tableName": "PhoneNumbers",
-  "partitionKeyName": "number",
+  "partitionKeyName": "phone",
   "partitionKeyType": "S"
 }

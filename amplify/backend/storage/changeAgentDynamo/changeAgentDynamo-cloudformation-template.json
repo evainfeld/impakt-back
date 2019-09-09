@@ -33,7 +33,7 @@
                 "AttributeDefinitions": [
                   
                   {
-                      "AttributeName": "number",
+                      "AttributeName": "phone",
                       "AttributeType": "S"
                   } 
                   
@@ -41,7 +41,7 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "number",
+                    "AttributeName": "phone",
                     "KeyType": "HASH"
                   } 
                   

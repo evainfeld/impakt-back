@@ -38,6 +38,10 @@
 					]
 				}
 			]
+		},
+		"changeAgentDynamo": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation"
 		}
 	},
 	"auth": {
@@ -130,6 +134,22 @@
 					"attributes": [
 						"GraphQLAPIIdOutput",
 						"GraphQLAPIEndpointOutput"
+					]
+				}
+			]
+		},
+		"changeAgentDynamoTrigger5a8b9e97": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "changeAgentDynamo",
+					"attributes": [
+						"Name",
+						"Arn",
+						"StreamArn"
 					]
 				}
 			]
