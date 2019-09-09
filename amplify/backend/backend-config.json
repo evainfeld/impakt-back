@@ -24,9 +24,20 @@
 				}
 			]
 		},
-		"changeAgentDB": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
+		"changeAgentS3Adm": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "S3Triggerbe81f2e2",
+					"attributes": [
+						"Name",
+						"Arn",
+						"LambdaExecutionRole"
+					]
+				}
+			]
 		}
 	},
 	"auth": {
@@ -119,22 +130,6 @@
 					"attributes": [
 						"GraphQLAPIIdOutput",
 						"GraphQLAPIEndpointOutput"
-					]
-				}
-			]
-		},
-		"changeAgentDBTrigger76761f62": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "changeAgentDB",
-					"attributes": [
-						"Name",
-						"Arn",
-						"StreamArn"
 					]
 				}
 			]

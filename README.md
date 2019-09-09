@@ -271,6 +271,28 @@ _NOTE_: Don't know yet how to deploy AppSync supporting only api key
 
 AppSync supports only one table per one model design. According to AWS it's far away from optimal one table approach. However revriting generated Cloudformation files seems to be futile, as it breakes some AppSync annotation functionalities like @Connection or Unions.
 
+## Add second S3 storage
+
+add to amplify-meta, otherwise it will not have correct trigger function params. By defualt amplify doesn't support multiple S3 as a storage component. It suggest using prefixes which is not perfect solution if creating administrative bucket.
+
+```json
+ "changeAgentS3Adm": {
+            "service": "S3",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "S3Triggerbe81f2e2",
+                    "attributes": [
+                        "Name",
+                        "Arn",
+                        "LambdaExecutionRole"
+                    ]
+                }
+            ],
+ }
+```
+
 ## Amplify bugs
 
 **1**:

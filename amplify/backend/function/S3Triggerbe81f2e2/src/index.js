@@ -8,6 +8,19 @@ var apiChangeAgentApiGraphQLAPIEndpointOutput = process.env.API_CHANGEAGENTAPI_G
 Amplify Params - DO NOT EDIT */
 const { GraphQLClient } = require('graphql-request');
 
+/* idzie zmontować nazwe tabeli
+"-",
+                                [
+                                    "Announcement",
+                                    {
+                                        "Ref": "GetAttGraphQLAPIApiId"
+                                    },
+                                    {
+                                        "Ref": "env"
+                                    }
+                                ]
+*/
+
 const apiChangeAgentApiGraphQLAPIEndpointOutput =
   process.env.API_CHANGEAGENTAPI_GRAPHQLAPIENDPOINTOUTPUT;
 

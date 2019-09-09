@@ -1,5 +1,5 @@
 {
-  "bucketName": "change-agent-s3-res",
+  "bucketName": "change-agent-s3-adm",
   "authPolicyName": "s3_amplify_25c6b010",
   "unauthPolicyName": "s3_amplify_25c6b010",
   "authRoleName": {
