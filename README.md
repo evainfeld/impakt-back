@@ -36,7 +36,7 @@ Never, ever, in any circumstances call `amplify delete` :)
 
 ## Architecture
 
-![Alt text](__docs__/change-agent-arch.jpg 'diagram')
+![Alt text](__docs__/change-agent-arch-1.jpg 'diagram')
 
 ## Environments
 
