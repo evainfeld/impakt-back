@@ -24,6 +24,10 @@
 				}
 			]
 		},
+		"changeAgentS3": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		},
 		"changeAgentDynamo": {
 			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
