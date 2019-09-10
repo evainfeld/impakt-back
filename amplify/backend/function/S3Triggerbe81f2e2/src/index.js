@@ -6,7 +6,7 @@ var apiChangeAgentApiGraphQLAPIIdOutput = process.env.API_CHANGEAGENTAPI_GRAPHQL
 var apiChangeAgentApiGraphQLAPIEndpointOutput = process.env.API_CHANGEAGENTAPI_GRAPHQLAPIENDPOINTOUTPUT
 
 Amplify Params - DO NOT EDIT */
-const { GraphQLClient } = require('graphql-request');
+const AWS = require('aws-sdk');
 
 /* idzie zmontować nazwe tabeli
 "-",
@@ -21,47 +21,36 @@ const { GraphQLClient } = require('graphql-request');
                                 ]
 */
 
-const apiChangeAgentApiGraphQLAPIEndpointOutput =
-  process.env.API_CHANGEAGENTAPI_GRAPHQLAPIENDPOINTOUTPUT;
+const apiChangeAgentApiGraphQLAPIIdOutput = process.env.API_CHANGEAGENTAPI_GRAPHQLAPIIDOUTPUT;
+const env = process.env.ENV;
+
+const decorateParamsWithTableName = (params, tableName) => ({
+  ...params,
+  TableName: tableName,
+});
+
+const putDocument = async (record, tableName) => {
+  const documentClient = new AWS.DynamoDB.DocumentClient({});
+  const params = {
+    Item: {
+      ...record,
+    },
+  };
+
+  await documentClient.put(decorateParamsWithTableName(params, tableName)).promise();
+};
 
 exports.handler = async function(event, context) {
   //eslint-disable-line
   console.log('Received S3 event:', JSON.stringify(event, null, 2));
   // Get the object from the event and show its content type
-  const bucket = event.Records[0].s3.bucket.name; //eslint-disable-line
-  const key = event.Records[0].s3.object.key; //eslint-disable-line
-  console.log(`Bucket: ${bucket}`, `Key: ${key}`);
-  const graphQLClient = new GraphQLClient(apiChangeAgentApiGraphQLAPIEndpointOutput);
-
-  const mutation = `
-  mutation CreateUser($input: CreateUserInput!) {
-    createUser(input: $input) {
-      cognitoId
-      cognitoGroup
-      currentNick
-      registered
-      pubKey
-      org
-      createdAt
-      updatedAt
-    }
-  }
-  
-  `;
-
-  const variables = `
-  {
-    "input":{
-      "cognitoId": "6e197a31-8078-46a9-a85a-b8376420ed7b",
-      "cognitoGroup": "Users",
-      "currentNick": "new-user",
-      "org": "myOrg"
-    }
-  }
-  `;
-
-  const data = await graphQLClient.request(mutation, variables);
-  console.log(`data from request: ${data}`);
-
+  event.Records.forEach(async s3 => {
+    const { bucket, key } = s3.bucket;
+    const data = new AWS.S3().getObject({ Bucket: bucket, Key: key }).promise();
+    const { tableName, docs } = JSON.parse(data.Body.toString('utf-8'));
+    docs.forEach(async doc => {
+      await putDocument(doc, `${tableName}-${apiChangeAgentApiGraphQLAPIIdOutput}-${env}`);
+    });
+  });
   context.done(null, 'Successfully processed S3 event'); // SUCCESS with message
 };
