@@ -273,7 +273,7 @@ AppSync supports only one table per one model design. According to AWS it's far 
 
 ## Add second S3 storage
 
-add to amplify-meta, otherwise it will not have correct trigger function params. By defualt amplify doesn't support multiple S3 as a storage component. It suggest using prefixes which is not perfect solution if creating administrative bucket.
+add to backend-config, otherwise it will not have correct trigger function params. By defualt amplify doesn't support multiple S3 as a storage component. It suggest using prefixes which is not perfect solution if creating administrative bucket.
 
 ```json
  "changeAgentS3Adm": {
@@ -292,6 +292,10 @@ add to amplify-meta, otherwise it will not have correct trigger function params.
             ],
  }
 ```
+
+and make sure that CF files for both S3 have different names. Amplify pushes them to same deployment catalog.
+
+**TIP**: if sth goes wrong take a look into amplify-meta.json file.
 
 ## Amplify bugs
 
@@ -441,3 +445,20 @@ Custom attributes for Cognito could be only created by manually adding
 ```
 
 into `amplify/backend/auth/*/*-cloudformation-template.yml`, every call of `amplify auth update` will rewrite that. What's more parameters.json files has some attributes customizing pairs but they're not used by template!
+
+**11**:
+
+adding storage table with trigger fails while pushing. Needed to add manually to lambda permissions:
+
+```json
+{
+  "Effect": "Allow",
+  "Action": [
+    "dynamodb:DescribeStream",
+    "dynamodb:GetRecords",
+    "dynamodb:GetShardIterator",
+    "dynamodb:ListStreams"
+  ],
+  "Resource": "arn:aws:dynamodb:region:accountID:table/BarkTable/stream/*"
+}
+```

@@ -40,12 +40,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgentDynamoTrigger5a8b9e97",
+						"changeAgentDynamoTriggerb5e811d2",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgentDynamoTrigger5a8b9e97",
+									"changeAgentDynamoTriggerb5e811d2",
 									"-",
 									{
 										"Ref": "env"
@@ -71,8 +71,8 @@
 				"Runtime": "nodejs8.10",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-sch-20190905101050-deployment",
-					"S3Key": "amplify-builds/changeAgentDynamoTrigger5a8b9e97-55705161343141635946-build.zip"
+					"S3Bucket": "change-agent-chng-20190910145314-deployment",
+					"S3Key": "amplify-builds/changeAgentDynamoTriggerb5e811d2-4836566b425643532b33-build.zip"
 				}
 			}
 		},
@@ -82,12 +82,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgentDynamoLambdaRole5a8b9e97",
+						"changeAgentDynamoLambdaRoleb5e811d2",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgentDynamoLambdaRole5a8b9e97",
+									"changeAgentDynamoLambdaRoleb5e811d2",
 									"-",
 									{
 										"Ref": "env"
@@ -153,6 +153,37 @@
 									}
 								]
 							}
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:DescribeStream",
+								"dynamodb:GetRecords",
+								"dynamodb:GetShardIterator",
+								"dynamodb:ListStreams"
+							],
+							"Resource": [
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:dynamodb:",
+											{
+												"Ref": "AWS::Region"
+											},
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
+											":table/PhoneNumber-",
+											{
+												"Ref": "env"
+											},
+											"/stream/*"
+										]
+									]
+								}
+							]
 						}
 					]
 				}

@@ -127,7 +127,7 @@
 				}
 			]
 		},
-		"changeAgentDynamoTrigger5a8b9e97": {
+		"changeAgentDynamoTriggerb5e811d2": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,

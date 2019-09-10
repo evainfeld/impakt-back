@@ -83,7 +83,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-sch-20190905101050-deployment",
+					"S3Bucket": "change-agent-chng-20190910145314-deployment",
 					"S3Key": "amplify-builds/changeAgentS3Triggerbe81f2e2-314a6556686c55696e49-build.zip"
 				}
 			}
