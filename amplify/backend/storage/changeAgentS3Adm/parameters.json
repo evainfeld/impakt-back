@@ -28,5 +28,5 @@
   "s3PermissionsGuestPublic": "DISALLOW",
   "s3PermissionsGuestUploads": "DISALLOW",
   "GuestAllowList": "DISALLOW",
-  "triggerFunction": "S3Triggerbe81f2e2"
+  "triggerFunction": "changeAgentS3Triggerbe81f2e2"
 }

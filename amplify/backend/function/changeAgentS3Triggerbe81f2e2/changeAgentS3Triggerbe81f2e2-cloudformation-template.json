@@ -12,6 +12,10 @@
 		"apichangeAgentApiGraphQLAPIEndpointOutput": {
 			"Type": "String",
 			"Default": "apichangeAgentApiGraphQLAPIEndpointOutput"
+		},
+		"storagechangeAgentS3AdmBucketName": {
+			"Type": "String",
+			"Default": "storagechangeAgentS3AdmBucketName"
 		}
 	},
 	"Conditions": {
@@ -32,16 +36,16 @@
 				"aws:asset:property": "Code"
 			},
 			"Properties": {
-				"Handler": "index.handler",
+				"Handler": "handler/s3-trigger.handler",
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"S3Triggerbe81f2e2",
+						"changeAgentS3Triggerbe81f2e2",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"S3Triggerbe81f2e2",
+									"changeAgentS3Triggerbe81f2e2",
 									"-",
 									{
 										"Ref": "env"
@@ -64,6 +68,9 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"STORAGE_CHANGEAGENTS3ADM_BUCKETNAME": {
+							"Ref": "storagechangeAgentS3AdmBucketName"
 						}
 					}
 				},
@@ -77,7 +84,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-sch-20190905101050-deployment",
-					"S3Key": "amplify-builds/S3Triggerbe81f2e2-636b394c573664597755-build.zip"
+					"S3Key": "amplify-builds/changeAgentS3Triggerbe81f2e2-6d366658536969593234-build.zip"
 				}
 			}
 		},
@@ -87,12 +94,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"S3Triggerbe81f2e2LambdaRolebe81f2e2",
+						"changeAgentS3Triggerbe81f2e2LambdaRolebe81f2e2",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"S3Triggerbe81f2e2LambdaRolebe81f2e2",
+									"changeAgentS3Triggerbe81f2e2LambdaRolebe81f2e2",
 									"-",
 									{
 										"Ref": "env"
@@ -181,30 +188,6 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"logs:CreateLogGroup",
-								"logs:CreateLogStream",
-								"logs:PutLogEvents"
-							],
-							"Resource": {
-								"Fn::Sub": [
-									"arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
-									{
-										"region": {
-											"Ref": "AWS::Region"
-										},
-										"account": {
-											"Ref": "AWS::AccountId"
-										},
-										"lambda": {
-											"Ref": "LambdaFunction"
-										}
-									}
-								]
-							}
-						},
-						{
-							"Effect": "Allow",
-							"Action": [
 								"appsync:GraphQL"
 							],
 							"Resource": [
@@ -233,22 +216,21 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"ssm:GetParameters"
+								"s3:PutObject",
+								"s3:GetObject",
+								"s3:ListBucket",
+								"s3:DeleteObject"
 							],
 							"Resource": [
 								{
 									"Fn::Join": [
 										"",
 										[
-											"arn:aws:ssm:",
+											"arn:aws:s3:::change-agent-s3-adm-",
 											{
-												"Ref": "AWS::Region"
+												"Ref": "env"
 											},
-											":",
-											{
-												"Ref": "AWS::AccountId"
-											},
-											":parameter/change-agent-admin-pass"
+											"/*"
 										]
 									]
 								}
@@ -257,14 +239,14 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"kms:Decrypt"
+								"dynamodb:PutItem"
 							],
 							"Resource": [
 								{
 									"Fn::Join": [
 										"",
 										[
-											"arn:aws:kms:",
+											"arn:aws:dynamodb:",
 											{
 												"Ref": "AWS::Region"
 											},
@@ -272,7 +254,37 @@
 											{
 												"Ref": "AWS::AccountId"
 											},
-											":key/e5476118-eb24-4f0e-be88-700a6a2d5287"
+											":table/Location-",
+											{
+												"Ref": "apichangeAgentApiGraphQLAPIIdOutput"
+											},
+											"-",
+											{
+												"Ref": "env"
+											}
+										]
+									]
+								},
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:dynamodb:",
+											{
+												"Ref": "AWS::Region"
+											},
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
+											":table/Category-",
+											{
+												"Ref": "apichangeAgentApiGraphQLAPIIdOutput"
+											},
+											"-",
+											{
+												"Ref": "env"
+											}
 										]
 									]
 								}

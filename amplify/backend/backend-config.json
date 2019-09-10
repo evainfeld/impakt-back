@@ -9,28 +9,13 @@
 		}
 	},
 	"storage": {
-		"changeAgentS3": {
-			"service": "S3",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "S3Triggerbe81f2e2",
-					"attributes": [
-						"Name",
-						"Arn",
-						"LambdaExecutionRole"
-					]
-				}
-			]
-		},
 		"changeAgentS3Adm": {
 			"service": "S3",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "S3Triggerbe81f2e2",
+					"resourceName": "changeAgentS3Triggerbe81f2e2",
 					"attributes": [
 						"Name",
 						"Arn",
@@ -123,7 +108,7 @@
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"S3Triggerbe81f2e2": {
+		"changeAgentS3Triggerbe81f2e2": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,

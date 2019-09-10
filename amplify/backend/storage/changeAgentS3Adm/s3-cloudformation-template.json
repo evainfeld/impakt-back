@@ -71,17 +71,17 @@
     "triggerFunction": {
       "Type": "String"
     },
-    "functionS3Triggerbe81f2e2Name": {
+    "functionchangeAgentS3Triggerbe81f2e2Name": {
       "Type": "String",
-      "Default": "functionS3Triggerbe81f2e2Name"
+      "Default": "functionchangeAgentS3Triggerbe81f2e2Name"
     },
-    "functionS3Triggerbe81f2e2Arn": {
+    "functionchangeAgentS3Triggerbe81f2e2Arn": {
       "Type": "String",
-      "Default": "functionS3Triggerbe81f2e2Arn"
+      "Default": "functionchangeAgentS3Triggerbe81f2e2Arn"
     },
-    "functionS3Triggerbe81f2e2LambdaExecutionRole": {
+    "functionchangeAgentS3Triggerbe81f2e2LambdaExecutionRole": {
       "Type": "String",
-      "Default": "functionS3Triggerbe81f2e2LambdaExecutionRole"
+      "Default": "functionchangeAgentS3Triggerbe81f2e2LambdaExecutionRole"
     }
   },
   "Conditions": {
@@ -237,7 +237,7 @@
                 }
               },
               "Function": {
-                "Ref": "functionS3Triggerbe81f2e2Arn"
+                "Ref": "functionchangeAgentS3Triggerbe81f2e2Arn"
               }
             }
           ]
@@ -266,7 +266,7 @@
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Ref": "functionS3Triggerbe81f2e2Name"
+          "Ref": "functionchangeAgentS3Triggerbe81f2e2Name"
         },
         "Principal": "s3.amazonaws.com",
         "SourceAccount": {
@@ -311,7 +311,7 @@
         "PolicyName": "amplify-lambda-execution-policy",
         "Roles": [
           {
-            "Ref": "functionS3Triggerbe81f2e2LambdaExecutionRole"
+            "Ref": "functionchangeAgentS3Triggerbe81f2e2LambdaExecutionRole"
           }
         ],
         "PolicyDocument": {

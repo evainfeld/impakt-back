@@ -282,7 +282,7 @@ add to amplify-meta, otherwise it will not have correct trigger function params.
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "S3Triggerbe81f2e2",
+                    "resourceName": "changeAgentS3Triggerbe81f2e2",
                     "attributes": [
                         "Name",
                         "Arn",
