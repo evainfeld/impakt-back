@@ -39,7 +39,7 @@
 				"GraphQLAPIIdOutput": "27k5llxbdzg3djjqeydordhnie",
 				"GraphQLAPIEndpointOutput": "https://clmdz7hccbeljganagyjyhiy7y.appsync-api.eu-west-1.amazonaws.com/graphql"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.724Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.369Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apichangeAgentApi"
@@ -65,7 +65,7 @@
 				"BucketName": "change-agent-s3-adm-chng",
 				"Region": "eu-west-1"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.726Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.370Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/storage/s3-adm-cloudformation-template.json",
 				"logicalId": "storagechangeAgentS3Adm"
@@ -78,7 +78,7 @@
 				"BucketName": "change-agent-s3-chng",
 				"Region": "eu-west-1"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.727Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.371Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/storage/s3-res-cloudformation-template.json",
 				"logicalId": "storagechangeAgentS3"
@@ -95,11 +95,12 @@
 				"PartitionKeyType": "S",
 				"Name": "PhoneNumber-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.727Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.377Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/storage/changeAgentDynamo-cloudformation-template.json",
 				"logicalId": "storagechangeAgentDynamo"
-			}
+			},
+			"lastPushDirHash": "l3SJB2e9JY7F32Qndux0Gf78ESQ="
 		}
 	},
 	"auth": {
@@ -162,7 +163,7 @@
 				"IdentityPoolName": "changeAgent95205ed895205ed8_identitypool_8cff2fa1__chng",
 				"UserPoolName": "change_agent95205ed8_userpool_95205ed8"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.728Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.372Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/auth/changeAgent95205ed895205ed8-cloudformation-template.yml",
 				"logicalId": "authchangeAgent95205ed895205ed8"
@@ -179,7 +180,7 @@
 				"Arn": "arn:aws:lambda:eu-west-1:922687003324:function:changeAgent95205ed895205ed8CreateAuthChallenge-chng",
 				"Name": "changeAgent95205ed895205ed8CreateAuthChallenge-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.735Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.373Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/function/changeAgent95205ed895205ed8CreateAuthChallenge-cloudformation-template.json",
 				"logicalId": "functionchangeAgent95205ed895205ed8CreateAuthChallenge"
@@ -198,7 +199,7 @@
 				"Arn": "arn:aws:lambda:eu-west-1:922687003324:function:changeAgent95205ed895205ed8DefineAuthChallenge-chng",
 				"Name": "changeAgent95205ed895205ed8DefineAuthChallenge-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.735Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.373Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/function/changeAgent95205ed895205ed8DefineAuthChallenge-cloudformation-template.json",
 				"logicalId": "functionchangeAgent95205ed895205ed8DefineAuthChallenge"
@@ -217,7 +218,7 @@
 				"Arn": "arn:aws:lambda:eu-west-1:922687003324:function:changeAgent95205ed895205ed8PreSignup-chng",
 				"Name": "changeAgent95205ed895205ed8PreSignup-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.735Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.374Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/function/changeAgent95205ed895205ed8PreSignup-cloudformation-template.json",
 				"logicalId": "functionchangeAgent95205ed895205ed8PreSignup"
@@ -236,7 +237,7 @@
 				"Arn": "arn:aws:lambda:eu-west-1:922687003324:function:changeAgent95205ed895205ed8VerifyAuthChallengeResponse-chng",
 				"Name": "changeAgent95205ed895205ed8VerifyAuthChallengeResponse-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.735Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.374Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/function/changeAgent95205ed895205ed8VerifyAuthChallengeResponse-cloudformation-template.json",
 				"logicalId": "functionchangeAgent95205ed895205ed8VerifyAuthChallengeResponse"
@@ -255,7 +256,7 @@
 				"Arn": "arn:aws:lambda:eu-west-1:922687003324:function:changeAgent95205ed895205ed8PostConfirmation-chng",
 				"Name": "changeAgent95205ed895205ed8PostConfirmation-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.735Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.375Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/function/changeAgent95205ed895205ed8PostConfirmation-cloudformation-template.json",
 				"logicalId": "functionchangeAgent95205ed895205ed8PostConfirmation"
@@ -285,7 +286,7 @@
 				"Name": "changeAgentS3Triggerbe81f2e2-chng",
 				"LambdaExecutionRole": "changeAgentS3Triggerbe81f2e2LambdaRolebe81f2e2-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.735Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.376Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/function/changeAgentS3Triggerbe81f2e2-cloudformation-template.json",
 				"logicalId": "functionchangeAgentS3Triggerbe81f2e2"
@@ -316,15 +317,15 @@
 				"Name": "changeAgentDynamoTriggerb5e811d2-chng",
 				"LambdaExecutionRole": "changeAgentDynamoLambdaRoleb5e811d2-chng"
 			},
-			"lastPushTimeStamp": "2019-09-10T21:17:02.735Z",
+			"lastPushTimeStamp": "2019-09-11T07:42:03.377Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/change-agent-chng-20190910145314-deployment/amplify-cfn-templates/function/changeAgentDynamoTriggerb5e811d2-cloudformation-template.json",
 				"logicalId": "functionchangeAgentDynamoTriggerb5e811d2"
 			},
-			"lastBuildTimeStamp": "2019-09-10T21:15:58.536Z",
-			"lastPackageTimeStamp": "2019-09-10T21:15:58.676Z",
-			"distZipFilename": "changeAgentDynamoTriggerb5e811d2-4836566b425643532b33-build.zip",
-			"lastPushDirHash": "bU0mnTATgh1RWxEksNtXZCZ+g7s="
+			"lastBuildTimeStamp": "2019-09-11T07:40:58.954Z",
+			"lastPackageTimeStamp": "2019-09-11T07:40:58.998Z",
+			"distZipFilename": "changeAgentDynamoTriggerb5e811d2-7350304e6f415a2f4c78-build.zip",
+			"lastPushDirHash": "tbv/FHQhqbulqHows1smQjPSa3k="
 		}
 	}
 }

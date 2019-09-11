@@ -36,7 +36,7 @@
 				"aws:asset:property": "Code"
 			},
 			"Properties": {
-				"Handler": "index.handler",
+				"Handler": "handler/db-trigger.handler",
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
@@ -72,7 +72,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-chng-20190910145314-deployment",
-					"S3Key": "amplify-builds/changeAgentDynamoTriggerb5e811d2-4836566b425643532b33-build.zip"
+					"S3Key": "amplify-builds/changeAgentDynamoTriggerb5e811d2-7350304e6f415a2f4c78-build.zip"
 				}
 			}
 		},
