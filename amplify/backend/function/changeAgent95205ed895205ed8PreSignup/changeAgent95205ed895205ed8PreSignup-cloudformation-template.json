@@ -33,6 +33,18 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"storagechangeAgentDynamoName": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoName"
+		},
+		"storagechangeAgentDynamoArn": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoArn"
+		},
+		"authchangeAgent95205ed895205ed8UserPoolId": {
+			"Type": "String",
+			"Default": "authchangeAgent95205ed895205ed8UserPoolId"
 		}
 	},
 	"Conditions": {
@@ -79,6 +91,15 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_NAME": {
+							"Ref": "storagechangeAgentDynamoName"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_ARN": {
+							"Ref": "storagechangeAgentDynamoArn"
+						},
+						"AUTH_CHANGEAGENT95205ED895205ED8_USERPOOLID": {
+							"Ref": "authchangeAgent95205ed895205ed8UserPoolId"
 						}
 					}
 				},
@@ -173,6 +194,41 @@
 									}
 								]
 							}
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query"
+							],
+							"Resource": [
+								{
+									"Ref": "storagechangeAgentDynamoArn"
+								}
+							]
 						}
 					]
 				}

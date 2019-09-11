@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "auth": {
+      "changeAgent95205ed895205ed8": ["create", "read", "update", "delete"]
+    }
+  }
+}
