@@ -16,6 +16,6 @@
     },
     "rules": {},
     "settings": {
-      "import/core-modules": ["aws-sdk", "js-yaml"]
+      "import/core-modules": ["aws-sdk"]
     }
   }
