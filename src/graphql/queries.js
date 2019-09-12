@@ -376,8 +376,8 @@ export const listLocation = `query ListLocation(
   }
 }
 `;
-export const getCategory = `query GetCategory($org: String!, $region: String!, $name: String!) {
-  getCategory(org: $org, region: $region, name: $name) {
+export const getCategory = `query GetCategory($region: String!, $name: String!) {
+  getCategory(region: $region, name: $name) {
     id
     region
     org
@@ -388,16 +388,16 @@ export const getCategory = `query GetCategory($org: String!, $region: String!, $
 }
 `;
 export const listCategory = `query ListCategory(
-  $org: String
-  $regionName: ModelCategoryPrimaryCompositeKeyConditionInput
+  $region: String
+  $name: ModelStringKeyConditionInput
   $filter: ModelCategoryFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
   listCategory(
-    org: $org
-    regionName: $regionName
+    region: $region
+    name: $name
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -865,6 +865,34 @@ export const listCategoryByIndex = `query ListCategoryByIndex(
 ) {
   listCategoryByIndex(
     id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      region
+      org
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const listCategoryByOrg = `query ListCategoryByOrg(
+  $org: String
+  $regionName: ModelCategoryOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCategoryByOrg(
+    org: $org
+    regionName: $regionName
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit

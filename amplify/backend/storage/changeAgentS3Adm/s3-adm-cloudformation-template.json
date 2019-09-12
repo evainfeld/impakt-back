@@ -231,7 +231,7 @@
                     },
                     {
                       "Name": "prefix",
-                      "Value": "__init__"
+                      "Value": "__put__"
                     }
                   ]
                 }

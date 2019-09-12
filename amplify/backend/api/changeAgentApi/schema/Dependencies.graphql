@@ -13,6 +13,8 @@ type Location
   # ex ORG1
   org: String!
   name: String!
+  coordinatorName: String
+  coordinatorEmail: String
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
@@ -24,8 +26,9 @@ type Category
     queries: { get: "getCategory", list: "listCategory" }
     mutations: { create: "createCategory", update: null, delete: "deleteCategory" }
   )
-  @key(fields: ["org", "region", "name"])
-  @key(name: "Index", fields: ["id"], queryField: "listCategoryByIndex") {
+  @key(fields: ["region", "name"])
+  @key(name: "Index", fields: ["id"], queryField: "listCategoryByIndex")
+  @key(name: "Org", fields: ["org", "region", "name"], queryField: "listCategoryByOrg") {
   #  The id of the Conversation this message belongs to. This is the table unique GSI key.
   id: ID
   # ex ORG1#PL#WAW

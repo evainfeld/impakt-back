@@ -1,6 +1,17 @@
-const { queryDocument } = require('change-agent-services/dbService');
+const AWS = require('aws-sdk');
 
 const CHANGE_AGENT_DYNAMO = process.env.STORAGE_CHANGEAGENTDYNAMO_NAME;
+
+const decorateParamsWithTableName = (params, tableName) => ({
+  ...params,
+  TableName: tableName,
+});
+
+const queryDocument = async (params, tableName) => {
+  const documentClient = new AWS.DynamoDB.DocumentClient({});
+  const doc = await documentClient.query(decorateParamsWithTableName(params, tableName)).promise();
+  return doc;
+};
 
 exports.handler = async event => {
   let type = 'NOT_SET';
