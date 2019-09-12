@@ -102,7 +102,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-miga-20190912142006-deployment",
-					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-4872777376514a2f4c44-build.zip"
+					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-554f59777a7546386446-build.zip"
 				}
 			}
 		},

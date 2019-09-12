@@ -343,6 +343,8 @@ export const getLocation = `query GetLocation($org: String!, $region: String!) {
     region
     org
     name
+    coordinatorName
+    coordinatorEmail
     createdAt
     updatedAt
   }
@@ -369,6 +371,8 @@ export const listLocation = `query ListLocation(
       region
       org
       name
+      coordinatorName
+      coordinatorEmail
       createdAt
       updatedAt
     }
@@ -849,6 +853,8 @@ export const listLocationByIndex = `query ListLocationByIndex(
       region
       org
       name
+      coordinatorName
+      coordinatorEmail
       createdAt
       updatedAt
     }

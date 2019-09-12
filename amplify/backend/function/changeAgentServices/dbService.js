@@ -10,3 +10,9 @@ exports.queryDocument = async (params, tableName) => {
   const doc = await documentClient.query(decorateParamsWithTableName(params, tableName)).promise();
   return doc;
 };
+
+exports.putDocument = async (params, tableName) => {
+  const documentClient = new AWS.DynamoDB.DocumentClient({});
+  const doc = await documentClient.query(decorateParamsWithTableName(params, tableName)).promise();
+  return doc;
+};

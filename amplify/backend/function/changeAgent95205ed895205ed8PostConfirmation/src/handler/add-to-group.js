@@ -1,4 +1,6 @@
 const aws = require('aws-sdk');
+// eslint-disable-next-line no-unused-vars
+const { queryDocument } = require('change-agent-services/dbService');
 
 exports.handler = async event => {
   // Amplify sometimes fails to copy envs between envs during merging.

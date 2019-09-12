@@ -219,6 +219,8 @@ export const createLocation = `mutation CreateLocation($input: CreateLocationInp
     region
     org
     name
+    coordinatorName
+    coordinatorEmail
     createdAt
     updatedAt
   }

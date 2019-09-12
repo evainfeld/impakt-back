@@ -5,7 +5,7 @@
   "main": "handler/pre-signup.js",
   "license": "Apache-2.0",
   "dependencies": {
-    "change-agent-services": "^1.0.0"
+    "change-agent-services": "file:../../changeAgentServices"
   },
   "devDependencies": {}
 }

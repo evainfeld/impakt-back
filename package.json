@@ -6,7 +6,10 @@
   "scripts": {
     "lint:graqphql": "amplify api gql-compile; node_modules/.bin/graphql-schema-linter amplify/backend/api/changeAgentApi/build/schema.graphql __tools__/appsync/aws_appsync.graphql",
     "lint:js": "./node_modules/.bin/eslint .",
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "amplify:changeAgent95205ed895205ed8PreSignup": "cd amplify/backend/function/changeAgent95205ed895205ed8PreSignup/src && mkdir tmp/ && cp -RL node_modules/ tmp/ && rm -rf node_modules/ && mv tmp node_modules",
+    "amplify:changeAgent95205ed895205ed8PostConfirmation": "cd amplify/backend/function/changeAgent95205ed895205ed8PostConfirmation/src && mkdir tmp/ && cp -RL node_modules/ tmp/ && rm -rf node_modules/ && mv tmp node_modules",
+    "refresh": ". ./__tools__/scripts/refresh_modules.sh changeAgent95205ed895205ed8PreSignup changeAgent95205ed895205ed8PostConfirmation"
   },
   "jest": {
     "testPathIgnorePatterns": [
