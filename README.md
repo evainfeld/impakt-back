@@ -43,19 +43,27 @@ Never, ever, in any circumstances call `amplify delete` :)
 Prod and Dev envs are deployed automatically using AWS Amplify Console.
 As long as, API is "protected" using API KEY remember to add `x-api-key` param to POST header.
 
-### PROD - associated with master branch
+### PRD - old and obselate
 
 ```txt
 GraphQL endpoint: https://cegdp4fefram7l2i5k6f632oam.appsync-api.eu-west-1.amazonaws.com/graphql
 key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
 ```
 
+### MST - associated with develop master branch
+
+GraphQL endpoint: https://57ct7hhdkbfahozld6qlj7tje4.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-jzrcjg4jkrcihncilec6kjg64q
+UserPoolId: eu-west-1_vnhg2QDvm
+AppClientIDWeb: hlorihvm2s2hdh8ul2n69kkl7
+
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://clmdz7hccbeljganagyjyhiy7y.appsync-api.eu-west-1.amazonaws.com/graphql
-userPoolId: 'eu-west-1_0k9lelifF',
-userPoolWebClientId: 'vm2p62k2qbl5d3r06hn4rcmsq',
+GraphQL endpoint: https://gnvp6biqcrh2zdf76gyjczzm3m.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-nnieiskwarblpittfoatpdtnfa
+UserPoolId: eu-west-1_ADjb1iByy
+AppClientIDWeb: "e6n6prmaa78p5io78pnr3vvr2
 ```
 
 **NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
@@ -297,7 +305,7 @@ and make sure that CF files for both S3 have different names. Amplify pushes the
 
 **TIP**: if sth goes wrong take a look into amplify-meta.json file.
 
-## Amplify bugs
+## Amplify bugs and unexpected behaviours
 
 **1**:
 
@@ -462,3 +470,17 @@ adding storage table with trigger fails while pushing. Needed to add manually to
   "Resource": "arn:aws:dynamodb:region:accountID:table/BarkTable/stream/*"
 }
 ```
+
+**12**:
+
+- First push of new environment always crash on changeAgentDynamoTrigger permissions:
+
+```txt
+2019-09-13T12:55:24.191Z [INFO]:
+2019-09-13T12:55:24.193Z [INFO]: CREATE_FAILED   changeAgentDynamoTrigger                                                              AWS::Lambda::EventSourceMapping Fri Sep 13 2019 12:55:19 GMT+0000 (Coordinated Universal Time) Cannot access stream arn:aws:dynamodb:eu-west-1:922687003324:table/PhoneNumber-dev/stream/2019-09-13T12:51:10.020. Please ensure the role can perform the GetRecords, GetShardIterator, DescribeStream, and ListStreams Actions on your stream in IAM. (Service: AWSLambda; Status Code: 400; Error Code: InvalidParameterValueException; Request ID: 7993850f-56ab-4575-95d7-e8d767e236f8)
+          CREATE_COMPLETE lambdaexecutionpolicy                                                     AWS::IAM::Policy                Fri Sep 13 2019 12:55:(Coordinated Universal Time)
+          CREAchange-agent-dev-20190913143649-functionchangeAgentDynamoTriggerb5e811d2-TAWS::CloudFormation::Stack      Fri Sep 13 2019 12:55:20 GMT+0000 (Universal Time) The following resource(s) failed to create: [changeAgentDynamoTrigger.
+```
+
+- Then you have manually remove S3 bucket - `change-agent-s3-${env}`
+- after that push will be successful

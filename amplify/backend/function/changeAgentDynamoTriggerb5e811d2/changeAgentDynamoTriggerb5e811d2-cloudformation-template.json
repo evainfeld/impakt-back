@@ -81,7 +81,7 @@
 				"Runtime": "nodejs8.10",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-miga-20190912142006-deployment",
+					"S3Bucket": "change-agent-mst-20190913143232-deployment",
 					"S3Key": "amplify-builds/changeAgentDynamoTriggerb5e811d2-496f6a59497a386f7557-build.zip"
 				}
 			}

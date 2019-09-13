@@ -115,8 +115,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-miga-20190912142006-deployment",
-					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-6f37684b75312b57592b-build.zip"
+					"S3Bucket": "change-agent-mst-20190913143232-deployment",
+					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-6f49594661536a6c4c41-build.zip"
 				}
 			}
 		},
