@@ -3,10 +3,26 @@ backend:
   phases:
     preBuild:
       commands:
-        - npm install
+        - npm install -g @aws-amplify/cli
+        - npm ci
         - npm run refresh
         - npm run test
     build:
       commands:
         - '# Execute Amplify CLI with the helper script'
         - amplifyPush --simple
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands: []
+  artifacts:
+    # IMPORTANT - Please verify your build output directory
+    baseDirectory: /
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
