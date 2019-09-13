@@ -219,6 +219,8 @@ export const onCreateLocation = `subscription OnCreateLocation {
     region
     org
     name
+    coordinatorName
+    coordinatorEmail
     createdAt
     updatedAt
   }

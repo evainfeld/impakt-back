@@ -1,7 +1,6 @@
 {
     "env": {
-      "browser": true,
-      "commonjs": true,
+      "node": true,
       "es6": true,
       "jest": true
     },
@@ -12,10 +11,11 @@
       "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-      "ecmaVersion": 2018
+      "ecmaVersion": 2018,
+      "sourceType": "module"
     },
     "rules": {},
     "settings": {
-      "import/core-modules": ["aws-sdk", "js-yaml"]
+      "import/core-modules": ["aws-sdk"]
     }
   }

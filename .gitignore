@@ -1,4 +1,8 @@
 node_modules
+.DS_Store
+
+#tests directories
+coverage/
 
 #amplify
 amplify/\#current-cloud-backend
@@ -13,5 +17,3 @@ aws-exports.js
 awsconfiguration.json
 
 
-#tests directories
-coverage/

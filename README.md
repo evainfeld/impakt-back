@@ -30,9 +30,13 @@ Never, ever, in any circumstances call `amplify delete` :)
 - AWS Account with appropriate permissions to create the related resources
 - NodeJS with NPM
 - AWS CLI (`pip install awscli --upgrade --user`)
-- AWS Amplify CLI (configured for a region where AWS AppSync is available) (`npm install -g @aws-amplify/cli`)
+- AWS Amplify CLI (configured for a region where AWS AppSync is available) (`npm install -g @aws-amplify/cli`) **NOTE** for mac users - call before: `brew install zeromq` `brew install pkgconfig`
 - Keys for multiple accounts configured according to documantation: `https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-multiple-profiles`
 - git-flow tool might be helpful (`npm install -g git-flow`)
+
+## Architecture
+
+![Alt text](__docs__/change-agent-arch-1.jpg 'diagram')
 
 ## Environments
 
@@ -49,9 +53,9 @@ key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://fcw5yysmxbgqjecblhdemeyo5e.appsync-api.eu-west-1.amazonaws.com/graphql
-UserPoolId: eu-west-1_ziXwApzvo
-UserPoolClientID: 1ab8r1mkmel43gjd6u4fjv5nnn
+GraphQL endpoint: https://clmdz7hccbeljganagyjyhiy7y.appsync-api.eu-west-1.amazonaws.com/graphql
+userPoolId: 'eu-west-1_0k9lelifF',
+userPoolWebClientId: 'vm2p62k2qbl5d3r06hn4rcmsq',
 ```
 
 **NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
@@ -267,6 +271,32 @@ _NOTE_: Don't know yet how to deploy AppSync supporting only api key
 
 AppSync supports only one table per one model design. According to AWS it's far away from optimal one table approach. However revriting generated Cloudformation files seems to be futile, as it breakes some AppSync annotation functionalities like @Connection or Unions.
 
+## Add second S3 storage
+
+add to backend-config, otherwise it will not have correct trigger function params. By defualt amplify doesn't support multiple S3 as a storage component. It suggest using prefixes which is not perfect solution if creating administrative bucket.
+
+```json
+ "changeAgentS3Adm": {
+            "service": "S3",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "changeAgentS3Triggerbe81f2e2",
+                    "attributes": [
+                        "Name",
+                        "Arn",
+                        "LambdaExecutionRole"
+                    ]
+                }
+            ],
+ }
+```
+
+and make sure that CF files for both S3 have different names. Amplify pushes them to same deployment catalog.
+
+**TIP**: if sth goes wrong take a look into amplify-meta.json file.
+
 ## Amplify bugs
 
 **1**:
@@ -415,3 +445,20 @@ Custom attributes for Cognito could be only created by manually adding
 ```
 
 into `amplify/backend/auth/*/*-cloudformation-template.yml`, every call of `amplify auth update` will rewrite that. What's more parameters.json files has some attributes customizing pairs but they're not used by template!
+
+**11**:
+
+adding storage table with trigger fails while pushing. Needed to add manually to lambda permissions:
+
+```json
+{
+  "Effect": "Allow",
+  "Action": [
+    "dynamodb:DescribeStream",
+    "dynamodb:GetRecords",
+    "dynamodb:GetShardIterator",
+    "dynamodb:ListStreams"
+  ],
+  "Resource": "arn:aws:dynamodb:region:accountID:table/BarkTable/stream/*"
+}
+```

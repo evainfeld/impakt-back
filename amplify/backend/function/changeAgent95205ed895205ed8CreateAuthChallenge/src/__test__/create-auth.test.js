@@ -1,33 +1,44 @@
 /* eslint-disable import/no-extraneous-dependencies */
 jest.mock('crypto-secure-random-digit');
+jest.mock('change-agent-services/dbService');
 
 const random = require('crypto-secure-random-digit');
 const { mock, restore } = require('aws-sdk-mock');
 const sinon = require('sinon');
+const { queryDocument, restoreDynamoClientMock } = require('change-agent-services/dbService');
 const createAuth = require('../handler/create-auth.js');
 const event = require('../handler/event.json');
 const eventSession = require('../handler/eventSession.json');
 
 describe('create-auth.test.js', () => {
-  const snsSpyFunc = sinon.spy((params, callback) => {
-    callback(undefined, params);
+  let snsSpyFunc;
+  let spy;
+
+  beforeAll(() => {
+    queryDocument.mockImplementation(() => ({
+      Items: [],
+    }));
+
+    snsSpyFunc = sinon.spy((params, callback) => {
+      callback(undefined, params);
+    });
+    mock('SNS', 'publish', snsSpyFunc);
+    random.randomDigits = jest.fn().mockImplementation(digits => {
+      const array = [];
+      for (let i = 0; i < digits; i += 1) {
+        array.push(2);
+      }
+      return array;
+    });
+    spy = jest.spyOn(random, 'randomDigits');
   });
-  mock('SNS', 'publish', snsSpyFunc);
-  random.randomDigits = jest.fn().mockImplementation(digits => {
-    const array = [];
-    for (let i = 0; i < digits; i += 1) {
-      array.push(2);
-    }
-    return array;
-  });
-  const spy = jest.spyOn(random, 'randomDigits');
 
   afterAll(() => {
     restore('SNS', 'publish');
+    restoreDynamoClientMock();
+    jest.unmock('change-agent-services/dbService');
     jest.unmock('crypto-secure-random-digit');
   });
-
-  beforeAll(() => {});
 
   beforeEach(() => {});
 

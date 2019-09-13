@@ -6,7 +6,13 @@
   "scripts": {
     "lint:graqphql": "amplify api gql-compile; node_modules/.bin/graphql-schema-linter amplify/backend/api/changeAgentApi/build/schema.graphql __tools__/appsync/aws_appsync.graphql",
     "lint:js": "./node_modules/.bin/eslint .",
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage",
+    "amplify:changeAgent95205ed895205ed8PreSignup": ". ./__tools__/scripts/replace_symlinks.sh changeAgent95205ed895205ed8PreSignup",
+    "amplify:changeAgent95205ed895205ed8PostConfirmation": ". ./__tools__/scripts/replace_symlinks.sh changeAgent95205ed895205ed8PostConfirmation",
+    "amplify:changeAgentS3Triggerbe81f2e2": ". ./__tools__/scripts/replace_symlinks.sh changeAgentS3Triggerbe81f2e2",
+    "amplify:changeAgentDynamoTriggerb5e811d2": ". ./__tools__/scripts/replace_symlinks.sh changeAgentDynamoTriggerb5e811d2",
+    "amplify:changeAgent95205ed895205ed8CreateAuthChallenge": ". ./__tools__/scripts/replace_symlinks.sh changeAgent95205ed895205ed8CreateAuthChallenge",
+    "refresh": ". ./__tools__/scripts/refresh_modules.sh changeAgent95205ed895205ed8PreSignup changeAgent95205ed895205ed8PostConfirmation changeAgentS3Triggerbe81f2e2 changeAgentDynamoTriggerb5e811d2 changeAgent95205ed895205ed8CreateAuthChallenge"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -22,10 +28,10 @@
     "@graphql-inspector/cli": "^1.23.1",
     "acorn": "^7.0.0",
     "aws-sdk-mock": "^4.5.0",
-    "eslint": "6.2.2",
-    "eslint-config-airbnb-base": "14.0.0",
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "6.1.0",
-    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "22.15.2",
     "graphql-schema-linter": "0.2.1",
     "graphql-tag-pluck": "^0.8.4",

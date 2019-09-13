@@ -1,0 +1,8 @@
+{
+  "name": "change-agent-services",
+  "version": "1.0.0",
+  "description": "common services for change agent lambda functions",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
+}

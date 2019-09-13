@@ -1,11 +1,9 @@
 const cryptoSec = require('crypto-secure-random-digit');
 const AWS = require('aws-sdk');
+const { queryForPhoneNumberDocumentType, phoneTypes } = require('change-agent-services/dbService');
 
-// Get Pinpoint Project ID from environment variable
-// var poinpointProjectID = process.env.PINPOINT_PROJECT_ID;
+const CHANGE_AGENT_DYNAMO = process.env.STORAGE_CHANGEAGENTDYNAMO_NAME;
 
-// Send secret code over SMS via Amazon Simple Notification Service (SNS)
-// Requirements: Permission for this function to publish to SNS
 async function sendSMSviaSNS(phoneNumber, secretLoginCode, isDev) {
   if (isDev) return;
   const params = {
@@ -25,7 +23,19 @@ exports.handler = async event => {
   let secretLoginCode;
   const isDev = typeof process.env.envType !== 'undefined' && process.env.envType === 'dev';
 
-  if (!event.request.session || !event.request.session.length) {
+  const type = await queryForPhoneNumberDocumentType(
+    event.request.userAttributes.phone_number,
+    CHANGE_AGENT_DYNAMO,
+  );
+  if (type === phoneTypes.admin) {
+    const secretName = 'change-agent-admin-pass';
+    const req = {
+      Names: [secretName],
+      WithDecryption: true,
+    };
+    const resp = await new AWS.SSM().getParameters(req).promise();
+    secretLoginCode = resp.Parameters[0].Value;
+  } else if (!event.request.session || !event.request.session.length) {
     const phoneNumber = event.request.userAttributes.phone_number;
     // This is a new auth session
     // Generate a new secret login code and text it to the user
