@@ -1,9 +1,8 @@
-version: 0.1
+version: 1.0
 backend:
   phases:
     preBuild:
       commands:
-        - npm install -g @aws-amplify/cli
         - npm ci
         - npm run refresh
         - npm run test
