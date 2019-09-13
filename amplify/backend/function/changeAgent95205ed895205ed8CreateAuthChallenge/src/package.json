@@ -5,6 +5,7 @@
   "main": "handler/create-auth.js",
   "license": "Apache-2.0",
   "dependencies": {
+    "change-agent-services": "file:../../changeAgentServices",
     "crypto-secure-random-digit": "^1.0.7"
   },
   "devDependencies": {}

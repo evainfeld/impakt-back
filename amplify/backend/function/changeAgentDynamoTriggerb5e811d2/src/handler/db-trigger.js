@@ -1,12 +1,7 @@
 const aws = require('aws-sdk');
+const { phoneTypes } = require('change-agent-services/dbService');
 
 const authChangeAgentUserPoolId = process.env.AUTH_CHANGEAGENT95205ED895205ED8_USERPOOLID;
-
-const phoneTypes = {
-  admin: 'ADMIN',
-  member: 'MEMBER',
-  blacklisted: 'BLACKLISTED',
-};
 
 const operationTypes = {
   insert: 'INSERT',

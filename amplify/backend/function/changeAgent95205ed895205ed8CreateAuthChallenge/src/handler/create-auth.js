@@ -1,11 +1,9 @@
 const cryptoSec = require('crypto-secure-random-digit');
 const AWS = require('aws-sdk');
+const { queryForPhoneNumberDocumentType, phoneTypes } = require('change-agent-services/dbService');
 
-// Get Pinpoint Project ID from environment variable
-// var poinpointProjectID = process.env.PINPOINT_PROJECT_ID;
+const CHANGE_AGENT_DYNAMO = process.env.STORAGE_CHANGEAGENTDYNAMO_NAME;
 
-// Send secret code over SMS via Amazon Simple Notification Service (SNS)
-// Requirements: Permission for this function to publish to SNS
 async function sendSMSviaSNS(phoneNumber, secretLoginCode, isDev) {
   if (isDev) return;
   const params = {
@@ -25,8 +23,11 @@ exports.handler = async event => {
   let secretLoginCode;
   const isDev = typeof process.env.envType !== 'undefined' && process.env.envType === 'dev';
 
-  // should be logic with dynamodb call
-  if (event.request.userAttributes.phone_number === '+48000') {
+  const type = await queryForPhoneNumberDocumentType(
+    event.request.userAttributes.phone_number,
+    CHANGE_AGENT_DYNAMO,
+  );
+  if (type === phoneTypes.admin) {
     const secretName = 'change-agent-admin-pass';
     const req = {
       Names: [secretName],

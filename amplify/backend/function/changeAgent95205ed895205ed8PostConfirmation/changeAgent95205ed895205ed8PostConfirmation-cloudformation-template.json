@@ -37,6 +37,14 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"storagechangeAgentDynamoName": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoName"
+		},
+		"storagechangeAgentDynamoArn": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoArn"
 		}
 	},
 	"Conditions": {
@@ -89,6 +97,12 @@
 						},
 						"GROUP": {
 							"Ref": "GROUP"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_NAME": {
+							"Ref": "storagechangeAgentDynamoName"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_ARN": {
+							"Ref": "storagechangeAgentDynamoArn"
 						}
 					}
 				},
@@ -102,7 +116,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-miga-20190912142006-deployment",
-					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-554f59777a7546386446-build.zip"
+					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PostConfirmation-6f37684b75312b57592b-build.zip"
 				}
 			}
 		},
@@ -183,6 +197,41 @@
 									}
 								]
 							}
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query"
+							],
+							"Resource": [
+								{
+									"Ref": "storagechangeAgentDynamoArn"
+								}
+							]
 						}
 					]
 				}

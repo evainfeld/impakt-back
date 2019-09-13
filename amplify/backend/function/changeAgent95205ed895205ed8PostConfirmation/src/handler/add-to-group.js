@@ -1,15 +1,30 @@
 const aws = require('aws-sdk');
-// eslint-disable-next-line no-unused-vars
-const { queryDocument } = require('change-agent-services/dbService');
+const { queryForPhoneNumberDocumentType, phoneTypes } = require('change-agent-services/dbService');
+
+const CHANGE_AGENT_DYNAMO = process.env.STORAGE_CHANGEAGENTDYNAMO_NAME;
 
 exports.handler = async event => {
-  // Amplify sometimes fails to copy envs between envs during merging.
-  let group = typeof process.env.GROUP === 'undefined' ? 'Users' : process.env.GROUP;
+  let group;
+  try {
+    const type = await queryForPhoneNumberDocumentType(
+      event.request.userAttributes.phone_number,
+      CHANGE_AGENT_DYNAMO,
+    );
+    switch (type) {
+      case phoneTypes.admin:
+        group = 'Admins';
+        break;
+      case phoneTypes.member:
+        group = 'Members';
+        break;
+      default:
+        group = 'Users';
+        break;
+    }
+  } catch (error) {
+    group = typeof process.env.GROUP === 'undefined' ? 'Users' : process.env.GROUP;
+  }
 
-  // should be dynamodb query
-  group = event.request.userAttributes.phone_number === '+48000' ? 'Admins' : group;
-
-  // end of block
   const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18',
   });

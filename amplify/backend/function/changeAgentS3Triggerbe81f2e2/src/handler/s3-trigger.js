@@ -1,23 +1,8 @@
 const AWS = require('aws-sdk');
+const { putDocument } = require('change-agent-services/dbService');
 
 const apiChangeAgentApiGraphQLAPIIdOutput = process.env.API_CHANGEAGENTAPI_GRAPHQLAPIIDOUTPUT;
 const env = process.env.ENV;
-
-const decorateParamsWithTableName = (params, tableName) => ({
-  ...params,
-  TableName: tableName,
-});
-
-const putDocument = async (record, tableName) => {
-  const documentClient = new AWS.DynamoDB.DocumentClient({});
-  const params = {
-    Item: {
-      ...record,
-    },
-  };
-
-  await documentClient.put(decorateParamsWithTableName(params, tableName)).promise();
-};
 
 const putAllDocuments = async (docs, tableName) => {
   await Promise.all(
