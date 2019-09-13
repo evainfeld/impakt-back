@@ -1,25 +1,35 @@
-
 # storing all available regions in application
-type Location 
-  @model( queries: { get: "getLocation", list: "listLocation" }, mutations: {create: "createLocation", update: null, delete: null})
+type Location
+  @model(
+    queries: { get: "getLocation", list: "listLocation" }
+    mutations: { create: "createLocation", update: null, delete: null }
+  )
   @key(fields: ["org", "region"])
- {
+  @key(name: "Index", fields: ["id"], queryField: "listLocationByIndex") {
+  #  The id of the Conversation this message belongs to. This is the table unique GSI key.
   id: ID
   # ex ORG1#PL#WAW
   region: String!
   # ex ORG1
   org: String!
   name: String!
+  coordinatorName: String
+  coordinatorEmail: String
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 }
 
 # storing all available message categories in application
-type Category 
-  @model( queries: { get: "getCategory", list: "listCategory" }, mutations: {create: "createCategory", update: null, delete: "deleteCategory" }  )
-  @key(fields: ["org", "region", "name" ])
- {
+type Category
+  @model(
+    queries: { get: "getCategory", list: "listCategory" }
+    mutations: { create: "createCategory", update: null, delete: "deleteCategory" }
+  )
+  @key(fields: ["region", "name"])
+  @key(name: "Index", fields: ["id"], queryField: "listCategoryByIndex")
+  @key(name: "Org", fields: ["org", "region", "name"], queryField: "listCategoryByOrg") {
+  #  The id of the Conversation this message belongs to. This is the table unique GSI key.
   id: ID
   # ex ORG1#PL#WAW
   region: String!
@@ -32,24 +42,25 @@ type Category
 }
 
 #getUser is called "me" and works withouth params. Just using context
-type User 
-@model( queries: { get: "getUser", list: "listUser" }, mutations: {create: "createUser", update: "updateUser", delete: null})
-@key(fields: ["cognitoId"]) 
-@key(name: "org", fields: ["org", "username"], queryField: "listUsersByOrg" )
-{
-  
-	#  A unique identifier for the user. cognito:sub
-	cognitoId: ID!
-  #  A unique identifier for the user. cognito:group
-	cognitoGroup: String! 
-  #  Generated id for a user. read-only
-	id: ID!
-  	#  The username
-	username: String!
-	# is the user registered?
-	registered: Boolean
-  # 
-	org: String!
+type User
+  @model(
+    queries: { get: "getUser", list: "listUser" }
+    mutations: { create: "createUser", update: "updateUser", delete: null }
+  )
+  @key(fields: ["cognitoId"])
+  @key(name: "Org", fields: ["org", "cognitoGroup"], queryField: "listUsersByOrg") {
+  #  A unique identifier for the user. cognito:sub
+  cognitoId: ID!
+  #  cognito:group
+  cognitoGroup: String!
+  #  last known ephemeric username
+  currentNick: String!
+  # is the user registered?
+  registered: Boolean
+  # is the user registered?
+  pubKey: String
+  #
+  org: String!
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime

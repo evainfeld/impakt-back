@@ -33,6 +33,18 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"storagechangeAgentDynamoName": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoName"
+		},
+		"storagechangeAgentDynamoArn": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoArn"
+		},
+		"authchangeAgent95205ed895205ed8UserPoolId": {
+			"Type": "String",
+			"Default": "authchangeAgent95205ed895205ed8UserPoolId"
 		}
 	},
 	"Conditions": {
@@ -53,7 +65,7 @@
 				"aws:asset:property": "Code"
 			},
 			"Properties": {
-				"Handler": "pre-signup.handler",
+				"Handler": "handler/pre-signup.handler",
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
@@ -79,6 +91,15 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_NAME": {
+							"Ref": "storagechangeAgentDynamoName"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_ARN": {
+							"Ref": "storagechangeAgentDynamoArn"
+						},
+						"AUTH_CHANGEAGENT95205ED895205ED8_USERPOOLID": {
+							"Ref": "authchangeAgent95205ed895205ed8UserPoolId"
 						}
 					}
 				},
@@ -91,8 +112,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-prod-20190827124352-deployment",
-					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PreSignup-59796978785162325569-build.zip"
+					"S3Bucket": "change-agent-mst-20190913143232-deployment",
+					"S3Key": "amplify-builds/changeAgent95205ed895205ed8PreSignup-5a515a71745337735851-build.zip"
 				}
 			}
 		},
@@ -173,6 +194,41 @@
 									}
 								]
 							}
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query"
+							],
+							"Resource": [
+								{
+									"Ref": "storagechangeAgentDynamoArn"
+								}
+							]
 						}
 					]
 				}

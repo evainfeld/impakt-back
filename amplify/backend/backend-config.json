@@ -4,13 +4,48 @@
             "service": "AppSync",
             "providerPlugin": "awscloudformation",
             "output": {
-                "securityType": "AMAZON_COGNITO_USER_POOLS"
+                "authConfig": {
+                    "additionalAuthenticationProviders": [
+                        {
+                            "authenticationType": "API_KEY",
+                            "apiKeyConfig": {
+                                "description": "dev-key",
+                                "apiKeyExpirationDays": 180
+                            }
+                        }
+                    ],
+                    "defaultAuthentication": {
+                        "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+                        "userPoolConfig": {
+                            "userPoolId": "authchangeAgent95205ed895205ed8"
+                        }
+                    }
+                }
             }
         }
     },
     "storage": {
-        "s3431bf59b": {
+        "changeAgentS3Adm": {
             "service": "S3",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "changeAgentS3Triggerbe81f2e2",
+                    "attributes": [
+                        "Name",
+                        "Arn",
+                        "LambdaExecutionRole"
+                    ]
+                }
+            ]
+        },
+        "changeAgentS3": {
+            "service": "S3",
+            "providerPlugin": "awscloudformation"
+        },
+        "changeAgentDynamo": {
+            "service": "DynamoDB",
             "providerPlugin": "awscloudformation"
         }
     },
@@ -71,7 +106,17 @@
         "changeAgent95205ed895205ed8CreateAuthChallenge": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
-            "build": true
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "changeAgentDynamo",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
         },
         "changeAgent95205ed895205ed8DefineAuthChallenge": {
             "service": "Lambda",
@@ -81,7 +126,17 @@
         "changeAgent95205ed895205ed8PreSignup": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
-            "build": true
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "changeAgentDynamo",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
         },
         "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {
             "service": "Lambda",
@@ -91,7 +146,55 @@
         "changeAgent95205ed895205ed8PostConfirmation": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
-            "build": true
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "changeAgentDynamo",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "changeAgentS3Triggerbe81f2e2": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "api",
+                    "resourceName": "changeAgentApi",
+                    "attributes": [
+                        "GraphQLAPIIdOutput",
+                        "GraphQLAPIEndpointOutput"
+                    ]
+                }
+            ]
+        },
+        "changeAgentDynamoTriggerb5e811d2": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "changeAgentDynamo",
+                    "attributes": [
+                        "Name",
+                        "Arn",
+                        "StreamArn"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "changeAgent95205ed895205ed8",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                }
+            ]
         }
     }
 }

@@ -1,0 +1,27 @@
+
+## [Start] Set the primary @key. **
+#set( $modelObjectKey = {
+  "org": $util.dynamodb.toDynamoDB($ctx.args.input.org),
+  "region": $util.dynamodb.toDynamoDB($ctx.args.input.region)
+} )
+## [End] Set the primary @key. **
+
+## [Start] Prepare DynamoDB PutItem Request. **
+$util.qr($context.args.input.put("id", $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.args.input.id, $util.autoId()))))
+$util.qr($context.args.input.put("createdAt", $util.defaultIfNull($ctx.args.input.createdAt, $util.time.nowISO8601())))
+$util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.input.updatedAt, $util.time.nowISO8601())))
+$util.qr($context.args.input.put("__typename", "Location"))
+{
+  "version": "2017-02-28",
+  "operation": "PutItem",
+  "key": $util.toJson($modelObjectKey),
+  "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
+  "condition": {
+      "expression": "attribute_not_exists(#org) AND attribute_not_exists(#region)",
+      "expressionNames": {
+          "#org": "org",
+          "#region": "region"
+    }
+  }
+}
+## [End] Prepare DynamoDB PutItem Request. **
