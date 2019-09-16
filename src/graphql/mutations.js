@@ -22,7 +22,6 @@ export const createConversation = `mutation CreateConversation($input: CreateCon
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -60,7 +59,6 @@ export const deleteConversation = `mutation DeleteConversation($input: DeleteCon
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -83,7 +81,6 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -100,7 +97,6 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -127,7 +123,6 @@ export const createMessageConnection = `mutation CreateMessageConnection($input:
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -158,7 +153,6 @@ export const updateMessageConnection = `mutation UpdateMessageConnection($input:
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -189,7 +183,6 @@ export const deleteMessageConnection = `mutation DeleteMessageConnection($input:
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -253,7 +246,6 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     cognitoId
     cognitoGroup
     currentNick
-    registered
     pubKey
     org
     createdAt
@@ -266,7 +258,6 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     cognitoId
     cognitoGroup
     currentNick
-    registered
     pubKey
     org
     createdAt
@@ -280,7 +271,6 @@ export const createPropaganda = `mutation CreatePropaganda($input: CreatePropaga
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -297,7 +287,6 @@ export const createPropaganda = `mutation CreatePropaganda($input: CreatePropaga
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -323,7 +312,6 @@ export const updatePropaganda = `mutation UpdatePropaganda($input: UpdatePropaga
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -340,7 +328,6 @@ export const updatePropaganda = `mutation UpdatePropaganda($input: UpdatePropaga
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -366,7 +353,6 @@ export const deletePropaganda = `mutation DeletePropaganda($input: DeletePropaga
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -383,7 +369,6 @@ export const deletePropaganda = `mutation DeletePropaganda($input: DeletePropaga
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -409,7 +394,6 @@ export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -426,7 +410,6 @@ export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -467,7 +450,6 @@ export const updateEvent = `mutation UpdateEvent($input: UpdateEventInput!) {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -484,7 +466,6 @@ export const updateEvent = `mutation UpdateEvent($input: UpdateEventInput!) {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -525,7 +506,6 @@ export const deleteEvent = `mutation DeleteEvent($input: DeleteEventInput!) {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -542,7 +522,6 @@ export const deleteEvent = `mutation DeleteEvent($input: DeleteEventInput!) {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -583,7 +562,6 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -600,7 +578,6 @@ export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnn
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -626,7 +603,6 @@ export const updateAnnouncement = `mutation UpdateAnnouncement($input: UpdateAnn
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -643,7 +619,6 @@ export const updateAnnouncement = `mutation UpdateAnnouncement($input: UpdateAnn
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -669,7 +644,6 @@ export const deleteAnnouncement = `mutation DeleteAnnouncement($input: DeleteAnn
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -686,7 +660,6 @@ export const deleteAnnouncement = `mutation DeleteAnnouncement($input: DeleteAnn
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -714,7 +687,6 @@ export const createResource = `mutation CreateResource($input: CreateResourceInp
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -737,7 +709,6 @@ export const updateResource = `mutation UpdateResource($input: UpdateResourceInp
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -760,7 +731,6 @@ export const deleteResource = `mutation DeleteResource($input: DeleteResourceInp
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt

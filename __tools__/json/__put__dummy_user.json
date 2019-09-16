@@ -1,0 +1,13 @@
+{
+  "tableName": "User",
+  "docs": [
+    {
+      "cognitoId": "6e197a31-8078-46a9-a85a-b8376420ed7b",
+      "cognitoGroup": "Admins",
+      "currentNick": "dummy_admin",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    }
+  ]
+}

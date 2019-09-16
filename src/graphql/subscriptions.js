@@ -22,7 +22,6 @@ export const onCreateConversation = `subscription OnCreateConversation {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -60,7 +59,6 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -83,7 +81,6 @@ export const onCreateMessage = `subscription OnCreateMessage {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -100,7 +97,6 @@ export const onCreateMessage = `subscription OnCreateMessage {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -127,7 +123,6 @@ export const onCreateMessageConnection = `subscription OnCreateMessageConnection
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -158,7 +153,6 @@ export const onUpdateMessageConnection = `subscription OnUpdateMessageConnection
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -189,7 +183,6 @@ export const onDeleteMessageConnection = `subscription OnDeleteMessageConnection
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -253,7 +246,6 @@ export const onCreateUser = `subscription OnCreateUser {
     cognitoId
     cognitoGroup
     currentNick
-    registered
     pubKey
     org
     createdAt
@@ -266,7 +258,6 @@ export const onUpdateUser = `subscription OnUpdateUser {
     cognitoId
     cognitoGroup
     currentNick
-    registered
     pubKey
     org
     createdAt
@@ -280,7 +271,6 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -297,7 +287,6 @@ export const onCreatePropaganda = `subscription OnCreatePropaganda {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -323,7 +312,6 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -340,7 +328,6 @@ export const onUpdatePropaganda = `subscription OnUpdatePropaganda {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -366,7 +353,6 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -383,7 +369,6 @@ export const onDeletePropaganda = `subscription OnDeletePropaganda {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -409,7 +394,6 @@ export const onCreateEvent = `subscription OnCreateEvent {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -426,7 +410,6 @@ export const onCreateEvent = `subscription OnCreateEvent {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -467,7 +450,6 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -484,7 +466,6 @@ export const onUpdateEvent = `subscription OnUpdateEvent {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -525,7 +506,6 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -542,7 +522,6 @@ export const onDeleteEvent = `subscription OnDeleteEvent {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -583,7 +562,6 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -600,7 +578,6 @@ export const onCreateAnnouncement = `subscription OnCreateAnnouncement {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -626,7 +603,6 @@ export const onUpdateAnnouncement = `subscription OnUpdateAnnouncement {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -643,7 +619,6 @@ export const onUpdateAnnouncement = `subscription OnUpdateAnnouncement {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -669,7 +644,6 @@ export const onDeleteAnnouncement = `subscription OnDeleteAnnouncement {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -686,7 +660,6 @@ export const onDeleteAnnouncement = `subscription OnDeleteAnnouncement {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -714,7 +687,6 @@ export const onCreateResource = `subscription OnCreateResource {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -737,7 +709,6 @@ export const onUpdateResource = `subscription OnUpdateResource {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -760,7 +731,6 @@ export const onDeleteResource = `subscription OnDeleteResource {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt

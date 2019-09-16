@@ -55,9 +55,7 @@ type User
   cognitoGroup: String!
   #  last known ephemeric username
   currentNick: String!
-  # is the user registered?
-  registered: Boolean
-  # is the user registered?
+  # user pub key for future usage
   pubKey: String
   #
   org: String!

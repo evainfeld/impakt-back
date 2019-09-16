@@ -60,10 +60,10 @@ AppClientIDWeb: hlorihvm2s2hdh8ul2n69kkl7
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://gnvp6biqcrh2zdf76gyjczzm3m.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-s7zk4onqynd4tolf7wh5fdi6ly
-UserPoolId: eu-west-1_ADjb1iByy
-AppClientIDWeb: "e6n6prmaa78p5io78pnr3vvr2
+GraphQL endpoint: https://gslqkiygync6jbk3dq7pi25oua.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-4bn5fbwrdbf4josm2d4uf6pt4i
+UserPoolId: "eu-west-1_ZcRNsoGej",
+AppClientIDWeb: "47h2unjnr0vdk1jr29rj5f952k",
 ```
 
 **NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
@@ -484,3 +484,38 @@ adding storage table with trigger fails while pushing. Needed to add manually to
 
 - Then you have manually remove S3 bucket - `change-agent-s3-${env}`
 - after that push will be successful
+
+**13**:
+
+Amplify push fails frequently to create `amplify-lambda-execution-policy` for lambdas while deploy. Redeploy solves problem. WTF? First idea? First deployment should be done frome console?
+Always check "PolicyName" for created Lambda CF. Amplify frequently tries to create Policies with overlapping names. Result is an overwrite of policy. Other suggestion is to put your custom permissions in separate policy set: ex `custom-lambda-execution-policy`. Otherwise you may end up with S3 trigger failing to read files from bucket or Dynamo trigger policy failing to create.
+
+```txt
+CREATE_FAILED      changeAgentDynamoTrigger                                                                AWS::Lambda::EventSourceMapping Sat Sep 14 2019 23:36:33 GMT+0200 (Central European Summer Time) Cannot access stream arn:aws:dynamodb:eu-west-1:922687003324:table/PhoneNumber-devt/stream/2019-09-14T21:32:23.816. Please ensure the role can perform the GetRecords, GetShardIterator, DescribeStream, and ListStreams Actions on your stream in IAM. (Service: AWSLambda; Status Code: 400; Error Code: InvalidParameterValueException; Request ID: 4bb7ea41-82bd-49be-a465-18592663dd97)
+```
+
+**14**:
+
+Default dynamo trigger permission is broken as it passes last dynamo stream. You need to replace default one:
+
+```txt
+{
+    "Ref": "storagechangeAgentDynamoStreamArn"
+}
+```
+
+with:
+
+```txt
+{
+  "Fn::Join": [
+    "",
+    [
+      {
+          "Ref": "storagechangeAgentDynamoArn"
+      },
+      "/stream/*"
+    ]
+  ]
+}
+```

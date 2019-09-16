@@ -8,7 +8,6 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -25,7 +24,6 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
           cognitoId
           cognitoGroup
           currentNick
-          registered
           pubKey
           org
           createdAt
@@ -48,7 +46,6 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -65,7 +62,6 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
           cognitoId
           cognitoGroup
           currentNick
-          registered
           pubKey
           org
           createdAt
@@ -106,7 +102,6 @@ export const me = `query Me {
     cognitoId
     cognitoGroup
     currentNick
-    registered
     pubKey
     org
     createdAt
@@ -139,7 +134,6 @@ export const getConversation = `query GetConversation(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -197,7 +191,6 @@ export const getMessage = `query GetMessage($conversationId: ID!, $createdAt: AW
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -214,7 +207,6 @@ export const getMessage = `query GetMessage($conversationId: ID!, $createdAt: AW
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -255,7 +247,6 @@ export const listMessage = `query ListMessage(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -286,7 +277,6 @@ export const getMessageConnection = `query GetMessageConnection($id: ID!) {
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -424,7 +414,6 @@ export const getUser = `query GetUser($cognitoId: ID!) {
     cognitoId
     cognitoGroup
     currentNick
-    registered
     pubKey
     org
     createdAt
@@ -450,7 +439,6 @@ export const listUser = `query ListUser(
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -466,7 +454,6 @@ export const getPropaganda = `query GetPropaganda($region: String!, $category: S
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -483,7 +470,6 @@ export const getPropaganda = `query GetPropaganda($region: String!, $category: S
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -524,7 +510,6 @@ export const listPropaganda = `query ListPropaganda(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -554,7 +539,6 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -571,7 +555,6 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -627,7 +610,6 @@ export const listEvent = `query ListEvent(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -666,7 +648,6 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -683,7 +664,6 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -724,7 +704,6 @@ export const listAnnouncement = `query ListAnnouncement(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -756,7 +735,6 @@ export const getResource = `query GetResource($id: ID!) {
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -784,7 +762,6 @@ export const listResources = `query ListResources(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -936,7 +913,6 @@ export const listUsersByOrg = `query ListUsersByOrg(
       cognitoId
       cognitoGroup
       currentNick
-      registered
       pubKey
       org
       createdAt
@@ -967,7 +943,6 @@ export const listPropagandaByOrg = `query ListPropagandaByOrg(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -1012,7 +987,6 @@ export const listEventByOrg = `query ListEventByOrg(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
@@ -1066,7 +1040,6 @@ export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
         cognitoId
         cognitoGroup
         currentNick
-        registered
         pubKey
         org
         createdAt
