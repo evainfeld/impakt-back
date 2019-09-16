@@ -10,9 +10,9 @@
     "amplify:changeAgent95205ed895205ed8PreSignup": ". ./__tools__/scripts/replace_symlinks.sh changeAgent95205ed895205ed8PreSignup",
     "amplify:changeAgent95205ed895205ed8PostConfirmation": ". ./__tools__/scripts/replace_symlinks.sh changeAgent95205ed895205ed8PostConfirmation",
     "amplify:changeAgentS3Triggerbe81f2e2": ". ./__tools__/scripts/replace_symlinks.sh changeAgentS3Triggerbe81f2e2",
-    "amplify:changeAgentDynamoTriggerb5e811d2": ". ./__tools__/scripts/replace_symlinks.sh changeAgentDynamoTriggerb5e811d2",
+    "amplify:changeAgentDynamoTriggerad498b65": ". ./__tools__/scripts/replace_symlinks.sh changeAgentDynamoTriggerad498b65",
     "amplify:changeAgent95205ed895205ed8CreateAuthChallenge": ". ./__tools__/scripts/replace_symlinks.sh changeAgent95205ed895205ed8CreateAuthChallenge",
-    "refresh": ". ./__tools__/scripts/refresh_modules.sh changeAgent95205ed895205ed8PreSignup changeAgent95205ed895205ed8PostConfirmation changeAgentS3Triggerbe81f2e2 changeAgentDynamoTriggerb5e811d2 changeAgent95205ed895205ed8CreateAuthChallenge"
+    "refresh": ". ./__tools__/scripts/refresh_modules.sh changeAgent95205ed895205ed8PreSignup changeAgent95205ed895205ed8PostConfirmation changeAgentS3Triggerbe81f2e2 changeAgentDynamoTriggerad498b65 changeAgent95205ed895205ed8CreateAuthChallenge"
   },
   "jest": {
     "testPathIgnorePatterns": [

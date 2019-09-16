@@ -2,6 +2,6 @@
   "version": "2017-02-28",
   "operation": "GetItem",
   "key": {
-      "cognitoId": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.source.cognitoId, "___xamznone____"))
+      "cognitoId": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.source.authorId, "___xamznone____"))
   }
 }

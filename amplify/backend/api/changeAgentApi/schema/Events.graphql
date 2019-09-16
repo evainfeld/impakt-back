@@ -7,6 +7,7 @@ type Propaganda
       delete: "deletePropaganda"
     }
   )
+  @auth(rules: [{ allow: public }])
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listPropagandaByOrg") {
   #@auth(
@@ -35,6 +36,7 @@ type Event
     queries: { get: "getEvent", list: "listEvent" }
     mutations: { create: "createEvent", update: "updateEvent", delete: "deleteEvent" }
   )
+  @auth(rules: [{ allow: public }])
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg") {
   #real identity, used for auth and possible banning evil users
@@ -63,6 +65,7 @@ type Announcement
       delete: "deleteAnnouncement"
     }
   )
+  @auth(rules: [{ allow: public }])
   @key(fields: ["region", "category", "title"])
   @key(name: "Org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg") {
   #real identity, used for auth and possible banning evil users

@@ -14,7 +14,7 @@
 #end
 $util.qr($ctx.args.input.put("type#name","${ctx.args.input.type}#${ctx.args.input.name}"))
 ## [Start] Prepare DynamoDB PutItem Request. **
-$util.qr($context.args.input.put("id", $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.args.input.id, $util.autoId()))))
+$util.qr($context.args.input.put("id", $util.autoId()))
 $util.qr($context.args.input.put("createdAt", $util.defaultIfNull($ctx.args.input.createdAt, $util.time.nowISO8601())))
 $util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.input.updatedAt, $util.time.nowISO8601())))
 $util.qr($context.args.input.put("__typename", "Conversation"))
@@ -24,10 +24,10 @@ $util.qr($context.args.input.put("__typename", "Conversation"))
   "key": $util.toJson($modelObjectKey),
   "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
   "condition": {
-      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#type#name) AND attribute_not_exists(#id)",
+      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#tn) AND attribute_not_exists(#id)",
       "expressionNames": {
           "#region": "region",
-          "#type#name": "type#name",
+          "#tn": "type#name",
           "#id": "id"
     }
   }
