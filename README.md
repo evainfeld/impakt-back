@@ -52,18 +52,15 @@ key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
 
 ### MST - associated with develop master branch
 
-GraphQL endpoint: https://57ct7hhdkbfahozld6qlj7tje4.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-hxqnkdv3uvclhppoam32zf7giy
-UserPoolId: eu-west-1_vnhg2QDvm
-AppClientIDWeb: hlorihvm2s2hdh8ul2n69kkl7
+TBD
 
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://gslqkiygync6jbk3dq7pi25oua.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-4bn5fbwrdbf4josm2d4uf6pt4i
-UserPoolId: "eu-west-1_ZcRNsoGej",
-AppClientIDWeb: "47h2unjnr0vdk1jr29rj5f952k",
+GraphQL endpoint: https://i5255t6p6vhqdci2dnfvmep6ca.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-eeit3vfgg5brhpuxcnz5asg3ty
+UserPoolId: eu-west-1_AFos24NFG
+AppClientIDWeb: 5ghl7ie634nsttgrrbfg4r50qgą
 ```
 
 **NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
@@ -122,6 +119,10 @@ parametes to look for all Categiories within region created after some date:
 ```
 
 \__note_: Category might change due to not optimal Key schema. However it'd still might be used as reference, becouse it follows general convention.
+
+**connected types**:
+
+If you have type hierarchy where type `Conversation` contains table of documents of type `Message` remeber that you can provide params like `nextToken` or `limit` on both levels.
 
 ## Security
 
