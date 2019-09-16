@@ -1,0 +1,45 @@
+{
+  "tableName": "Conversation",
+  "docs": [
+    {
+      "id": "1",
+      "name": "okręg Bielany",
+      "type": "REGION",
+      "type#name": "REGION#okręg Bielany",
+      "region": "ZZ::PL::WAW::BIELANY",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "id": "2",
+      "name": "okręg Żoliborz",
+      "type": "REGION",
+      "type#name": "REGION#okręg Żoliborz",
+      "region": "ZZ::PL::WAW::ZOLIBORZ",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "id": "3",
+      "name": "okręg Warszawa",
+      "type": "REGION",
+      "type#name": "REGION#okręg Warszawa",
+      "region": "ZZ::PL::WAW",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "id": "4",
+      "name": "okręg Polska",
+      "type#name": "REGION#okręg Warszawa",
+      "type": "REGION",
+      "region": "ZZ::PL",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    }
+  ]
+}

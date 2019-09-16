@@ -123,12 +123,16 @@ parametes to look for all Categiories within region created after some date:
 
 \__note_: Category might change due to not optimal Key schema. However it'd still might be used as reference, becouse it follows general convention.
 
-## Components
+## Security
 
-- AppSync - Graphql API service
-- DynamoDB
-- Lambda functions as Cognito Triggers
-- Amplify
+Currently most of security features are turned off or not implemented. From Graphql perespective there is `dev-key` API KEY and `@auth(rules: [{allow: public}])` directive to make operation accessible for not logged-in user.
+
+List of other misses:
+
+- DynamoDB encryption
+- `@auth` narrowing permissions to certain Cognito groups or users
+- End to End encryption in channels (Public Key)
+- End to End encryption of events (Symmetric Encr)
 
 ## How to develop
 
@@ -519,3 +523,7 @@ with:
   ]
 }
 ```
+
+**15**:
+
+When having named `@connection` you can't query using secondary index (`index` param is not acceptable). Type id has to be Primary Key.
