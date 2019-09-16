@@ -2,6 +2,7 @@
   "tableName": "Location",
   "docs": [
     {
+      "__typename": "Location",
       "id": "1",
       "region": "ZZ::PL::WAW::BIELANY",
       "org": "ZZ",
@@ -10,6 +11,7 @@
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
     {
+      "__typename": "Location",
       "id": "2",
       "region": "ZZ::PL::WAW::ZOLIBORZ",
       "org": "ZZ",
@@ -18,6 +20,7 @@
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
     {
+      "__typename": "Location",
       "id": "3",
       "region": "ZZ::PL::WAW",
       "org": "ZZ",
@@ -26,6 +29,7 @@
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
     {
+      "__typename": "Location",
       "id": "4",
       "region": "ZZ::PL",
       "org": "ZZ",

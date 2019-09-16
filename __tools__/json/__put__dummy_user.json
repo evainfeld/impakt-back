@@ -2,6 +2,7 @@
   "tableName": "User",
   "docs": [
     {
+      "__typename": "User",
       "cognitoId": "6e197a31-8078-46a9-a85a-b8376420ed7b",
       "cognitoGroup": "Admins",
       "currentNick": "dummy_admin",

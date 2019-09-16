@@ -2,6 +2,7 @@
   "tableName": "Conversation",
   "docs": [
     {
+      "__typename": "Conversation",
       "id": "1",
       "name": "okręg Bielany",
       "type": "REGION",
@@ -12,6 +13,7 @@
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
     {
+      "__typename": "Conversation",
       "id": "2",
       "name": "okręg Żoliborz",
       "type": "REGION",
@@ -22,6 +24,7 @@
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
     {
+      "__typename": "Conversation",
       "id": "3",
       "name": "okręg Warszawa",
       "type": "REGION",
@@ -32,9 +35,10 @@
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
     {
+      "__typename": "Conversation",
       "id": "4",
       "name": "okręg Polska",
-      "type#name": "REGION#okręg Warszawa",
+      "type#name": "REGION#okręg Polska",
       "type": "REGION",
       "region": "ZZ::PL",
       "org": "ZZ",
