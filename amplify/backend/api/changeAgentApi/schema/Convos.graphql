@@ -17,7 +17,7 @@ type Conversation
   @key(name: "Region", fields: ["region", "type", "name"], queryField: "listCoversationsByRegion") {
   id: ID!
   #  The Conversation's messages.
-  messages: [Message] @connection(name: "Index", keyField: "messageId")
+  messages: [Message] @connection(name: "Index", keyField: "conversationId")
   # users in channel - for pubkey retrival
   users: [User] @connection(keyField: "userId")
   #  The Conversation's name.
