@@ -1,5 +1,8 @@
 
 ## [Start] Set the primary @key. **
+#if( "${ctx.args.input.type}" == "REGION" ) 
+  #set( ${ctx.args.input.name} = ${ctx.args.input.type} )
+#end
 #set( $modelObjectKey = {
   "region": $util.dynamodb.toDynamoDB($ctx.args.input.region),
   "type#name": $util.dynamodb.toDynamoDB("${ctx.args.input.type}#${ctx.args.input.name}")

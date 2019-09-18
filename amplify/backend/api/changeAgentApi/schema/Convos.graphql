@@ -49,8 +49,6 @@ type Message
   #  Flag denoting if this message has been accepted by the server or not.
   isSent: Boolean
   resources: [Resource]
-  region: String!
-  org: String!
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime

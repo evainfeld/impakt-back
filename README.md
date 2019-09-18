@@ -20,6 +20,7 @@ Never, ever, in any circumstances call `amplify delete` :)
 - another approach `https://medium.com/@FdMstri/testing-a-graphql-server-13512408c2fb`
 - and in CI `https://graphql-inspector.com/docs/recipes/ci`
 - working with CF on VS Code `https://hodgkins.io/up-your-cloudformation-game-with-vscode#yaml-indentation`
+- VTL: `https://medium.com/@gerard.sans/aws-appsync-velocity-templates-guide-55b9d2bff053`
 
 ## Tools
 
@@ -52,7 +53,12 @@ key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
 
 ### MST - associated with develop master branch
 
-TBD
+```txt
+GraphQL endpoint: https://eklblxi2tnbhriwp53ptokurku.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-zcxtofmc6zh5dhsrnrbn7imsii
+UserPoolId: eu-west-1_tzBttGHDT,
+AppClientIDWeb: 3df4khthtrb2ilgrih800p1rtq,
+```
 
 ### DEV - associated with develop branch
 
