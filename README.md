@@ -20,6 +20,7 @@ Never, ever, in any circumstances call `amplify delete` :)
 - another approach `https://medium.com/@FdMstri/testing-a-graphql-server-13512408c2fb`
 - and in CI `https://graphql-inspector.com/docs/recipes/ci`
 - working with CF on VS Code `https://hodgkins.io/up-your-cloudformation-game-with-vscode#yaml-indentation`
+- VTL: `https://medium.com/@gerard.sans/aws-appsync-velocity-templates-guide-55b9d2bff053`
 
 ## Tools
 
@@ -52,18 +53,20 @@ key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
 
 ### MST - associated with develop master branch
 
-GraphQL endpoint: https://57ct7hhdkbfahozld6qlj7tje4.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-hxqnkdv3uvclhppoam32zf7giy
-UserPoolId: eu-west-1_vnhg2QDvm
-AppClientIDWeb: hlorihvm2s2hdh8ul2n69kkl7
+```txt
+GraphQL endpoint: https://eklblxi2tnbhriwp53ptokurku.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-zcxtofmc6zh5dhsrnrbn7imsii
+UserPoolId: eu-west-1_tzBttGHDT,
+AppClientIDWeb: 3df4khthtrb2ilgrih800p1rtq,
+```
 
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://gnvp6biqcrh2zdf76gyjczzm3m.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-s7zk4onqynd4tolf7wh5fdi6ly
-UserPoolId: eu-west-1_ADjb1iByy
-AppClientIDWeb: "e6n6prmaa78p5io78pnr3vvr2
+GraphQL endpoint: https://i5255t6p6vhqdci2dnfvmep6ca.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-eeit3vfgg5brhpuxcnz5asg3ty
+UserPoolId: eu-west-1_AFos24NFG
+AppClientIDWeb: 5ghl7ie634nsttgrrbfg4r50qgą
 ```
 
 **NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
@@ -123,12 +126,20 @@ parametes to look for all Categiories within region created after some date:
 
 \__note_: Category might change due to not optimal Key schema. However it'd still might be used as reference, becouse it follows general convention.
 
-## Components
+**connected types**:
 
-- AppSync - Graphql API service
-- DynamoDB
-- Lambda functions as Cognito Triggers
-- Amplify
+If you have type hierarchy where type `Conversation` contains table of documents of type `Message` remeber that you can provide params like `nextToken` or `limit` on both levels.
+
+## Security
+
+Currently most of security features are turned off or not implemented. From Graphql perespective there is `dev-key` API KEY and `@auth(rules: [{allow: public}])` directive to make operation accessible for not logged-in user.
+
+List of other misses:
+
+- DynamoDB encryption
+- `@auth` narrowing permissions to certain Cognito groups or users
+- End to End encryption in channels (Public Key)
+- End to End encryption of events (Symmetric Encr)
 
 ## How to develop
 
@@ -484,3 +495,42 @@ adding storage table with trigger fails while pushing. Needed to add manually to
 
 - Then you have manually remove S3 bucket - `change-agent-s3-${env}`
 - after that push will be successful
+
+**13**:
+
+Amplify push fails frequently to create `amplify-lambda-execution-policy` for lambdas while deploy. Redeploy solves problem. WTF? First idea? First deployment should be done frome console?
+Always check "PolicyName" for created Lambda CF. Amplify frequently tries to create Policies with overlapping names. Result is an overwrite of policy. Other suggestion is to put your custom permissions in separate policy set: ex `custom-lambda-execution-policy`. Otherwise you may end up with S3 trigger failing to read files from bucket or Dynamo trigger policy failing to create.
+
+```txt
+CREATE_FAILED      changeAgentDynamoTrigger                                                                AWS::Lambda::EventSourceMapping Sat Sep 14 2019 23:36:33 GMT+0200 (Central European Summer Time) Cannot access stream arn:aws:dynamodb:eu-west-1:922687003324:table/PhoneNumber-devt/stream/2019-09-14T21:32:23.816. Please ensure the role can perform the GetRecords, GetShardIterator, DescribeStream, and ListStreams Actions on your stream in IAM. (Service: AWSLambda; Status Code: 400; Error Code: InvalidParameterValueException; Request ID: 4bb7ea41-82bd-49be-a465-18592663dd97)
+```
+
+**14**:
+
+Default dynamo trigger permission is broken as it passes last dynamo stream. You need to replace default one:
+
+```txt
+{
+    "Ref": "storagechangeAgentDynamoStreamArn"
+}
+```
+
+with:
+
+```txt
+{
+  "Fn::Join": [
+    "",
+    [
+      {
+          "Ref": "storagechangeAgentDynamoArn"
+      },
+      "/stream/*"
+    ]
+  ]
+}
+```
+
+**15**:
+
+When having named `@connection` you can't query using secondary index (`index` param is not acceptable). Type id has to be Primary Key.

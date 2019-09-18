@@ -44,12 +44,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgentDynamoTriggerb5e811d2",
+						"changeAgentDynamoTriggerad498b65",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgentDynamoTriggerb5e811d2",
+									"changeAgentDynamoTriggerad498b65",
 									"-",
 									{
 										"Ref": "env"
@@ -78,11 +78,11 @@
 						"Arn"
 					]
 				},
-				"Runtime": "nodejs8.10",
+				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-mst-20190913143232-deployment",
-					"S3Key": "amplify-builds/changeAgentDynamoTriggerb5e811d2-496f6a59497a386f7557-build.zip"
+					"S3Bucket": "change-agent-dev-20190916180915-deployment",
+					"S3Key": "amplify-builds/changeAgentDynamoTriggerad498b65-46656e5877714f667466-build.zip"
 				}
 			}
 		},
@@ -92,12 +92,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgentDynamoLambdaRoleb5e811d2",
+						"changeAgentDynamoLambdaRolead498b65",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgentDynamoLambdaRoleb5e811d2",
+									"changeAgentDynamoLambdaRolead498b65",
 									"-",
 									{
 										"Ref": "env"
@@ -163,7 +163,26 @@
 									}
 								]
 							}
-						},
+						}
+					]
+				}
+			}
+		},
+		"changeAgentDynamoTriggerPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "trigger-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
 						{
 							"Effect": "Allow",
 							"Action": [
@@ -192,39 +211,6 @@
 											"/stream/*"
 										]
 									]
-								}
-							]
-						}
-					]
-				}
-			}
-		},
-		"changeAgentDynamoTriggerPolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"dynamodb:DescribeStream",
-								"dynamodb:GetRecords",
-								"dynamodb:GetShardIterator",
-								"dynamodb:ListStreams"
-							],
-							"Resource": [
-								{
-									"Ref": "storagechangeAgentDynamoStreamArn"
 								}
 							]
 						}
@@ -270,11 +256,32 @@
 						{
 							"Effect": "Allow",
 							"Action": [
+								"cognito-idp:ConfirmSignUp",
+								"cognito-idp:AdminCreateUser",
+								"cognito-idp:CreateUserImportJob",
+								"cognito-idp:AdminSetUserSettings",
+								"cognito-idp:AdminLinkProviderForUser",
+								"cognito-idp:CreateIdentityProvider",
+								"cognito-idp:AdminConfirmSignUp",
 								"cognito-idp:AdminDisableUser",
 								"cognito-idp:AdminRemoveUserFromGroup",
+								"cognito-idp:SetUserMFAPreference",
+								"cognito-idp:SetUICustomization",
+								"cognito-idp:SignUp",
 								"cognito-idp:VerifyUserAttribute",
+								"cognito-idp:SetRiskConfiguration",
+								"cognito-idp:StartUserImportJob",
+								"cognito-idp:AdminSetUserPassword",
+								"cognito-idp:AssociateSoftwareToken",
+								"cognito-idp:CreateResourceServer",
+								"cognito-idp:RespondToAuthChallenge",
+								"cognito-idp:CreateUserPoolClient",
 								"cognito-idp:AdminUserGlobalSignOut",
 								"cognito-idp:GlobalSignOut",
+								"cognito-idp:AddCustomAttributes",
+								"cognito-idp:CreateGroup",
+								"cognito-idp:CreateUserPool",
+								"cognito-idp:AdminForgetDevice",
 								"cognito-idp:AdminAddUserToGroup",
 								"cognito-idp:AdminRespondToAuthChallenge",
 								"cognito-idp:ForgetDevice",

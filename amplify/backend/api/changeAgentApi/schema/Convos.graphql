@@ -6,14 +6,18 @@ enum ConversationType {
 type Conversation
   @model(
     queries: { get: "getConversation", list: "listConversation" }
-    mutations: { create: "createConversation", update: null, delete: "deleteConversation" }
+    mutations: {
+      create: "createConversation"
+      update: "updateConversation"
+      delete: "deleteConversation"
+    }
   )
-  @key(fields: ["region", "type", "name"])
-  @key(name: "Index", fields: ["id"], queryField: "listCoversationsByIndex") {
-  #  The id of the Conversation this message belongs to. This is the table unique GSI key.
-  id: ID
+  @auth(rules: [{ allow: public }])
+  @key(fields: ["id"])
+  @key(name: "Region", fields: ["region", "type", "name"], queryField: "listCoversationsByRegion") {
+  id: ID!
   #  The Conversation's messages.
-  messages(after: String, first: Int): MessageConnection
+  messages: [Message] @connection(name: "Index", keyField: "conversationId")
   # users in channel - for pubkey retrival
   users: [User] @connection(keyField: "userId")
   #  The Conversation's name.
@@ -31,7 +35,9 @@ type Message
     queries: { get: "getMessage", list: "listMessage" }
     mutations: { create: "createMessage", update: null, delete: null }
   )
-  @key(fields: ["conversationId", "createdAt"]) {
+  @auth(rules: [{ allow: public }]) {
+  # conv-id + timestamp
+  id: ID!
   #real identity, used for auth and possible banning evil users
   author: User! @connection(keyField: "authorId")
   #ephemeric string used as a nick during creation - should be visible in FE
@@ -39,18 +45,11 @@ type Message
   #  The message content.
   content: String!
   #  The id of the Conversation this message belongs to. This is the table unique GSI key.
-  conversationId: ID!
+  conversation: Conversation! @connection(name: "Index", keyField: "conversationId")
   #  Flag denoting if this message has been accepted by the server or not.
   isSent: Boolean
   resources: [Resource]
-  region: String!
-  org: String!
   #### autogen
-  createdAt: AWSDateTime!
+  createdAt: AWSDateTime
   updatedAt: AWSDateTime
-}
-
-type MessageConnection @model {
-  messages: [Message]
-  nextToken: String
 }

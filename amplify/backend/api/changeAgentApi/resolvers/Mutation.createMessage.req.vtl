@@ -1,12 +1,10 @@
 ## [Start] Set the primary @key. **
+#set ( $timestamp = $util.time.nowFormatted("yyyyMMdd-HHmmssSSS") )
+#set ( $index = "${ctx.args.input.conversationId}-$timestamp" )
 #set( $modelObjectKey = {
-  "conversationId": $util.dynamodb.toDynamoDB($ctx.args.input.conversationId),
-  "createdAt": $util.dynamodb.toDynamoDB($ctx.args.input.createdAt)
+  "id": $util.dynamodb.toString($index)
 } )
-## [End] Set the primary @key. **
-
 ## [Start] Prepare DynamoDB PutItem Request. **
-$util.qr($context.args.input.put("id", $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrBlank($ctx.args.input.id, $util.autoId()))))
 $util.qr($context.args.input.put("createdAt", $util.defaultIfNull($ctx.args.input.createdAt, $util.time.nowISO8601())))
 $util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.input.updatedAt, $util.time.nowISO8601())))
 $util.qr($context.args.input.put("__typename", "Message"))
@@ -16,10 +14,9 @@ $util.qr($context.args.input.put("__typename", "Message"))
   "key": $util.toJson($modelObjectKey),
   "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
   "condition": {
-      "expression": "attribute_not_exists(#conversationId) AND attribute_not_exists(#createdAt)",
+      "expression": "attribute_not_exists(#id)",
       "expressionNames": {
-          "#conversationId": "conversationId",
-          "#createdAt": "createdAt"
+          "#id": "id"
     }
   }
 }

@@ -1,0 +1,8 @@
+#for "aktualnosci page"
+union Important = Announcement | Event
+type Query {
+  listAllImportantNotifications(region: String!): [Important] @aws_api_key
+  getCoversationByRegion(region: String!, type: String!, name: String!): Conversation @aws_api_key
+  #  Get my user.
+  me: User @aws_api_key
+}
