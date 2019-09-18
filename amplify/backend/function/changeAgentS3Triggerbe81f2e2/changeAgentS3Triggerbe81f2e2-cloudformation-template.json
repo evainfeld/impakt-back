@@ -83,7 +83,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-dev-20190916180915-deployment",
+					"S3Bucket": "change-agent-mst-20190918133638-deployment",
 					"S3Key": "amplify-builds/changeAgentS3Triggerbe81f2e2-795356734369586f7949-build.zip"
 				}
 			}
@@ -337,6 +337,29 @@
 											{
 												"Ref": "AWS::AccountId"
 											},
+											":table/Message-",
+											{
+												"Ref": "apichangeAgentApiGraphQLAPIIdOutput"
+											},
+											"-",
+											{
+												"Ref": "env"
+											}
+										]
+									]
+								},
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:dynamodb:",
+											{
+												"Ref": "AWS::Region"
+											},
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
 											":table/Propaganda-",
 											{
 												"Ref": "apichangeAgentApiGraphQLAPIIdOutput"
@@ -360,7 +383,30 @@
 											{
 												"Ref": "AWS::AccountId"
 											},
-											":table/MessageConnection-",
+											":table/Event-",
+											{
+												"Ref": "apichangeAgentApiGraphQLAPIIdOutput"
+											},
+											"-",
+											{
+												"Ref": "env"
+											}
+										]
+									]
+								},
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:dynamodb:",
+											{
+												"Ref": "AWS::Region"
+											},
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
+											":table/Announcement-",
 											{
 												"Ref": "apichangeAgentApiGraphQLAPIIdOutput"
 											},
