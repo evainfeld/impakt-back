@@ -16,8 +16,6 @@ export const createConversation = `mutation CreateConversation($input: CreateCon
         authorNick
         content
         isSent
-        region
-        org
         createdAt
         updatedAt
       }
@@ -53,8 +51,6 @@ export const updateConversation = `mutation UpdateConversation($input: UpdateCon
         authorNick
         content
         isSent
-        region
-        org
         createdAt
         updatedAt
       }
@@ -90,8 +86,6 @@ export const deleteConversation = `mutation DeleteConversation($input: DeleteCon
         authorNick
         content
         isSent
-        region
-        org
         createdAt
         updatedAt
       }
@@ -137,8 +131,6 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
         updatedAt
       }
     }
-    region
-    org
     createdAt
     updatedAt
     conversation {

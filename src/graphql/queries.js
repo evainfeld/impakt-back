@@ -97,6 +97,41 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
   }
 }
 `;
+export const getCoversationByRegion = `query GetCoversationByRegion($region: String!, $type: String!, $name: String!) {
+  getCoversationByRegion(region: $region, type: $type, name: $name) {
+    id
+    name
+    type
+    region
+    org
+    createdAt
+    updatedAt
+    messages {
+      items {
+        id
+        authorNick
+        content
+        isSent
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+}
+`;
 export const me = `query Me {
   me {
     cognitoId
@@ -411,8 +446,6 @@ export const getConversation = `query GetConversation($id: ID!) {
         authorNick
         content
         isSent
-        region
-        org
         createdAt
         updatedAt
       }
@@ -491,8 +524,6 @@ export const getMessage = `query GetMessage($id: ID!) {
         updatedAt
       }
     }
-    region
-    org
     createdAt
     updatedAt
     conversation {
@@ -538,8 +569,6 @@ export const listMessage = `query ListMessage(
         name
         authorNick
       }
-      region
-      org
       createdAt
       updatedAt
       conversation {

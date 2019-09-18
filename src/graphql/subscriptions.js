@@ -16,8 +16,6 @@ export const onCreateConversation = `subscription OnCreateConversation {
         authorNick
         content
         isSent
-        region
-        org
         createdAt
         updatedAt
       }
@@ -53,8 +51,6 @@ export const onUpdateConversation = `subscription OnUpdateConversation {
         authorNick
         content
         isSent
-        region
-        org
         createdAt
         updatedAt
       }
@@ -90,8 +86,6 @@ export const onDeleteConversation = `subscription OnDeleteConversation {
         authorNick
         content
         isSent
-        region
-        org
         createdAt
         updatedAt
       }
@@ -137,8 +131,6 @@ export const onCreateMessage = `subscription OnCreateMessage {
         updatedAt
       }
     }
-    region
-    org
     createdAt
     updatedAt
     conversation {

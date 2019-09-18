@@ -83,11 +83,3 @@ type Announcement
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 }
-
-#for "aktualnosci page"
-union Important = Announcement | Event
-type Query {
-  listAllImportantNotifications(region: String!): [Important]
-  #  Get my user.
-  me: User
-}
