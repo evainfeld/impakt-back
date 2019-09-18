@@ -1,0 +1,44 @@
+{
+  "tableName": "Propaganda",
+  "docs": [
+    {
+      "__typename": "Propaganda",
+      "authorId": "6e197a31-8078-46a9-a85a-b8376420ed7b",
+      "authorNick": "dummy_admin",
+      "category": "Płace",
+      "category#title": "Płace#cos tam",
+      "content": "blah blah blah2",
+      "createdAt": "2019-09-18T11:24:58.219Z",
+      "org": "ZZ",
+      "region": "ZZ::PL",
+      "title": "cos tam",
+      "updatedAt": "2019-09-18T11:24:58.219Z"
+    },
+    {
+      "__typename": "Propaganda",
+      "authorId": "6e197a31-8078-46a9-a85a-b8376420ed7b",
+      "authorNick": "dummy_admin",
+      "category": "Płace",
+      "category#title": "Płace#cos tam2",
+      "content": "blah blah blah2",
+      "createdAt": "2019-09-18T11:25:15.604Z",
+      "org": "ZZ",
+      "region": "ZZ::PL",
+      "title": "cos tam2",
+      "updatedAt": "2019-09-18T11:25:15.604Z"
+    },
+    {
+      "__typename": "Propaganda",
+      "authorId": "6e197a31-8078-46a9-a85a-b8376420ed7b",
+      "authorNick": "dummy_admin",
+      "category": "Płace",
+      "category#title": "Płace#cos tam3",
+      "content": "blah blah blah3",
+      "createdAt": "2019-09-18T11:25:22.814Z",
+      "org": "ZZ",
+      "region": "ZZ::PL",
+      "title": "cos tam3",
+      "updatedAt": "2019-09-18T11:25:22.814Z"
+    }
+  ]
+}

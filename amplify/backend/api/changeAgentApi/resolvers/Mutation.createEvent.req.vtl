@@ -30,10 +30,10 @@ $util.qr($context.args.input.put("__typename", "Event"))
   "key": $util.toJson($modelObjectKey),
   "attributeValues": $util.dynamodb.toMapValuesJson($context.args.input),
   "condition": {
-      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#category#title)",
+      "expression": "attribute_not_exists(#region) AND attribute_not_exists(#ct)",
       "expressionNames": {
           "#region": "region",
-          "#category#title": "category#title"
+          "#ct": "category#title"
     }
   }
 }
