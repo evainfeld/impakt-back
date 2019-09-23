@@ -144,21 +144,19 @@ export const me = `query Me {
   }
 }
 `;
-export const listCoversationsByRegion = `query ListCoversationsByRegion(
-  $region: String
-  $typeName: ModelConversationRegionCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
+export const listConversation = `query ListConversation(
+  $id: ID
   $filter: ModelConversationFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
-  listCoversationsByRegion(
-    region: $region
-    typeName: $typeName
-    sortDirection: $sortDirection
+  listConversation(
+    id: $id
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -173,258 +171,6 @@ export const listCoversationsByRegion = `query ListCoversationsByRegion(
       }
       users {
         nextToken
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const listLocationByIndex = `query ListLocationByIndex(
-  $id: ID
-  $sortDirection: ModelSortDirection
-  $filter: ModelLocationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listLocationByIndex(
-    id: $id
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      region
-      org
-      name
-      coordinatorName
-      coordinatorEmail
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listCategoryByIndex = `query ListCategoryByIndex(
-  $id: ID
-  $sortDirection: ModelSortDirection
-  $filter: ModelCategoryFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listCategoryByIndex(
-    id: $id
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      region
-      org
-      name
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listCategoryByOrg = `query ListCategoryByOrg(
-  $org: String
-  $regionName: ModelCategoryOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelCategoryFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listCategoryByOrg(
-    org: $org
-    regionName: $regionName
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      region
-      org
-      name
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listUsersByOrg = `query ListUsersByOrg(
-  $org: String
-  $cognitoGroup: ModelStringKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUsersByOrg(
-    org: $org
-    cognitoGroup: $cognitoGroup
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listPropagandaByOrg = `query ListPropagandaByOrg(
-  $org: String
-  $categoryTitle: ModelPropagandaOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelPropagandaFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listPropagandaByOrg(
-    org: $org
-    categoryTitle: $categoryTitle
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      authorNick
-      category
-      title
-      content
-      resources {
-        id
-        name
-        authorNick
-      }
-      region
-      org
-      createdAt
-      updatedAt
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const listEventByOrg = `query ListEventByOrg(
-  $org: String
-  $categoryTitle: ModelEventOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelEventFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listEventByOrg(
-    org: $org
-    categoryTitle: $categoryTitle
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      authorNick
-      category
-      title
-      content
-      resources {
-        id
-        name
-        authorNick
-      }
-      region
-      org
-      createdAt
-      updatedAt
-      conversation {
-        id
-        name
-        type
-        region
-        org
-        createdAt
-        updatedAt
-      }
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
-  $org: String
-  $categoryTitle: ModelAnnouncementOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelAnnouncementFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listAnnouncementByOrg(
-    org: $org
-    categoryTitle: $categoryTitle
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      authorNick
-      category
-      title
-      content
-      resources {
-        id
-        name
-        authorNick
-      }
-      region
-      org
-      createdAt
-      updatedAt
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
       }
     }
     nextToken
@@ -466,19 +212,21 @@ export const getConversation = `query GetConversation($id: ID!) {
   }
 }
 `;
-export const listConversation = `query ListConversation(
-  $id: ID
+export const listCoversationsByRegion = `query ListCoversationsByRegion(
+  $region: String
+  $typeName: ModelConversationRegionCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
   $filter: ModelConversationFilterInput
   $limit: Int
   $nextToken: String
-  $sortDirection: ModelSortDirection
 ) {
-  listConversation(
-    id: $id
+  listCoversationsByRegion(
+    region: $region
+    typeName: $typeName
+    sortDirection: $sortDirection
     filter: $filter
     limit: $limit
     nextToken: $nextToken
-    sortDirection: $sortDirection
   ) {
     items {
       id
@@ -637,6 +385,34 @@ export const listLocation = `query ListLocation(
   }
 }
 `;
+export const listLocationByIndex = `query ListLocationByIndex(
+  $id: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelLocationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLocationByIndex(
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      region
+      org
+      name
+      coordinatorName
+      coordinatorEmail
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
 export const getCategory = `query GetCategory($region: String!, $name: String!) {
   getCategory(region: $region, name: $name) {
     id
@@ -676,15 +452,57 @@ export const listCategory = `query ListCategory(
   }
 }
 `;
-export const getUser = `query GetUser($cognitoId: ID!) {
-  getUser(cognitoId: $cognitoId) {
-    cognitoId
-    cognitoGroup
-    currentNick
-    pubKey
-    org
-    createdAt
-    updatedAt
+export const listCategoryByIndex = `query ListCategoryByIndex(
+  $id: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCategoryByIndex(
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      region
+      org
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const listCategoryByOrg = `query ListCategoryByOrg(
+  $org: String
+  $regionName: ModelCategoryOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCategoryByOrg(
+    org: $org
+    regionName: $regionName
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      region
+      org
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
   }
 }
 `;
@@ -701,6 +519,47 @@ export const listUser = `query ListUser(
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
+  ) {
+    items {
+      cognitoId
+      cognitoGroup
+      currentNick
+      pubKey
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const getUser = `query GetUser($cognitoId: ID!) {
+  getUser(cognitoId: $cognitoId) {
+    cognitoId
+    cognitoGroup
+    currentNick
+    pubKey
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const listUsersByOrg = `query ListUsersByOrg(
+  $org: String
+  $cognitoGroup: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsersByOrg(
+    org: $org
+    cognitoGroup: $cognitoGroup
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
   ) {
     items {
       cognitoId
@@ -771,6 +630,50 @@ export const listPropaganda = `query ListPropaganda(
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        id
+        name
+        authorNick
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listPropagandaByOrg = `query ListPropagandaByOrg(
+  $org: String
+  $categoryTitle: ModelPropagandaOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelPropagandaFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPropagandaByOrg(
+    org: $org
+    categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
   ) {
     items {
       authorNick
@@ -909,6 +812,59 @@ export const listEvent = `query ListEvent(
   }
 }
 `;
+export const listEventByOrg = `query ListEventByOrg(
+  $org: String
+  $categoryTitle: ModelEventOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEventByOrg(
+    org: $org
+    categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        id
+        name
+        authorNick
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
 export const getAnnouncement = `query GetAnnouncement($region: String!, $category: String!, $title: String!) {
   getAnnouncement(region: $region, category: $category, title: $title) {
     authorNick
@@ -965,6 +921,50 @@ export const listAnnouncement = `query ListAnnouncement(
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        id
+        name
+        authorNick
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
+  $org: String
+  $categoryTitle: ModelAnnouncementOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelAnnouncementFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAnnouncementByOrg(
+    org: $org
+    categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
   ) {
     items {
       authorNick

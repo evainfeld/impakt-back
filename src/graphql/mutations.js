@@ -1,6 +1,20 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const notifyCoordinator = `mutation NotifyCoordinator(
+  $currentNick: String!
+  $contactDetails: String!
+  $coordinatorEmail: String!
+  $msg: String
+) {
+  notifyCoordinator(
+    currentNick: $currentNick
+    contactDetails: $contactDetails
+    coordinatorEmail: $coordinatorEmail
+    msg: $msg
+  )
+}
+`;
 export const createConversation = `mutation CreateConversation($input: CreateConversationInput!) {
   createConversation(input: $input) {
     id
