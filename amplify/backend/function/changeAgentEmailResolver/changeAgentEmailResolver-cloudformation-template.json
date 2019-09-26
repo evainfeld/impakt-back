@@ -62,7 +62,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "change-agent-dev-20190916180915-deployment",
+					"S3Bucket": "change-agent-keys-20190924135055-deployment",
 					"S3Key": "amplify-builds/changeAgentEmailResolver-57784659566d586f5238-build.zip"
 				}
 			}

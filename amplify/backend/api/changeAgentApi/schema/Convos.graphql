@@ -11,6 +11,7 @@ type Conversation
       update: "updateConversation"
       delete: "deleteConversation"
     }
+    subscriptions: null
   )
   @auth(rules: [{ allow: public }])
   @key(fields: ["id"])
@@ -34,6 +35,7 @@ type Message
   @model(
     queries: { get: "getMessage", list: "listMessage" }
     mutations: { create: "createMessage", update: null, delete: null }
+    subscriptions: null ## added manually with filter
   )
   @auth(rules: [{ allow: public }]) {
   # conv-id + timestamp
@@ -44,11 +46,13 @@ type Message
   authorNick: String!
   #  The message content.
   content: String!
-  #  The id of the Conversation this message belongs to. This is the table unique GSI key.
+  #  Conversation that message belongs to -> used for mapping with convo
   conversation: Conversation! @connection(name: "Index", keyField: "conversationId")
+  # ConversationId that message belongs to -> used for filtering subscriptions. Approach recommended by documentation
+  convoId: String!
   #  Flag denoting if this message has been accepted by the server or not.
   isSent: Boolean
-  resources: [Resource]
+  resources: [S3Resource]
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
