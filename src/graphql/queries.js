@@ -9,23 +9,10 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
       title
       content
       resources {
-        id
         name
-        authorNick
-        file {
-          bucket
-          region
-          key
-        }
-        author {
-          cognitoId
-          cognitoGroup
-          currentNick
-          pubKey
-          org
-          createdAt
-          updatedAt
-        }
+        bucket
+        region
+        key
       }
       region
       org
@@ -47,23 +34,10 @@ export const listAllImportantNotifications = `query ListAllImportantNotification
       title
       content
       resources {
-        id
         name
-        authorNick
-        file {
-          bucket
-          region
-          key
-        }
-        author {
-          cognitoId
-          cognitoGroup
-          currentNick
-          pubKey
-          org
-          createdAt
-          updatedAt
-        }
+        bucket
+        region
+        key
       }
       region
       org
@@ -111,6 +85,7 @@ export const getCoversationByRegion = `query GetCoversationByRegion($region: Str
         id
         authorNick
         content
+        convoId
         isSent
         createdAt
         updatedAt
@@ -141,6 +116,75 @@ export const me = `query Me {
     org
     createdAt
     updatedAt
+  }
+}
+`;
+export const listConversation = `query ListConversation(
+  $id: ID
+  $filter: ModelConversationFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listConversation(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+      type
+      region
+      org
+      createdAt
+      updatedAt
+      messages {
+        nextToken
+      }
+      users {
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getConversation = `query GetConversation($id: ID!) {
+  getConversation(id: $id) {
+    id
+    name
+    type
+    region
+    org
+    createdAt
+    updatedAt
+    messages {
+      items {
+        id
+        authorNick
+        content
+        convoId
+        isSent
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    users {
+      items {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -179,350 +223,18 @@ export const listCoversationsByRegion = `query ListCoversationsByRegion(
   }
 }
 `;
-export const listLocationByIndex = `query ListLocationByIndex(
-  $id: ID
-  $sortDirection: ModelSortDirection
-  $filter: ModelLocationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listLocationByIndex(
-    id: $id
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      region
-      org
-      name
-      coordinatorName
-      coordinatorEmail
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listCategoryByIndex = `query ListCategoryByIndex(
-  $id: ID
-  $sortDirection: ModelSortDirection
-  $filter: ModelCategoryFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listCategoryByIndex(
-    id: $id
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      region
-      org
-      name
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listCategoryByOrg = `query ListCategoryByOrg(
-  $org: String
-  $regionName: ModelCategoryOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelCategoryFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listCategoryByOrg(
-    org: $org
-    regionName: $regionName
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      region
-      org
-      name
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listUsersByOrg = `query ListUsersByOrg(
-  $org: String
-  $cognitoGroup: ModelStringKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUsersByOrg(
-    org: $org
-    cognitoGroup: $cognitoGroup
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-`;
-export const listPropagandaByOrg = `query ListPropagandaByOrg(
-  $org: String
-  $categoryTitle: ModelPropagandaOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelPropagandaFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listPropagandaByOrg(
-    org: $org
-    categoryTitle: $categoryTitle
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      authorNick
-      category
-      title
-      content
-      resources {
-        id
-        name
-        authorNick
-      }
-      region
-      org
-      createdAt
-      updatedAt
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const listEventByOrg = `query ListEventByOrg(
-  $org: String
-  $categoryTitle: ModelEventOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelEventFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listEventByOrg(
-    org: $org
-    categoryTitle: $categoryTitle
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      authorNick
-      category
-      title
-      content
-      resources {
-        id
-        name
-        authorNick
-      }
-      region
-      org
-      createdAt
-      updatedAt
-      conversation {
-        id
-        name
-        type
-        region
-        org
-        createdAt
-        updatedAt
-      }
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
-  $org: String
-  $categoryTitle: ModelAnnouncementOrgCompositeKeyConditionInput
-  $sortDirection: ModelSortDirection
-  $filter: ModelAnnouncementFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listAnnouncementByOrg(
-    org: $org
-    categoryTitle: $categoryTitle
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      authorNick
-      category
-      title
-      content
-      resources {
-        id
-        name
-        authorNick
-      }
-      region
-      org
-      createdAt
-      updatedAt
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const getConversation = `query GetConversation($id: ID!) {
-  getConversation(id: $id) {
-    id
-    name
-    type
-    region
-    org
-    createdAt
-    updatedAt
-    messages {
-      items {
-        id
-        authorNick
-        content
-        isSent
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-    users {
-      items {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const listConversation = `query ListConversation(
-  $id: ID
-  $filter: ModelConversationFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listConversation(
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      id
-      name
-      type
-      region
-      org
-      createdAt
-      updatedAt
-      messages {
-        nextToken
-      }
-      users {
-        nextToken
-      }
-    }
-    nextToken
-  }
-}
-`;
 export const getMessage = `query GetMessage($id: ID!) {
   getMessage(id: $id) {
     id
     authorNick
     content
+    convoId
     isSent
     resources {
-      id
       name
-      authorNick
-      file {
-        bucket
-        region
-        key
-      }
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
+      bucket
+      region
+      key
     }
     createdAt
     updatedAt
@@ -563,11 +275,13 @@ export const listMessage = `query ListMessage(
       id
       authorNick
       content
+      convoId
       isSent
       resources {
-        id
         name
-        authorNick
+        bucket
+        region
+        key
       }
       createdAt
       updatedAt
@@ -637,6 +351,34 @@ export const listLocation = `query ListLocation(
   }
 }
 `;
+export const listLocationByIndex = `query ListLocationByIndex(
+  $id: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelLocationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLocationByIndex(
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      region
+      org
+      name
+      coordinatorName
+      coordinatorEmail
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
 export const getCategory = `query GetCategory($region: String!, $name: String!) {
   getCategory(region: $region, name: $name) {
     id
@@ -676,15 +418,57 @@ export const listCategory = `query ListCategory(
   }
 }
 `;
-export const getUser = `query GetUser($cognitoId: ID!) {
-  getUser(cognitoId: $cognitoId) {
-    cognitoId
-    cognitoGroup
-    currentNick
-    pubKey
-    org
-    createdAt
-    updatedAt
+export const listCategoryByIndex = `query ListCategoryByIndex(
+  $id: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCategoryByIndex(
+    id: $id
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      region
+      org
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
+export const listCategoryByOrg = `query ListCategoryByOrg(
+  $org: String
+  $regionName: ModelCategoryOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCategoryByOrg(
+    org: $org
+    regionName: $regionName
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      region
+      org
+      name
+      createdAt
+      updatedAt
+    }
+    nextToken
   }
 }
 `;
@@ -715,6 +499,47 @@ export const listUser = `query ListUser(
   }
 }
 `;
+export const getUser = `query GetUser($cognitoId: ID!) {
+  getUser(cognitoId: $cognitoId) {
+    cognitoId
+    cognitoGroup
+    currentNick
+    pubKey
+    org
+    createdAt
+    updatedAt
+  }
+}
+`;
+export const listUsersByOrg = `query ListUsersByOrg(
+  $org: String
+  $cognitoGroup: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsersByOrg(
+    org: $org
+    cognitoGroup: $cognitoGroup
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      cognitoId
+      cognitoGroup
+      currentNick
+      pubKey
+      org
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+`;
 export const getPropaganda = `query GetPropaganda($region: String!, $category: String!, $title: String!) {
   getPropaganda(region: $region, category: $category, title: $title) {
     authorNick
@@ -722,23 +547,10 @@ export const getPropaganda = `query GetPropaganda($region: String!, $category: S
     title
     content
     resources {
-      id
       name
-      authorNick
-      file {
-        bucket
-        region
-        key
-      }
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
+      bucket
+      region
+      key
     }
     region
     org
@@ -778,9 +590,100 @@ export const listPropaganda = `query ListPropaganda(
       title
       content
       resources {
-        id
         name
-        authorNick
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listPropagandaByOrg = `query ListPropagandaByOrg(
+  $org: String
+  $categoryTitle: ModelPropagandaOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelPropagandaFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPropagandaByOrg(
+    org: $org
+    categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listPropagandaSortedByTime = `query ListPropagandaSortedByTime(
+  $region: String
+  $updatedAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelPropagandaFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPropagandaSortedByTime(
+    region: $region
+    updatedAt: $updatedAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
       }
       region
       org
@@ -807,23 +710,10 @@ export const getEvent = `query GetEvent($region: String!, $category: String!, $t
     title
     content
     resources {
-      id
       name
-      authorNick
-      file {
-        bucket
-        region
-        key
-      }
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
+      bucket
+      region
+      key
     }
     region
     org
@@ -878,9 +768,118 @@ export const listEvent = `query ListEvent(
       title
       content
       resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      conversation {
         id
         name
-        authorNick
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listEventByOrg = `query ListEventByOrg(
+  $org: String
+  $categoryTitle: ModelEventOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEventByOrg(
+    org: $org
+    categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listEventSortedByTime = `query ListEventSortedByTime(
+  $region: String
+  $updatedAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEventSortedByTime(
+    region: $region
+    updatedAt: $updatedAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
       }
       region
       org
@@ -916,23 +915,10 @@ export const getAnnouncement = `query GetAnnouncement($region: String!, $categor
     title
     content
     resources {
-      id
       name
-      authorNick
-      file {
-        bucket
-        region
-        key
-      }
-      author {
-        cognitoId
-        cognitoGroup
-        currentNick
-        pubKey
-        org
-        createdAt
-        updatedAt
-      }
+      bucket
+      region
+      key
     }
     region
     org
@@ -972,9 +958,10 @@ export const listAnnouncement = `query ListAnnouncement(
       title
       content
       resources {
-        id
         name
-        authorNick
+        bucket
+        region
+        key
       }
       region
       org
@@ -994,43 +981,82 @@ export const listAnnouncement = `query ListAnnouncement(
   }
 }
 `;
-export const getResource = `query GetResource($id: ID!) {
-  getResource(id: $id) {
-    id
-    name
-    authorNick
-    file {
-      bucket
-      region
-      key
-    }
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
-    }
-  }
-}
-`;
-export const listResources = `query ListResources(
-  $filter: ModelResourceFilterInput
+export const listAnnouncementByOrg = `query ListAnnouncementByOrg(
+  $org: String
+  $categoryTitle: ModelAnnouncementOrgCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelAnnouncementFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listResources(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listAnnouncementByOrg(
+    org: $org
+    categoryTitle: $categoryTitle
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
     items {
-      id
-      name
       authorNick
-      file {
+      category
+      title
+      content
+      resources {
+        name
         bucket
         region
         key
       }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const listAnnouncementSortedByTime = `query ListAnnouncementSortedByTime(
+  $region: String
+  $updatedAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelAnnouncementFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAnnouncementSortedByTime(
+    region: $region
+    updatedAt: $updatedAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
       author {
         cognitoId
         cognitoGroup

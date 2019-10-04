@@ -7,6 +7,7 @@
       "authorNick": "dummy_admin",
       "content": "blah blah blah2",
       "conversationId": "3",
+      "convoId": "3",
       "createdAt": "2019-09-16T20:30:05.209Z",
       "id": "3-20190916-203005209",
       "org": "ZZ",

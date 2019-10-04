@@ -6,10 +6,18 @@ type Propaganda
       update: "updatePropaganda"
       delete: "deletePropaganda"
     }
+    subscriptions: null
   )
   @auth(rules: [{ allow: public }])
   @key(fields: ["region", "category", "title"])
-  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listPropagandaByOrg") {
+  #GSI
+  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listPropagandaByOrg")
+  #LSI
+  @key(
+    name: "UpdateTime"
+    fields: ["region", "updatedAt"]
+    queryField: "listPropagandaSortedByTime"
+  ) {
   #@auth(
   #  rules: [
   #    {allow: owner, ownerField: "cognitoId", identityField: "cognito:sub" , operations: [create, update, delete, read]},
@@ -23,7 +31,7 @@ type Propaganda
   title: String!
   # org_range: MY_ORG::WWA::WTF
   content: String!
-  resources: [Resource]
+  resources: [S3Resource]
   region: String!
   org: String!
   #### autogen
@@ -35,10 +43,14 @@ type Event
   @model(
     queries: { get: "getEvent", list: "listEvent" }
     mutations: { create: "createEvent", update: "updateEvent", delete: "deleteEvent" }
+    subscriptions: null
   )
   @auth(rules: [{ allow: public }])
   @key(fields: ["region", "category", "title"])
-  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg") {
+  #GSI
+  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listEventByOrg")
+  #LSI
+  @key(name: "UpdateTime", fields: ["region", "updatedAt"], queryField: "listEventSortedByTime") {
   #real identity, used for auth and possible banning evil users
   author: User! @connection(keyField: "authorId")
   #ephemeric string used as a nick during creation - should be visible in FE
@@ -47,7 +59,7 @@ type Event
   title: String!
   # org_range: MY_ORG::WWA::WTF
   content: String!
-  resources: [Resource]
+  resources: [S3Resource]
   region: String!
   org: String!
   conversation: Conversation @connection(keyField: "conversationId")
@@ -64,10 +76,18 @@ type Announcement
       update: "updateAnnouncement"
       delete: "deleteAnnouncement"
     }
+    subscriptions: null
   )
   @auth(rules: [{ allow: public }])
   @key(fields: ["region", "category", "title"])
-  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg") {
+  #GSI
+  @key(name: "Org", fields: ["org", "category", "title"], queryField: "listAnnouncementByOrg")
+  #LSI
+  @key(
+    name: "UpdateTime"
+    fields: ["region", "updatedAt"]
+    queryField: "listAnnouncementSortedByTime"
+  ) {
   #real identity, used for auth and possible banning evil users
   author: User! @connection(keyField: "authorId")
   #ephemeric string used as a nick during creation - should be visible in FE
@@ -76,7 +96,7 @@ type Announcement
   title: String!
   # org_range: MY_ORG::WWA::WTF
   content: String!
-  resources: [Resource]
+  resources: [S3Resource]
   region: String!
   org: String!
   #### autogen
