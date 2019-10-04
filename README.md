@@ -54,10 +54,10 @@ key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
 ### MST - associated with develop master branch
 
 ```txt
-GraphQL endpoint: https://eklblxi2tnbhriwp53ptokurku.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-zcxtofmc6zh5dhsrnrbn7imsii
-UserPoolId: eu-west-1_tzBttGHDT,
-AppClientIDWeb: 3df4khthtrb2ilgrih800p1rtq,
+GraphQL endpoint: https://nnf5x4diobbgdmuiw6eerfewuu.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-62a53sbfnjcvbhnhgxjtkkasha
+UserPoolId: eu-west-1_dQMUo69cu
+AppClientIDWeb": 3v1eco2ocno5hkppg3pmb5pv37
 ```
 
 ### DEV - associated with develop branch
