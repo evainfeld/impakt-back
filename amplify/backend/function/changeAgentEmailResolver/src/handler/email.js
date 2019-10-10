@@ -72,8 +72,8 @@ async function sentEmail(args) {
 const resolvers = {
   Mutation: {
     notifyCoordinator: async args => {
-      await sentEmail(args);
-      return 'Success';
+      const result = await sentEmail(args);
+      return result;
     },
   },
 };
