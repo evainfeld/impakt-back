@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-keys-20190924135055-deployment",
-					"S3Key": "amplify-builds/changeAgentEmailResolver-57784659566d586f5238-build.zip"
+					"S3Key": "amplify-builds/changeAgentEmailResolver-3072575938387866762b-build.zip"
 				}
 			}
 		},
