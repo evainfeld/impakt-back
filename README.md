@@ -35,6 +35,14 @@ Never, ever, in any circumstances call `amplify delete` :)
 - Keys for multiple accounts configured according to documantation: `https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-multiple-profiles`
 - git-flow tool might be helpful (`npm install -g git-flow`)
 
+## Manual operator steps need to be done before first run
+
+- Create following params in SSM Parameter Store:
+- `change-agent-admin-pass` - default pass for Admins (not for prod)
+- `change-agent-service-email` - service email for notifications
+
+- Please keep in mind that AWS SES requires you to verify the email address specified as the Source in the params before it can be used as a sender.
+
 ## Architecture
 
 ![Alt text](__docs__/change-agent-arch-1.jpg 'diagram')
@@ -44,29 +52,22 @@ Never, ever, in any circumstances call `amplify delete` :)
 Prod and Dev envs are deployed automatically using AWS Amplify Console.
 As long as, API is "protected" using API KEY remember to add `x-api-key` param to POST header.
 
-### PRD - old and obselate
+### MST - associated with master branch
 
 ```txt
-GraphQL endpoint: https://cegdp4fefram7l2i5k6f632oam.appsync-api.eu-west-1.amazonaws.com/graphql
-key: da2-mnrbxnz3lbgn5g3nm4tgkxj75a
-```
-
-### MST - associated with develop master branch
-
-```txt
-GraphQL endpoint: https://nnf5x4diobbgdmuiw6eerfewuu.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-62a53sbfnjcvbhnhgxjtkkasha
-UserPoolId: eu-west-1_dQMUo69cu
-AppClientIDWeb": 3v1eco2ocno5hkppg3pmb5pv37
+GraphQL endpoint: https://2jjun6dfrvbpbhtt33dwn5gdba.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-tzwszp4pnjbdrgz64a7wz3t6ju
+UserPoolId: eu-west-1_MiINe20KY
+AppClientIDWeb: 2g8ncfjog1l9k001oa28bpacqk
 ```
 
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://udkdoferjvaitckdxut5acx32m.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-ilfufbv7ujdk3d7gxkfn7w4xke
-UserPoolId: eu-west-1_2f108pgLA
-AppClientIDWeb: 2t40e98p7fvrrcdsgel84mvhjg
+GraphQL endpoint: https://as2tdqfaivgmjphnbmqpgknaay.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-xfcg3qpgpncwzl422nlth32jz4
+UserPoolId: eu-west-1_gojr2WUMu
+AppClientIDWeb: 48uhda8ucpieefnlcmk6u4k9op
 ```
 
 **NOTE** Dev environment is secured using Cognito User Pools without Identity Pools. This is temporary solution, as we need functionalities of S3 bucket access for serving some files dropped by users.
