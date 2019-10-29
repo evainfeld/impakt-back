@@ -63,7 +63,7 @@ async function sentEmail(args) {
   try {
     await new SES().sendEmail(params).promise();
   } catch (error) {
-    console.log('Error while sending Email');
+    console.log('Error while sending Email', error);
     return 'Failed';
   }
   return 'Success';

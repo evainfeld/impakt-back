@@ -1,46 +1,14 @@
 {
-  "prd": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "change-agent-prd-20190905112452-authRole",
-      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prd-20190905112452-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-prd-20190905112452-authRole",
+      "AuthRoleName": "change-agent-dev-20191029115539-authRole",
+      "UnauthRoleArn": "arn:aws:iam::557346154937:role/change-agent-dev-20191029115539-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::557346154937:role/change-agent-dev-20191029115539-authRole",
       "Region": "eu-west-1",
-      "DeploymentBucketName": "change-agent-prd-20190905112452-deployment",
-      "UnauthRoleName": "change-agent-prd-20190905112452-unauthRole",
-      "StackName": "change-agent-prd-20190905112452",
-      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-prd-20190905112452/040dd7b0-cfbf-11e9-b22c-02de07166156"
-    },
-    "categories": {
-      "auth": {
-        "changeAgent95205ed895205ed8": {}
-      },
-      "function": {
-        "changeAgent95205ed895205ed8CreateAuthChallenge": {
-          "envType": "prod"
-        },
-        "changeAgent95205ed895205ed8DefineAuthChallenge": {},
-        "changeAgent95205ed895205ed8PreSignup": {},
-        "changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {},
-        "changeAgent95205ed895205ed8PostConfirmation": {
-          "GROUP": "Users"
-        },
-        "changeAgentS3Triggerbe81f2e2": {},
-        "changeAgentDynamoTriggerb5e811d2": {},
-        "changeAgentDynamo": {},
-        "changeAgentDynamoTriggerad498b65": {}
-      }
-    }
-  },
-  "keys": {
-    "awscloudformation": {
-      "AuthRoleName": "change-agent-keys-20190924135055-authRole",
-      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-keys-20190924135055-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-keys-20190924135055-authRole",
-      "Region": "eu-west-1",
-      "DeploymentBucketName": "change-agent-keys-20190924135055-deployment",
-      "UnauthRoleName": "change-agent-keys-20190924135055-unauthRole",
-      "StackName": "change-agent-keys-20190924135055",
-      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-keys-20190924135055/91639df0-dec1-11e9-9118-0a25aff68e4e"
+      "DeploymentBucketName": "change-agent-dev-20191029115539-deployment",
+      "UnauthRoleName": "change-agent-dev-20191029115539-unauthRole",
+      "StackName": "change-agent-dev-20191029115539",
+      "StackId": "arn:aws:cloudformation:eu-west-1:557346154937:stack/change-agent-dev-20191029115539/a5483210-fa3a-11e9-ae98-0aac29486886"
     },
     "categories": {
       "auth": {
@@ -67,14 +35,14 @@
   },
   "mst": {
     "awscloudformation": {
-      "AuthRoleName": "change-agent-mst-20191004140820-authRole",
-      "UnauthRoleArn": "arn:aws:iam::922687003324:role/change-agent-mst-20191004140820-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::922687003324:role/change-agent-mst-20191004140820-authRole",
+      "AuthRoleName": "change-agent-mst-20191029130342-authRole",
+      "UnauthRoleArn": "arn:aws:iam::557346154937:role/change-agent-mst-20191029130342-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::557346154937:role/change-agent-mst-20191029130342-authRole",
       "Region": "eu-west-1",
-      "DeploymentBucketName": "change-agent-mst-20191004140820-deployment",
-      "UnauthRoleName": "change-agent-mst-20191004140820-unauthRole",
-      "StackName": "change-agent-mst-20191004140820",
-      "StackId": "arn:aws:cloudformation:eu-west-1:922687003324:stack/change-agent-mst-20191004140820/a89e5c90-e69f-11e9-88ab-028618ba0c7c"
+      "DeploymentBucketName": "change-agent-mst-20191029130342-deployment",
+      "UnauthRoleName": "change-agent-mst-20191029130342-unauthRole",
+      "StackName": "change-agent-mst-20191029130342",
+      "StackId": "arn:aws:cloudformation:eu-west-1:557346154937:stack/change-agent-mst-20191029130342/26b3f9c0-fa44-11e9-81f5-0a00435bc49c"
     },
     "categories": {
       "auth": {
