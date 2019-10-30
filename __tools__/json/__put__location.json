@@ -7,6 +7,8 @@
       "region": "ZZ::PL::WAW::BIELANY",
       "org": "ZZ",
       "name": "okręg Bielany",
+      "coordinatorName": "Wazna persona",
+      "coordinatorEmail": "trying.to.do.sth.valuable@gmail.com",
       "createdAt": "1970-01-01T12:30:24.500+05:30",
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
@@ -16,6 +18,8 @@
       "region": "ZZ::PL::WAW::ZOLIBORZ",
       "org": "ZZ",
       "name": "okręg Żoliborz",
+      "coordinatorName": "Wazna persona",
+      "coordinatorEmail": "trying.to.do.sth.valuable@gmail.com",
       "createdAt": "1970-01-01T12:30:24.500+05:30",
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
@@ -25,6 +29,8 @@
       "region": "ZZ::PL::WAW",
       "org": "ZZ",
       "name": "okręg Warszawa",
+      "coordinatorName": "Wazna persona",
+      "coordinatorEmail": "trying.to.do.sth.valuable@gmail.com",
       "createdAt": "1970-01-01T12:30:24.500+05:30",
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     },
@@ -34,6 +40,8 @@
       "region": "ZZ::PL",
       "org": "ZZ",
       "name": "okręg Polska",
+      "coordinatorName": "Wazna persona",
+      "coordinatorEmail": "trying.to.do.sth.valuable@gmail.com",
       "createdAt": "1970-01-01T12:30:24.500+05:30",
       "updatedAt": "1970-01-01T12:30:24.500+05:30"
     }

@@ -159,14 +159,14 @@ We have two independent environments (master & dev) in the cloud and have corres
 Suppose a team member wants to work on the same Amplify project, add some features to it and then push changes to the dev environment to test some changes. They would perform the following steps:
 
 ```bash
-$ git checkout -b mysandbox |or| git-flow feature start mysandbox
-$ amplify init
+ git checkout -b mysandbox |or| git-flow feature start mysandbox
+ amplify init
 ? Do you want to use an existing environment? No
 ? Enter a name for the environment mysandbox
 // Rest of init steps
 // Add/update any backend configurations using amplify add/update <category>
-$ amplify push
-$ git push -u origin mysandbox
+ amplify push
+ git push -u origin mysandbox
 ```
 
 Next, suppose the team-member wants to move these changes to dev and master environments/branches:
@@ -174,15 +174,15 @@ Next, suppose the team-member wants to move these changes to dev and master envi
 **Note**: this is an example. Merging to develop is recommended to be done throughout PR.
 
 ```bash
-$ git checkout develop
-$ amplify init
+ git checkout develop
+ amplify init
 ? Do you want to use an existing environment? true
 ? Choose the environment you would like to use:
 ❯ dev
  master
-$ git merge mysandbox  |or| git-flow feature finish mysandbox
-$ amplify push
-$ git push -u origin dev
+ git merge mysandbox  |or| git-flow feature finish mysandbox
+ amplify push
+ git push -u origin dev
 ```
 
 After testing that everything works fine in the dev stage, you could now merge dev to the master git branch:
@@ -190,15 +190,15 @@ After testing that everything works fine in the dev stage, you could now merge d
 **Note**: this is an example. Merging to master is only possible throughout PR.
 
 ```bash
-$ git checkout master
-$ amplify init
+ git checkout master
+ amplify init
 ? Do you want to use an existing environment? true
 ? Choose the environment you would like to use:
  dev
 ❯ master
-$ git merge develop
-$ amplify push
-$ git push -u origin master
+ git merge develop
+ amplify push
+ git push -u origin master
 ```
 
 **IMPORTANT**: remember to update Graphql operations using `amplify codegen` after each schema change.
@@ -362,18 +362,18 @@ basically whole lambda filestructure is hardcoded in `amplify-cli/packages/ampli
       {
         dir: pluginDir,
         template: triggerIndexPath,
-        target: `${targetDir}/${category}/${options.resourceName}/src/index.js`,
-        paramsFile: `${targetDir}/${category}/${options.resourceName}/parameters.json`,
+        target: `{targetDir}/{category}/{options.resourceName}/src/index.js`,
+        paramsFile: `{targetDir}/{category}/{options.resourceName}/parameters.json`,
       },
       {
         dir: pluginDir,
         template: triggerEventPath,
-        target: `${targetDir}/${category}/${options.resourceName}/src/event.json`,
+        target: `{targetDir}/{category}/{options.resourceName}/src/event.json`,
       },
       {
         dir: pluginDir,
         template: triggerPackagePath,
-        target: `${targetDir}/${category}/${options.resourceName}/src/package.json`,
+        target: `{targetDir}/{category}/{options.resourceName}/src/package.json`,
       }
 ```
 
@@ -494,7 +494,7 @@ adding storage table with trigger fails while pushing. Needed to add manually to
           CREAchange-agent-dev-20190913143649-functionchangeAgentDynamoTriggerb5e811d2-TAWS::CloudFormation::Stack      Fri Sep 13 2019 12:55:20 GMT+0000 (Universal Time) The following resource(s) failed to create: [changeAgentDynamoTrigger.
 ```
 
-- Then you have manually remove S3 bucket - `change-agent-s3-${env}`
+- Then you have manually remove S3 bucket - `change-agent-s3-{env}`
 - after that push will be successful
 
 **13**:
