@@ -10,12 +10,46 @@ async function sendSMSviaSNS(phoneNumber, secretLoginCode, isDev) {
     Message: `Change Agent: ${secretLoginCode}`,
     PhoneNumber: phoneNumber,
   };
-  // Create a new Pinpoint object.
-  await new AWS.SNS().publish(params).promise();
+  // Create a new SNS object.
+  try {
+    await new AWS.SNS().publish(params).promise();
+  } catch (error) {
+    console.log('Error', error.stack);
+    throw new Error(`Unable to send message. Please contact administrator or try later`);
+  }
 }
 
-function generateSecret(digits, isDev) {
-  return isDev ? '111111' : cryptoSec.randomDigits(digits).join('');
+async function queryForUser(phoneNumber) {
+  let type = 'NOT_SET';
+  try {
+    type = await queryForPhoneNumberDocumentType(phoneNumber, CHANGE_AGENT_DYNAMO);
+  } catch (error) {
+    console.log('Warn', error.stack);
+  }
+  return type;
+}
+
+async function generateSecretAndSendSMS(phoneNumber, digits, isDev) {
+  const secretLoginCode = isDev ? '111111' : cryptoSec.randomDigits(digits).join('');
+  await sendSMSviaSNS(phoneNumber, secretLoginCode, isDev); // use SNS for sending SMS
+  return secretLoginCode;
+}
+
+async function generateSecretForAdmin(ssmParamName, phoneNumber, digits, isDev) {
+  let secret;
+  try {
+    const req = {
+      Names: [ssmParamName],
+      WithDecryption: true,
+    };
+    const resp = await new AWS.SSM().getParameters(req).promise();
+    secret = resp.Parameters[0].Value;
+  } catch (error) {
+    console.log('Warn', error.stack);
+    // falling back trying to generate secret and sendSMS
+    secret = await generateSecretAndSendSMS(phoneNumber, 6, isDev);
+  }
+  return secret;
 }
 
 // Main handler
@@ -23,24 +57,20 @@ exports.handler = async event => {
   let secretLoginCode;
   const isDev = typeof process.env.envType !== 'undefined' && process.env.envType === 'dev';
 
-  const type = await queryForPhoneNumberDocumentType(
-    event.request.userAttributes.phone_number,
-    CHANGE_AGENT_DYNAMO,
-  );
+  const type = await queryForUser(event.request.userAttributes.phone_number);
+  const phoneNumber = event.request.userAttributes.phone_number;
+
   if (type === phoneTypes.admin) {
-    const secretName = 'change-agent-admin-pass';
-    const req = {
-      Names: [secretName],
-      WithDecryption: true,
-    };
-    const resp = await new AWS.SSM().getParameters(req).promise();
-    secretLoginCode = resp.Parameters[0].Value;
+    secretLoginCode = await generateSecretForAdmin(
+      'change-agent-admin-pass',
+      phoneNumber,
+      6,
+      isDev,
+    );
   } else if (!event.request.session || !event.request.session.length) {
-    const phoneNumber = event.request.userAttributes.phone_number;
     // This is a new auth session
     // Generate a new secret login code and text it to the user
-    secretLoginCode = generateSecret(6, isDev);
-    await sendSMSviaSNS(phoneNumber, secretLoginCode, isDev); // use SNS for sending SMS
+    secretLoginCode = await generateSecretAndSendSMS(phoneNumber, 6, isDev);
   } else {
     // There's an existing session. Don't generate new digits but
     // re-use the code from the current session. This allows the user to
