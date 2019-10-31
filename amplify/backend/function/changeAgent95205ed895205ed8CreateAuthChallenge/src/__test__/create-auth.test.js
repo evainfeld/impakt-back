@@ -1,28 +1,44 @@
 /* eslint-disable import/no-extraneous-dependencies */
 jest.mock('crypto-secure-random-digit');
-jest.mock('change-agent-services/dbService');
 
 const random = require('crypto-secure-random-digit');
 const { mock, restore } = require('aws-sdk-mock');
 const sinon = require('sinon');
-const { queryDocument, restoreDynamoClientMock } = require('change-agent-services/dbService');
 const createAuth = require('../handler/create-auth.js');
 const event = require('../handler/event.json');
 const eventSession = require('../handler/eventSession.json');
 
 describe('create-auth.test.js', () => {
-  let snsSpyFunc;
-  let spy;
-
-  beforeAll(() => {
-    queryDocument.mockImplementation(() => ({
-      Items: [],
-    }));
-
-    snsSpyFunc = sinon.spy((params, callback) => {
-      callback(undefined, params);
+  /*
+    default spies
+  */
+  const defaultErrorMessage = 'Some AWS Error';
+  const defaultAdminPass = 'Hidden Pass';
+  const snsSpyFunc = sinon.spy((params, callback) => {
+    callback(undefined, params);
+  });
+  const ssmSpyFunc = sinon.spy((params, callback) => {
+    callback(undefined, { Parameters: [{ Value: defaultAdminPass }] });
+  });
+  const queryThrowsErrorSpy = sinon.spy((params, callback) => {
+    callback(new Error(defaultErrorMessage), undefined);
+  });
+  const queryReturnsValueSpy = obj => {
+    return sinon.spy((params, callback) => {
+      callback(undefined, {
+        Items: [obj],
+      });
     });
+  };
+
+  beforeAll(() => {});
+
+  afterAll(() => {});
+
+  beforeEach(() => {
+    mock('SSM', 'getParameters', ssmSpyFunc);
     mock('SNS', 'publish', snsSpyFunc);
+    mock('DynamoDB.DocumentClient', 'query', queryReturnsValueSpy({}));
     random.randomDigits = jest.fn().mockImplementation(digits => {
       const array = [];
       for (let i = 0; i < digits; i += 1) {
@@ -30,20 +46,16 @@ describe('create-auth.test.js', () => {
       }
       return array;
     });
-    spy = jest.spyOn(random, 'randomDigits');
   });
-
-  afterAll(() => {
-    restore('SNS', 'publish');
-    restoreDynamoClientMock();
-    jest.unmock('change-agent-services/dbService');
-    jest.unmock('crypto-secure-random-digit');
-  });
-
-  beforeEach(() => {});
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    snsSpyFunc.resetHistory();
+    ssmSpyFunc.resetHistory();
+    queryThrowsErrorSpy.resetHistory();
+    random.randomDigits.mockReset();
+    restore('SSM', 'getParameters');
+    restore('SNS', 'publish');
+    restore('DynamoDB.DocumentClient');
   });
 
   it('dev / returns 111111 code', async () => {
@@ -78,7 +90,7 @@ describe('create-auth.test.js', () => {
     expect(rspEvent.response.challengeMetadata).toBe('CODE-123456');
     expect(rspEvent.response.publicChallengeParameters.phone).toBe('+66606606606');
     expect(rspEvent.response.privateChallengeParameters.secretLoginCode).toBe('123456');
-    expect(spy).not.toHaveBeenCalled();
+    expect(random.randomDigits).not.toHaveBeenCalled();
     expect(snsSpyFunc.calledWith(params)).toBe(false);
   });
 
@@ -92,8 +104,36 @@ describe('create-auth.test.js', () => {
     expect(rspEvent.response.challengeMetadata).toBe('CODE-222222');
     expect(rspEvent.response.publicChallengeParameters.phone).toBe('+66606606606');
     expect(rspEvent.response.privateChallengeParameters.secretLoginCode).toBe('222222');
-    expect(spy).toHaveBeenCalled();
+    expect(random.randomDigits).toHaveBeenCalled();
     expect(snsSpyFunc.calledWith(params)).toBe(true);
+  });
+
+  it('prod / throws error if fail to call ', async () => {
+    process.env.envType = 'prod';
+    const params = {
+      Message: `Change Agent: 222222`,
+      PhoneNumber: '+66606606606',
+    };
+    const rspEvent = await createAuth.handler(event);
+    expect(rspEvent.response.challengeMetadata).toBe('CODE-222222');
+    expect(rspEvent.response.publicChallengeParameters.phone).toBe('+66606606606');
+    expect(rspEvent.response.privateChallengeParameters.secretLoginCode).toBe('222222');
+    expect(random.randomDigits).toHaveBeenCalled();
+    expect(snsSpyFunc.calledWith(params)).toBe(true);
+  });
+
+  it(`prod / returns ${defaultAdminPass} code for ADMIN user and doesn't call SNS`, async () => {
+    restore('DynamoDB.DocumentClient');
+    mock('DynamoDB.DocumentClient', 'query', queryReturnsValueSpy({ type: 'ADMIN' }));
+    process.env.envType = 'prod';
+    const rspEvent = await createAuth.handler(event);
+    expect(rspEvent.response.challengeMetadata).toBe(`CODE-${defaultAdminPass}`);
+    expect(rspEvent.response.publicChallengeParameters.phone).toBe('+66606606606');
+    expect(rspEvent.response.privateChallengeParameters.secretLoginCode).toBe(
+      `${defaultAdminPass}`,
+    );
+    expect(random.randomDigits).not.toHaveBeenCalled();
+    expect(snsSpyFunc.notCalled).toBe(true);
   });
 
   it('behaves like prod env if process.env.envType not set', async () => {
@@ -105,7 +145,7 @@ describe('create-auth.test.js', () => {
     expect(rspEvent.response.challengeMetadata).toBe('CODE-222222');
     expect(rspEvent.response.publicChallengeParameters.phone).toBe('+66606606606');
     expect(rspEvent.response.privateChallengeParameters.secretLoginCode).toBe('222222');
-    expect(spy).toHaveBeenCalled();
+    expect(random.randomDigits).toHaveBeenCalled();
     expect(snsSpyFunc.calledWith(params)).toBe(true);
   });
 });

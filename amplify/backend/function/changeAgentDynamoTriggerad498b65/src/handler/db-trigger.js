@@ -9,45 +9,45 @@ const operationTypes = {
   modify: 'MODIFY',
 };
 
-const getUsername = async (cips, phone) => {
+const getUsername = async (cisp, phone) => {
   const params = {
     AttributesToGet: ['username'],
     Filter: `phone_number = "${phone}"`,
     UserPoolId: authChangeAgentUserPoolId,
   };
-  const { Users } = await cips.listUsers(params).promise();
+  const { Users } = await cisp.listUsers(params).promise();
   if (Array.isArray(Users) && Users.length) return Users[0].Username;
 
   throw new Error(`No user for phone ${phone}`);
 };
 
-const getFirstGroup = async (cips, username) => {
+const getFirstGroup = async (cisp, username) => {
   const params = {
     Username: username,
     UserPoolId: authChangeAgentUserPoolId,
   };
-  const { Groups } = await cips.adminListGroupsForUser(params).promise();
+  const { Groups } = await cisp.adminListGroupsForUser(params).promise();
   if (Array.isArray(Groups) && Groups.length) return Groups[0].GroupName;
 
   throw new Error(`No group for user ${username}`);
 };
 
-const removeUserFromGroup = async (cips, username, group) => {
+const removeUserFromGroup = async (cisp, username, group) => {
   const params = {
     GroupName: group,
     UserPoolId: authChangeAgentUserPoolId,
     Username: username,
   };
-  await cips.dminRemoveUserFromGroup(params).promise();
+  await cisp.adminRemoveUserFromGroup(params).promise();
 };
 
-const addUserToGroup = async (cips, username, group) => {
+const addUserToGroup = async (cisp, username, group) => {
   const addUserParams = {
     GroupName: group,
     UserPoolId: authChangeAgentUserPoolId,
     Username: username,
   };
-  await cips.adminAddUserToGroup(addUserParams).promise();
+  await cisp.adminAddUserToGroup(addUserParams).promise();
 };
 
 const deleteUser = async (cisp, phone) => {
@@ -73,7 +73,7 @@ const deleteUser = async (cisp, phone) => {
  * @param {*} group -> change-agent/amplify/backend/api/changeAgentApi/stacks/CustomResources.json
  */
 const updeteUserGroupIfExists = async (cisp, phone, group) => {
-  let username;
+  let username = null;
   try {
     username = await getUsername(cisp, phone);
   } catch (error) {
@@ -98,53 +98,52 @@ const updeteUserGroupIfExists = async (cisp, phone, group) => {
 };
 
 const processInsertOrModify = async (cisp, record) => {
+  let result;
   switch (record.dynamodb.NewImage.type.S) {
     case phoneTypes.admin:
-      await updeteUserGroupIfExists(cisp, record.dynamodb.NewImage.phone.S, 'Admins');
+      result = await updeteUserGroupIfExists(cisp, record.dynamodb.NewImage.phone.S, 'Admins');
       break;
     case phoneTypes.member:
-      await updeteUserGroupIfExists(cisp, record.dynamodb.NewImage.phone.S, 'Members');
+      result = await updeteUserGroupIfExists(cisp, record.dynamodb.NewImage.phone.S, 'Members');
       break;
     case phoneTypes.blacklisted:
-      await deleteUser(cisp, record.dynamodb.NewImage.phone.S);
+      result = await deleteUser(cisp, record.dynamodb.NewImage.phone.S);
       break;
     default:
       throw new Error(`Operation type ${record.dynamodb.NewImage.type.S} not supported`);
   }
+  return result;
 };
 
 const processRemove = async (cisp, record) => {
   // downgrade to normal USER or ignore if removed from blacklist (no username in Cognito)
-  await updeteUserGroupIfExists(cisp, record.dynamodb.Keys.phone.S, 'Users');
+  const result = await updeteUserGroupIfExists(cisp, record.dynamodb.Keys.phone.S, 'Users');
+  return result;
 };
 
 exports.handler = async event => {
-  console.log(JSON.stringify(event, null, 2));
-
   const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18',
   });
 
-  await Promise.all(
+  const result = await Promise.all(
     event.Records.map(async record => {
-      console.log(record.eventID);
-      console.log(record.eventName);
-      console.log('DynamoDB Record: %j', record.dynamodb);
-
+      let opResult = 'Skipping execution';
       switch (record.eventName) {
         case operationTypes.insert:
-          await processInsertOrModify(cognitoidentityserviceprovider, record);
+          opResult = await processInsertOrModify(cognitoidentityserviceprovider, record);
           break;
         case operationTypes.remove:
-          await processRemove(cognitoidentityserviceprovider, record);
+          opResult = await processRemove(cognitoidentityserviceprovider, record);
           break;
         case operationTypes.modify:
-          await processInsertOrModify(cognitoidentityserviceprovider, record);
+          opResult = await processInsertOrModify(cognitoidentityserviceprovider, record);
           break;
         default:
           break;
       }
+      return opResult;
     }),
   );
-  return 'Successfully processed DB events'; //  SUCCESS with message
+  return result; //  SUCCESS with message
 };
