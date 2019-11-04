@@ -1,0 +1,45 @@
+{
+  "tableName": "Category",
+  "docs": [
+    {
+      "__typename": "Category",
+      "id": "1",
+      "region#name": "ZZ::PL::WAW::BIELANY#Wolne sondy nad lasem",
+      "region": "ZZ::PL::WAW::BIELANY",
+      "org": "ZZ",
+      "name": "Wolne sondy nad lasem",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "__typename": "Category",
+      "id": "2",
+      "region#name": "ZZ::PL::WAW::ZOLIBORZ#Rewolucja Zoliborska",
+      "region": "ZZ::PL::WAW::ZOLIBORZ",
+      "org": "ZZ",
+      "name": "Rewolucja Zoliborska",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "__typename": "Category",
+      "id": "3",
+      "region#name": "ZZ::PL::WAW#Rury i inne",
+      "region": "ZZ::PL::WAW",
+      "org": "ZZ",
+      "name": "Rury i inne",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "__typename": "Category",
+      "id": "4",
+      "region#name": "ZZ::PL#Płace",
+      "region": "ZZ::PL",
+      "org": "ZZ",
+      "name": "Płace",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    }
+  ]
+}

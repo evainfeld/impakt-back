@@ -15,7 +15,8 @@
       "sourceType": "module"
     },
     "rules": {
-      "no-console": "off"
+      "no-console": "off",
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}]
     },
     "settings": {
       "import/core-modules": ["aws-sdk"]

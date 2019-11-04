@@ -2,7 +2,7 @@
 const { mock, restore } = require('aws-sdk-mock');
 const sinon = require('sinon');
 const dbTrigger = require('../handler/db-trigger.js');
-const events = require('./events.js');
+const events = require('../handler/events.js');
 
 describe('db-trigger.test.js', () => {
   /*
