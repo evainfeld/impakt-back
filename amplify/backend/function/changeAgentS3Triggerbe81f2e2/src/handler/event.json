@@ -1,5 +1,38 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "eu-west-1",
+      "eventTime": "2019-09-10T09:38:42.881Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "AWS:AIDA5NVDOLK6D3XTBWN6A"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "37.120.156.163"
+      },
+      "responseElements": {
+        "x-amz-request-id": "64040A32B0E86553",
+        "x-amz-id-2": "WYsmFtf4sVBw53imiHKvlkzdX5bAUjT5ReYwLpy47iG9KeI7toMp/pQewxJ1XOu7/HgLfafnl58="
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "07c7782c-0243-4e4a-bcc0-b429d525af0d",
+        "bucket": {
+          "name": "change-agent-s3-adm-sch",
+          "ownerIdentity": {
+            "principalId": "A14F8831XSRZWO"
+          },
+          "arn": "arn:aws:s3:::change-agent-s3-adm-sch"
+        },
+        "object": {
+          "key": "Category.json",
+          "size": 1113,
+          "eTag": "528a6481d272762fbc1feb5de33d6c0d",
+          "sequencer": "005D776F22D372E79A"
+        }
+      }
+    }
+  ]
 }
