@@ -3,10 +3,16 @@ const { queryForPhoneNumberDocumentType, phoneTypes } = require('change-agent-se
 const CHANGE_AGENT_DYNAMO = process.env.STORAGE_CHANGEAGENTDYNAMO_NAME;
 
 exports.handler = async event => {
-  const type = await queryForPhoneNumberDocumentType(
-    event.request.userAttributes.phone_number,
-    CHANGE_AGENT_DYNAMO,
-  );
+  let type = 'NOT_SET';
+  try {
+    type = await queryForPhoneNumberDocumentType(
+      event.request.userAttributes.phone_number,
+      CHANGE_AGENT_DYNAMO,
+    );
+  } catch (error) {
+    console.log('Warn', error.stack);
+  }
+
   if (type === phoneTypes.blacklisted)
     throw new Error(
       `${event.request.userAttributes.phone_number} is blacklisted. Please contact administrator.`,

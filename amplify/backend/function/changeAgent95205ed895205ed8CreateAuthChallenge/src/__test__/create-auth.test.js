@@ -26,7 +26,7 @@ describe('create-auth.test.js', () => {
   const queryReturnsValueSpy = obj => {
     return sinon.spy((params, callback) => {
       callback(undefined, {
-        Items: [obj],
+        ...obj,
       });
     });
   };
@@ -125,7 +125,11 @@ describe('create-auth.test.js', () => {
 
     it(`prod / returns ${defaultAdminPass} code for ADMIN user and doesn't call SNS`, async () => {
       restore('DynamoDB.DocumentClient');
-      mock('DynamoDB.DocumentClient', 'query', queryReturnsValueSpy({ type: 'ADMIN' }));
+      mock(
+        'DynamoDB.DocumentClient',
+        'query',
+        queryReturnsValueSpy({ Items: [{ type: 'ADMIN' }] }),
+      );
       process.env.envType = 'prod';
       const rspEvent = await createAuth.handler(event);
       expect(rspEvent.response.challengeMetadata).toBe(`CODE-${defaultAdminPass}`);
@@ -153,7 +157,11 @@ describe('create-auth.test.js', () => {
   describe('negative path', () => {
     it(`prod / returns 222222 code for mocked random code for ADMIN user and call SNS`, async () => {
       restore('DynamoDB.DocumentClient');
-      mock('DynamoDB.DocumentClient', 'query', queryReturnsValueSpy({ type: 'ADMIN' }));
+      mock(
+        'DynamoDB.DocumentClient',
+        'query',
+        queryReturnsValueSpy({ Items: [{ type: 'ADMIN' }] }),
+      );
       restore('SSM', 'getParameters');
       mock('SSM', 'getParameters', throwsErrorSpy);
       process.env.envType = 'prod';

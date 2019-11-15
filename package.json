@@ -16,7 +16,7 @@
   },
   "jest": {
     "verbose": true,
-    "silent": false,
+    "silent": true,
     "testPathIgnorePatterns": [
       "/__tools__/",
       "/node_modules/",
