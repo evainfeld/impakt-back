@@ -22,6 +22,7 @@ exports.handler = async event => {
         break;
     }
   } catch (error) {
+    console.log('Warn', error.stack);
     group = typeof process.env.GROUP === 'undefined' ? 'Users' : process.env.GROUP;
   }
 

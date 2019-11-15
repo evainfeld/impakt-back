@@ -15,8 +15,8 @@ type Location
   # ex ORG1
   org: String!
   name: String!
-  coordinatorName: String
-  coordinatorEmail: String
+  coordinatorName: String!
+  coordinatorEmail: String!
   #### autogen
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
