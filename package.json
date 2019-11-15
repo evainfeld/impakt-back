@@ -14,22 +14,6 @@
     "amplify:changeAgent95205ed895205ed8CreateAuthChallenge": ". ./__tools__/scripts/replace_symlinks.sh changeAgent95205ed895205ed8CreateAuthChallenge",
     "refresh": ". ./__tools__/scripts/refresh_modules.sh changeAgent95205ed895205ed8PreSignup changeAgent95205ed895205ed8PostConfirmation changeAgentS3Triggerbe81f2e2 changeAgentDynamoTriggerad498b65 changeAgent95205ed895205ed8CreateAuthChallenge"
   },
-  "jest": {
-    "verbose": true,
-    "silent": true,
-    "testPathIgnorePatterns": [
-      "/__tools__/",
-      "/node_modules/",
-      "<rootDir>/amplify/#current-cloud-backend/"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "amplify/backend/**/*.{js,jsx}"
-    ],
-    "setupFiles": [
-      "./__tools__/dotenv/config.js"
-    ]
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {},
@@ -51,5 +35,80 @@
     "prettier": "1.18.2",
     "pretty-quick": "^1.11.1",
     "sinon": "^7.4.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx pretty-quick --staged && npx lint-staged && npm test"
+    }
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 100
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "plugins": [
+      "jest"
+    ],
+    "extends": [
+      "airbnb-base",
+      "prettier",
+      "plugin:jest/recommended"
+    ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": "off",
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": false,
+          "optionalDependencies": false,
+          "peerDependencies": false
+        }
+      ]
+    },
+    "settings": {
+      "import/core-modules": [
+        "aws-sdk"
+      ]
+    }
+  },
+  "graphql-schema-linter": {
+    "rules": [
+      "enum-values-all-caps",
+      "enum-values-sorted-alphabetically",
+      "fields-are-camel-cased",
+      "input-object-values-are-camel-cased",
+      "types-are-capitalized"
+    ]
+  },
+  "jest": {
+    "verbose": true,
+    "silent": true,
+    "testPathIgnorePatterns": [
+      "/__tools__/",
+      "/node_modules/",
+      "<rootDir>/amplify/#current-cloud-backend/"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "amplify/backend/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "./__tools__/dotenv/config.js"
+    ]
   }
 }
