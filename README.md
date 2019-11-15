@@ -69,7 +69,7 @@ AppClientIDWeb: 48uhda8ucpieefnlcmk6u4k9op
 
 **Obtaining JWT Token** To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:
 
-- go to `devWebClient`
+- go to `__tools__/devWebClient/`
 - edit `src/environments/environment.ts` with UserPoolId and UserPoolClientID
 - call `npm install`
 - call `npm run start`
