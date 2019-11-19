@@ -17,7 +17,7 @@
 					"defaultAuthentication": {
 						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
 						"userPoolConfig": {
-							"userPoolId": "authchangeAgent95205ed895205ed8"
+							"userPoolId": "authchangeAgent"
 						}
 					}
 				}
@@ -31,7 +31,7 @@
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "changeAgentS3Triggerbe81f2e2",
+					"resourceName": "changeAgentS3Trigger",
 					"attributes": [
 						"Name",
 						"Arn",
@@ -50,13 +50,13 @@
 		}
 	},
 	"auth": {
-		"changeAgent95205ed895205ed8": {
+		"changeAgent": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "changeAgent95205ed895205ed8CreateAuthChallenge",
+					"resourceName": "changeAgentCreateAuthChallenge",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -65,7 +65,7 @@
 				},
 				{
 					"category": "function",
-					"resourceName": "changeAgent95205ed895205ed8DefineAuthChallenge",
+					"resourceName": "changeAgentDefineAuthChallenge",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -74,7 +74,7 @@
 				},
 				{
 					"category": "function",
-					"resourceName": "changeAgent95205ed895205ed8PreSignup",
+					"resourceName": "changeAgentPreSignup",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -83,7 +83,7 @@
 				},
 				{
 					"category": "function",
-					"resourceName": "changeAgent95205ed895205ed8VerifyAuthChallengeResponse",
+					"resourceName": "changeAgentVerifyAuthChallengeResponse",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -92,7 +92,7 @@
 				},
 				{
 					"category": "function",
-					"resourceName": "changeAgent95205ed895205ed8PostConfirmation",
+					"resourceName": "changeAgentPostConfirmation",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -103,7 +103,7 @@
 		}
 	},
 	"function": {
-		"changeAgent95205ed895205ed8CreateAuthChallenge": {
+		"changeAgentCreateAuthChallenge": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
@@ -118,12 +118,12 @@
 				}
 			]
 		},
-		"changeAgent95205ed895205ed8DefineAuthChallenge": {
+		"changeAgentDefineAuthChallenge": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"changeAgent95205ed895205ed8PreSignup": {
+		"changeAgentPreSignup": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
@@ -138,12 +138,12 @@
 				}
 			]
 		},
-		"changeAgent95205ed895205ed8VerifyAuthChallengeResponse": {
+		"changeAgentVerifyAuthChallengeResponse": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"changeAgent95205ed895205ed8PostConfirmation": {
+		"changeAgentPostConfirmation": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
@@ -158,7 +158,7 @@
 				}
 			]
 		},
-		"changeAgentS3Triggerbe81f2e2": {
+		"changeAgentS3Trigger": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
@@ -173,7 +173,7 @@
 				}
 			]
 		},
-		"changeAgentDynamoTriggerad498b65": {
+		"changeAgentDynamoTrigger": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
@@ -189,7 +189,7 @@
 				},
 				{
 					"category": "auth",
-					"resourceName": "changeAgent95205ed895205ed8",
+					"resourceName": "changeAgent",
 					"attributes": [
 						"UserPoolId"
 					]

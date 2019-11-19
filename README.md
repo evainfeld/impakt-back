@@ -61,10 +61,10 @@ AppClientIDWeb: 2g8ncfjog1l9k001oa28bpacqk
 ### DEV - associated with develop branch
 
 ```txt
-GraphQL endpoint: https://as2tdqfaivgmjphnbmqpgknaay.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-xfcg3qpgpncwzl422nlth32jz4
-UserPoolId: eu-west-1_gojr2WUMu
-AppClientIDWeb: 48uhda8ucpieefnlcmk6u4k9op
+GraphQL endpoint: https://bqlcivz5uzbyvkundgctz7mh5y.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-cthbdhyznvdcpjihpfcl7e74yi
+UserPoolId: eu-west-1_kHZNA1wRG
+AppClientIDWeb: 786kjvgooaoj1l7n23ski8j81
 ```
 
 **Obtaining JWT Token** To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:
@@ -88,7 +88,7 @@ AppClientIDWeb: 48uhda8ucpieefnlcmk6u4k9op
 
 - If you receive `Token has expired.` error just click `Refresh Token` button in app's private page.
 - SMSs are cheap but still not free of charge. Try not to log out or stop app frequently. As long as it stores session you can use your access-tokens, without need of receiving additional login SMSs.
-- In each dev environmnent SMSes are not sent. Instead use `22222` as a passphrase.
+- In each dev environmnent SMSes are not sent. Instead use `111111` as a passphrase.
 
 ## Additional resurces
 

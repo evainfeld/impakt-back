@@ -71,17 +71,17 @@
     "triggerFunction": {
       "Type": "String"
     },
-    "functionchangeAgentS3Triggerbe81f2e2Name": {
+    "functionchangeAgentS3TriggerName": {
       "Type": "String",
-      "Default": "functionchangeAgentS3Triggerbe81f2e2Name"
+      "Default": "functionchangeAgentS3TriggerName"
     },
-    "functionchangeAgentS3Triggerbe81f2e2Arn": {
+    "functionchangeAgentS3TriggerArn": {
       "Type": "String",
-      "Default": "functionchangeAgentS3Triggerbe81f2e2Arn"
+      "Default": "functionchangeAgentS3TriggerArn"
     },
-    "functionchangeAgentS3Triggerbe81f2e2LambdaExecutionRole": {
+    "functionchangeAgentS3TriggerLambdaExecutionRole": {
       "Type": "String",
-      "Default": "functionchangeAgentS3Triggerbe81f2e2LambdaExecutionRole"
+      "Default": "functionchangeAgentS3TriggerLambdaExecutionRole"
     }
   },
   "Conditions": {
@@ -237,7 +237,7 @@
                 }
               },
               "Function": {
-                "Ref": "functionchangeAgentS3Triggerbe81f2e2Arn"
+                "Ref": "functionchangeAgentS3TriggerArn"
               }
             }
           ]
@@ -266,7 +266,7 @@
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Ref": "functionchangeAgentS3Triggerbe81f2e2Name"
+          "Ref": "functionchangeAgentS3TriggerName"
         },
         "Principal": "s3.amazonaws.com",
         "SourceAccount": {
@@ -311,7 +311,7 @@
         "PolicyName": "amplify-lambda-execution-policy",
         "Roles": [
           {
-            "Ref": "functionchangeAgentS3Triggerbe81f2e2LambdaExecutionRole"
+            "Ref": "functionchangeAgentS3TriggerLambdaExecutionRole"
           }
         ],
         "PolicyDocument": {

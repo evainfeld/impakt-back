@@ -6,12 +6,12 @@ Amplify CLI is constatly improving and was started as a product in Beta phase. T
 
 Auto generated trigger function name with env name fails to fit into LambdaExecutionRole name limit of 64.
 
-changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production
+changeAgentVerifyAuthChallengeResponse-production
 
 | auto gne stack name | trigger name |-| env |
 
 ```console
-CREATE_FAILED      LambdaExecutionRole                                                                                  AWS::IAM::Role             Tue Aug 27 2019 12:30:39 GMT+0200 (Central European Summer Time) 1 validation error detected: Value 'changeAgent95205ed895205ed8VerifyAuthChallengeResponse-production' at 'roleName' failed to satisfy constraint: Member must have length less than or equal to 64 (Service: AmazonIdentityManagement; Status Code: 400; Error Code: ValidationError; Request ID: b68e1005-c8b5-11e9-802b-b9c99487764f)
+CREATE_FAILED      LambdaExecutionRole                                                                                  AWS::IAM::Role             Tue Aug 27 2019 12:30:39 GMT+0200 (Central European Summer Time) 1 validation error detected: Value 'changeAgentVerifyAuthChallengeResponse-production' at 'roleName' failed to satisfy constraint: Member must have length less than or equal to 64 (Service: AmazonIdentityManagement; Status Code: 400; Error Code: ValidationError; Request ID: b68e1005-c8b5-11e9-802b-b9c99487764f)
 ```
 
 **2**:
@@ -37,7 +37,7 @@ input ModelFloatFilterInput
 
 Functions: package.json has to be in src:
 
-`ENOENT: no such file or directory, stat 'amplify/backend/function/changeAgent95205ed895205ed8CreateAuthChallenge/src/package.json'`
+`ENOENT: no such file or directory, stat 'amplify/backend/function/changeAgentCreateAuthChallenge/src/package.json'`
 
 basically whole lambda filestructure is hardcoded in `amplify-cli/packages/amplify-category-function/provider-utils/awscloudformation/index.js`:
 
@@ -63,7 +63,7 @@ basically whole lambda filestructure is hardcoded in `amplify-cli/packages/ampli
 can't have structure like this in repo:
 
 ```txt
-changeAgent95205ed895205ed8CreateAuthChallenge
+changeAgentCreateAuthChallenge
           - lambda
             - src
             - __test__
@@ -74,7 +74,7 @@ changeAgent95205ed895205ed8CreateAuthChallenge
 however this in repo:
 
 ```txt
-changeAgent95205ed895205ed8CreateAuthChallenge
+changeAgentCreateAuthChallenge
           - src
             - handler
             - __test__
@@ -85,7 +85,7 @@ changeAgent95205ed895205ed8CreateAuthChallenge
 transforms into this on cloud:
 
 ```txt
-changeAgent95205ed895205ed8CreateAuthChallenge
+changeAgentCreateAuthChallenge
             - handler
             - __test__
             - package.json
@@ -218,3 +218,15 @@ with:
 **15**:
 
 When having named `@connection` you can't query using secondary index (`index` param is not acceptable). Type id has to be Primary Key.
+
+**16**:
+
+Inside Auth CL stack there is Lambda that is ised for gathering Userpoll configs. It's running on **node8**, which is currently scheduled for deprecation. However udating it manually to **node10** results in deployment process suspension and crash after timeout
+
+```yaml
+UserPoolClientLambda:
+  # Lambda which gets userpool app client config values
+  # Depends on UserPool for id
+  # Depends on UserPoolClientRole for role ARN
+  Type: 'AWS::Lambda::Function'
+```

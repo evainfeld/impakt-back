@@ -13,7 +13,7 @@ add to backend-config, otherwise it will not have correct trigger function param
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "changeAgentS3Triggerbe81f2e2",
+                    "resourceName": "changeAgentS3Trigger",
                     "attributes": [
                         "Name",
                         "Arn",

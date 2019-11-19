@@ -2,8 +2,49 @@
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
+		"envType": {
+			"Type": "String",
+			"Default": ""
+		},
+		"resourceName": {
+			"Type": "String",
+			"Default": ""
+		},
+		"modules": {
+			"Type": "String",
+			"Default": "",
+			"Description": "Comma-delimmited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
+		},
+		"trigger": {
+			"Type": "String",
+			"Default": "true"
+		},
+		"functionName": {
+			"Type": "String",
+			"Default": ""
+		},
+		"roleName": {
+			"Type": "String",
+			"Default": ""
+		},
+		"parentResource": {
+			"Type": "String",
+			"Default": ""
+		},
+		"parentStack": {
+			"Type": "String",
+			"Default": ""
+		},
 		"env": {
 			"Type": "String"
+		},
+		"storagechangeAgentDynamoName": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoName"
+		},
+		"storagechangeAgentDynamoArn": {
+			"Type": "String",
+			"Default": "storagechangeAgentDynamoArn"
 		}
 	},
 	"Conditions": {
@@ -24,16 +65,16 @@
 				"aws:asset:property": "Code"
 			},
 			"Properties": {
-				"Handler": "handler/email.handler",
+				"Handler": "handler/create-auth.handler",
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeAgentEmailResolver",
+						"changeAgentCreateAuthChallenge",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeAgentEmailResolver",
+									"changeAgentCreateAuthChallenge",
 									"-",
 									{
 										"Ref": "env"
@@ -50,6 +91,15 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"envType": {
+							"Ref": "envType"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_NAME": {
+							"Ref": "storagechangeAgentDynamoName"
+						},
+						"STORAGE_CHANGEAGENTDYNAMO_ARN": {
+							"Ref": "storagechangeAgentDynamoArn"
 						}
 					}
 				},
@@ -63,7 +113,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "change-agent-devt-20191119102711-deployment",
-					"S3Key": "amplify-builds/changeAgentEmailResolver-62467973487a6c435475-build.zip"
+					"S3Key": "amplify-builds/changeAgentCreateAuthChallenge-7846737355794d717a5a-build.zip"
 				}
 			}
 		},
@@ -73,12 +123,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"changeagentLambdaRoleb94310e9",
+						"changeAgentCreateAuthChallenge",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"changeagentLambdaRoleb94310e9",
+									"changeAgentCreateAuthChallenge",
 									"-",
 									{
 										"Ref": "env"
@@ -148,6 +198,14 @@
 						{
 							"Effect": "Allow",
 							"Action": [
+								"mobiletargeting:*~",
+								"sns:*"
+							],
+							"Resource": "*"
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
 								"ssm:GetParameters"
 							],
 							"Resource": [
@@ -163,7 +221,7 @@
 											{
 												"Ref": "AWS::AccountId"
 											},
-											":parameter/change-agent-service-email"
+											":parameter/change-agent-admin-pass"
 										]
 									]
 								}
@@ -192,14 +250,41 @@
 									]
 								}
 							]
-						},
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
 						{
 							"Effect": "Allow",
 							"Action": [
-								"ses:SendEmail",
-								"ses:SendRawEmail"
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query"
 							],
-							"Resource": "*"
+							"Resource": [
+								{
+									"Ref": "storagechangeAgentDynamoArn"
+								}
+							]
 						}
 					]
 				}
@@ -223,11 +308,6 @@
 		"Region": {
 			"Value": {
 				"Ref": "AWS::Region"
-			}
-		},
-		"LambdaExecutionRole": {
-			"Value": {
-				"Ref": "LambdaExecutionRole"
 			}
 		}
 	}

@@ -2,14 +2,15 @@ projects:
   changeAgentApi:
     schemaPath: amplify/backend/api/changeAgentApi/build/schema.graphql
     includes:
-      - src/graphql/**/*.js
+      - app/graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:
       amplify:
         codeGenTarget: javascript
         generatedFileName: ''
-        docsFilePath: src/graphql
+        docsFilePath: app/graphql
+        maxDepth: 2
 extensions:
   amplify:
     version: 3
