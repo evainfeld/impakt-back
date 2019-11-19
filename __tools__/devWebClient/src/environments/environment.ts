@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   region: 'eu-west',
-  userPoolId: 'eu-west-1_2KUll3OvY',
-  userPoolWebClientId: '23smrmkh5eolndg3ht82fkh8hk',
+  userPoolId: 'eu-west-1_kHZNA1wRG',
+  userPoolWebClientId: '786kjvgooaoj1l7n23ski8j81',
 };
 
 /*

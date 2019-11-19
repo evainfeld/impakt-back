@@ -1,11 +1,8 @@
 {
-    "AppSyncApiName": "changeAgentApi",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "DynamoDBEnableServerSideEncryption": "false",
-    "AuthCognitoUserPoolId": {
-        "Fn::GetAtt": [
-            "authchangeAgent95205ed895205ed8",
-            "Outputs.UserPoolId"
-        ]
-    }
+  "AppSyncApiName": "changeAgentApi",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": "false",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": ["authchangeAgent", "Outputs.UserPoolId"]
+  }
 }

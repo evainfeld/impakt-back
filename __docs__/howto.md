@@ -82,7 +82,7 @@ First off all, we don't like `callback` and prefer `async/await`. But what is ge
 - `src/event.json`
 - `src/index.js`
 - `src/package.json`
-- sth like `changeAgent95205ed895205ed8PreSignup-cloudformation-template.json`
+- sth like `changeAgentPreSignup-cloudformation-template.json`
 - `function-parameters.json`
 - `parameters.json`
 
