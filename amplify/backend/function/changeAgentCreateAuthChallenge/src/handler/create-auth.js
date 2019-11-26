@@ -1,5 +1,6 @@
 const cryptoSec = require('crypto-secure-random-digit');
 const AWS = require('aws-sdk');
+const Log = require('@dazn/lambda-powertools-logger');
 const { queryForPhoneNumberDocumentType, phoneTypes } = require('change-agent-services/dbService');
 
 const CHANGE_AGENT_DYNAMO = process.env.STORAGE_CHANGEAGENTDYNAMO_NAME;
@@ -14,7 +15,7 @@ async function sendSMSviaSNS(phoneNumber, secretLoginCode, isDev) {
   try {
     await new AWS.SNS().publish(params).promise();
   } catch (error) {
-    console.log('Error', error.stack);
+    Log.error('SNS failure!');
     throw new Error(`Unable to send message. Please contact administrator or try later`);
   }
 }
@@ -24,7 +25,7 @@ async function queryForUser(phoneNumber) {
   try {
     type = await queryForPhoneNumberDocumentType(phoneNumber, CHANGE_AGENT_DYNAMO);
   } catch (error) {
-    console.log('Warn', error.stack);
+    Log.warn('Unable to retrive data from PhoneNumber DynamoDB table');
   }
   return type;
 }
@@ -45,7 +46,7 @@ async function generateSecretForAdmin(ssmParamName, phoneNumber, digits, isDev) 
     const resp = await new AWS.SSM().getParameters(req).promise();
     secret = resp.Parameters[0].Value;
   } catch (error) {
-    console.log('Warn', error.stack);
+    Log.warn(`Unable to retrive SSM param ${ssmParamName} falling back to generateSecret method`);
     // falling back trying to generate secret and sendSMS
     secret = await generateSecretAndSendSMS(phoneNumber, 6, isDev);
   }
@@ -54,6 +55,7 @@ async function generateSecretForAdmin(ssmParamName, phoneNumber, digits, isDev) 
 
 // Main handler
 exports.handler = async event => {
+  Log.debug(`Starting Create Auth for ${event.request.userAttributes.phone_number} phone number`);
   let secretLoginCode;
   const isDev = typeof process.env.envType !== 'undefined' && process.env.envType === 'dev';
 
@@ -91,5 +93,6 @@ exports.handler = async event => {
   // Add the secret login code to the session so it is available
   // in a next invocation of the "Create Auth Challenge" trigger
   eventResponse.response.challengeMetadata = `CODE-${secretLoginCode}`;
+  Log.debug(`Create Auth successfully finishing`);
   return eventResponse;
 };
