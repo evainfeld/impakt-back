@@ -84,7 +84,6 @@ describe('pre-signup.test.js', () => {
       // Fail test if above expression doesn't throw anything.
       expect(true).toBe(false);
     } catch (e) {
-      console.log(e.message);
       expect(e.message).toBe(`${defaultPhoneNumber} is blacklisted. Please contact administrator.`);
     }
 

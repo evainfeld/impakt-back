@@ -151,6 +151,6 @@ exports.handler = async event => {
       return opResult;
     }),
   );
-  Log.debug(`DB Trigger successfully finishing`);
+  Log.debug(`DB Trigger successfully finished`);
   return result; //  SUCCESS with message
 };

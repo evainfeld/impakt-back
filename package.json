@@ -71,7 +71,6 @@
       "sourceType": "module"
     },
     "rules": {
-      "no-console": "off",
       "import/no-extraneous-dependencies": [
         "error",
         {
@@ -98,7 +97,7 @@
   },
   "jest": {
     "verbose": true,
-    "silent": false,
+    "silent": true,
     "testPathIgnorePatterns": [
       "/__tools__/",
       "/node_modules/",

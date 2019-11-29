@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const Log = require('@dazn/lambda-powertools-logger');
 const { putDocument } = require('change-agent-services/dbService');
 
 const apiChangeAgentApiGraphQLAPIIdOutput = process.env.API_CHANGEAGENTAPI_GRAPHQLAPIIDOUTPUT;
@@ -13,6 +14,7 @@ const putAllDocuments = async (docs, tableName) => {
 };
 
 exports.handler = async event => {
+  Log.debug(`Starting S3 Trigger for keys: [${event.Records.map(record => record.s3.object.key)}]`);
   await Promise.all(
     event.Records.map(async record => {
       const params = {
@@ -26,5 +28,6 @@ exports.handler = async event => {
       await await new AWS.S3().deleteObject(params).promise();
     }),
   );
+  Log.debug(`S3 Trigger successfully finished`);
   return 'Successfully processed S3 events'; // SUCCESS with message
 };
