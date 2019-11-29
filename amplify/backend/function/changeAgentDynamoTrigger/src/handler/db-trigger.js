@@ -1,4 +1,5 @@
 const aws = require('aws-sdk');
+const Log = require('@dazn/lambda-powertools-logger');
 const { phoneTypes } = require('change-agent-services/dbService');
 
 const authChangeAgentUserPoolId = process.env.AUTH_CHANGEAGENT95205ED895205ED8_USERPOOLID;
@@ -55,7 +56,7 @@ const deleteUser = async (cisp, phone) => {
   try {
     user = await getUsername(cisp, phone);
   } catch (error) {
-    console.log('Warn', error.stack);
+    Log.warn('getUsername thrown error for deleteUser', { errorMessage: error.message });
     return 'Username does not exist';
   }
   const params = {
@@ -77,7 +78,9 @@ const updeteUserGroupIfExists = async (cisp, phone, group) => {
   try {
     username = await getUsername(cisp, phone);
   } catch (error) {
-    console.log('Warn', error.stack);
+    Log.warn('getUsername thrown error for updeteUserGroupIfExists', {
+      errorMessage: error.message,
+    });
     return 'Username does not exist';
   }
 
@@ -85,7 +88,9 @@ const updeteUserGroupIfExists = async (cisp, phone, group) => {
   try {
     currentGroup = await getFirstGroup(cisp, username);
   } catch (error) {
-    console.log('Warn', error.stack);
+    Log.warn("getFirstGroup thrown error - supposing there's no group", {
+      errorMessage: error.message,
+    });
     currentGroup = null;
   }
 
@@ -122,6 +127,7 @@ const processRemove = async (cisp, record) => {
 };
 
 exports.handler = async event => {
+  Log.debug(`Starting DB Trigger for events: [${event.Records.map(record => record.eventName)}]`);
   const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18',
   });
@@ -145,5 +151,6 @@ exports.handler = async event => {
       return opResult;
     }),
   );
+  Log.debug(`DB Trigger successfully finishing`);
   return result; //  SUCCESS with message
 };

@@ -15,7 +15,7 @@ async function sendSMSviaSNS(phoneNumber, secretLoginCode, isDev) {
   try {
     await new AWS.SNS().publish(params).promise();
   } catch (error) {
-    Log.error('SNS failure!');
+    Log.error('SNS failure!', { errorMessage: error.message, errorStack: error.stack });
     throw new Error(`Unable to send message. Please contact administrator or try later`);
   }
 }
@@ -25,7 +25,10 @@ async function queryForUser(phoneNumber) {
   try {
     type = await queryForPhoneNumberDocumentType(phoneNumber, CHANGE_AGENT_DYNAMO);
   } catch (error) {
-    Log.warn('Unable to retrive data from PhoneNumber DynamoDB table');
+    Log.warn('Unable to retrive data from PhoneNumber DynamoDB table', {
+      errorMessage: error.message,
+      errorStack: error.stack,
+    });
   }
   return type;
 }
@@ -46,7 +49,10 @@ async function generateSecretForAdmin(ssmParamName, phoneNumber, digits, isDev) 
     const resp = await new AWS.SSM().getParameters(req).promise();
     secret = resp.Parameters[0].Value;
   } catch (error) {
-    Log.warn(`Unable to retrive SSM param ${ssmParamName} falling back to generateSecret method`);
+    Log.warn(`Unable to retrive SSM param ${ssmParamName} falling back to generateSecret method`, {
+      errorMessage: error.message,
+      errorStack: error.stack,
+    });
     // falling back trying to generate secret and sendSMS
     secret = await generateSecretAndSendSMS(phoneNumber, 6, isDev);
   }

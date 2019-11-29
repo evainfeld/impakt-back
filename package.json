@@ -98,7 +98,7 @@
   },
   "jest": {
     "verbose": true,
-    "silent": true,
+    "silent": false,
     "testPathIgnorePatterns": [
       "/__tools__/",
       "/node_modules/",
