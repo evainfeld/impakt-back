@@ -53,7 +53,7 @@ As long as, API is "protected" using API KEY remember to add `x-api-key` param t
 
 ```txt
 GraphQL endpoint: https://2jjun6dfrvbpbhtt33dwn5gdba.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-tzwszp4pnjbdrgz64a7wz3t6ju
+GraphQL API KEY: da2-yf6mvyyelva6lpzwm5dlsxctbq
 UserPoolId: eu-west-1_MiINe20KY
 AppClientIDWeb: 2g8ncfjog1l9k001oa28bpacqk
 ```
