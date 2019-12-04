@@ -1,0 +1,19 @@
+{
+  "trigger": true,
+  "modules": ["pre-signup"],
+  "parentResource": "changeAgent",
+  "functionName": "changeAgentPreSignup",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PreSignup",
+  "roleName": "changeAgentPreSignup",
+  "triggerTemplate": "PreSignup.json.ejs",
+  "triggerEventPath": "PreSignup.event.json",
+  "skipEdit": true,
+  "resourceName": "changeAgentPreSignup",
+  "permissions": {
+    "storage": {
+      "changeAgentDynamo": ["read"]
+    }
+  }
+}

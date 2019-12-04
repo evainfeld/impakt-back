@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": ["add-to-group"],
+  "parentResource": "changeAgent",
+  "functionName": "changeAgentPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "roleName": "changeAgentPostConfirmation",
+  "skipEdit": true,
+  "resourceName": "changeAgentPostConfirmation",
+  "permissions": {
+    "storage": {
+      "changeAgentDynamo": ["read"]
+    }
+  }
+}

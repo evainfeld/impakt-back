@@ -1,0 +1,8 @@
+type Mutation {
+  notifyCoordinator(
+    currentNick: String!
+    contactDetails: String!
+    coordinatorEmail: String!
+    msg: String
+  ): String @function(name: "changeAgentEmailResolver-${env}") @aws_api_key
+}

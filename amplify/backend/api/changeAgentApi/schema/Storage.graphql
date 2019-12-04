@@ -4,14 +4,9 @@ type S3Object {
   key: String!
 }
 
-type Resource @model {
-  id: ID!
-  name: String
-  #real identity, used for auth and possible banning evil users
-  author: User! @connection(keyField: "authorId")
-  #ephemeric string used as a nick during creation - should be visible in FE
-  authorNick: String!
-
-  # Reference the S3Object type from a field.
-  file: S3Object
+type S3Resource {
+  name: String!
+  bucket: String!
+  region: String!
+  key: String!
 }

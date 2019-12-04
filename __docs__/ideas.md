@@ -1,0 +1,18 @@
+# Ideas
+
+- [Proper Graphql schema](https://graphqlmastery.com/blog/graphql-best-practices-for-graphql-schema-design)
+- [Proper DynamoDB data model](https://www.youtube.com/watch?v=HaEPXoXVf2k&amp=&t=2s)
+- [AWS official sample with broken shema and model](https://github.com/aws-samples/aws-mobile-appsync-chat-starter-angular)
+- [Official up to date documentation of Amplify](https://aws-amplify.github.io/docs/cli-toolchain/graphql)
+- [Multiple Envs with Amplify](https://read.acloud.guru/multiple-serverless-environments-with-aws-amplify-344759e1be08) # [Another approach pre Amplify actualization](https://github.com/ysfmag/amplify-multi-environment)
+- [SNS SMS support regions](https://docs.aws.amazon.com/sns/latest/dg/sms_supported-countries.html)
+- [resolvers](https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference-programming-guide.html)
+- [passwordless sms auth](https://github.com/mobilequickie/amplify-passwordless-sms-auth/)
+- [custom auth](https://medium.com/cloudsail-io/aws-cognito-use-existing-users-database-with-custom-authentication-flow-920142884c08)
+- [schema testing](https://codesandbox.io/s/42m2rx71j4) and [schema testing 2](https://hackernoon.com/start-testing-your-graphql-schema-queries-and-mutations-b514911b1368) and [schema testing 3](https://medium.com/@FdMstri/testing-a-graphql-server-13512408c2fb)
+- [and in CI](https://graphql-inspector.com/docs/recipes/ci)
+- [working with CF on VS Code](https://hodgkins.io/up-your-cloudformation-game-with-vscode#yaml-indentation)
+- [VTL](https://medium.com/@gerard.sans/aws-appsync-velocity-templates-guide-55b9d2bff053)
+- [Expo with Amplify](https://heartbeat.fritz.ai/building-a-react-native-mobile-app-with-aws-amplify-and-expo-fcab6ee0555e)
+- [Virgil Security](https://developer.virgilsecurity.com/docs/use-cases/v5/encrypted-communication)
+- [OpenPGPJs](https://github.com/openpgpjs/openpgpjs#encrypt-and-decrypt-string-data-with-pgp-keys)

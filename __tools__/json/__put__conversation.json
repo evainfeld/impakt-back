@@ -1,0 +1,49 @@
+{
+  "tableName": "Conversation",
+  "docs": [
+    {
+      "__typename": "Conversation",
+      "id": "1",
+      "name": "REGION",
+      "type": "REGION",
+      "type#name": "REGION#REGION",
+      "region": "ZZ::PL::WAW::BIELANY",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "__typename": "Conversation",
+      "id": "2",
+      "name": "REGION",
+      "type": "REGION",
+      "type#name": "REGION#REGION",
+      "region": "ZZ::PL::WAW::ZOLIBORZ",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "__typename": "Conversation",
+      "id": "3",
+      "name": "REGION",
+      "type": "REGION",
+      "type#name": "REGION#REGION",
+      "region": "ZZ::PL::WAW",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    },
+    {
+      "__typename": "Conversation",
+      "id": "4",
+      "name": "REGION",
+      "type#name": "REGION#REGION",
+      "type": "REGION",
+      "region": "ZZ::PL",
+      "org": "ZZ",
+      "createdAt": "1970-01-01T12:30:24.500+05:30",
+      "updatedAt": "1970-01-01T12:30:24.500+05:30"
+    }
+  ]
+}

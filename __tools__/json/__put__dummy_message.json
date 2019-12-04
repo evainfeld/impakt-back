@@ -1,0 +1,18 @@
+{
+  "tableName": "Message",
+  "docs": [
+    {
+      "__typename": "Message",
+      "authorId": "6e197a31-8078-46a9-a85a-b8376420ed7b",
+      "authorNick": "dummy_admin",
+      "content": "blah blah blah2",
+      "conversationId": "3",
+      "convoId": "3",
+      "createdAt": "2019-09-16T20:30:05.209Z",
+      "id": "3-20190916-203005209",
+      "org": "ZZ",
+      "region": "ZZ::PL::WAW",
+      "updatedAt": "2019-09-16T20:30:05.209Z"
+    }
+  ]
+}

@@ -1,96 +1,178 @@
 {
-	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "An auto-generated nested stack.",
-	"Metadata": {},
-	"Parameters": {
-		"AppSyncApiId": {
-			"Type": "String",
-			"Description": "The id of the AppSync API associated with this project."
-		},
-		"AppSyncApiName": {
-			"Type": "String",
-			"Description": "The name of the AppSync API",
-			"Default": "AppSyncSimpleTransform"
-		},
-		"env": {
-			"Type": "String",
-			"Description": "The environment name. e.g. Dev, Test, or Production",
-			"Default": "NONE"
-		},
-		"S3DeploymentBucket": {
-			"Type": "String",
-			"Description": "The S3 bucket containing all deployment assets for the project."
-		},
-		"S3DeploymentRootKey": {
-			"Type": "String",
-			"Description": "An S3 key relative to the S3DeploymentBucket that points to the root\nof the deployment directory."
-		},
-		"AuthCognitoUserPoolId": {
-			"Type": "String",
-			"Description": "Cognito User Pool ID for groups creation"
-		}
-	},
-	"Resources": {
-		"EmptyResource": {
-			"Type": "Custom::EmptyResource",
-			"Condition": "AlwaysFalse"
-		  },
-		  "UserPoolGroupAdmins": {
-			"Type": "AWS::Cognito::UserPoolGroup",
-			"Properties": {
-				"Description": "Privilidged users group",
-				"GroupName": "Admins",
-				"UserPoolId": {
-					"Ref": "AuthCognitoUserPoolId"
-			  }
-			}
-		  },
-		  "UserPoolGroupMembers": {
-			"Type": "AWS::Cognito::UserPoolGroup",
-			"Properties": {
-				"Description": "Organization members group",
-				"GroupName": "Members",
-				"UserPoolId": {
-					"Ref": "AuthCognitoUserPoolId"
-			  }
-			}
-		  },
-		  "UserPoolGroupUsers": {
-			"Type": "AWS::Cognito::UserPoolGroup",
-			"Properties": {
-				"Description": "Organization supporters group",
-				"GroupName": "Users",
-				"UserPoolId": {
-					"Ref": "AuthCognitoUserPoolId"
-			  }
-			}
-		  }
-		  
-	},
-	"Conditions": {
-		"HasEnvironmentParameter": {
-			"Fn::Not": [
-				{
-					"Fn::Equals": [
-						{
-							"Ref": "env"
-						},
-						"NONE"
-					]
-				}
-			]
-		},
-		"AlwaysFalse": {
-			"Fn::Equals": [
-				"true",
-				"false"
-			]
-		}
-	},
-	"Outputs": {
-		"EmptyOutput": {
-			"Description": "An empty output. You may delete this if you have at least one resource above.",
-			"Value": ""
-		}
-	}
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "An auto-generated nested stack.",
+  "Metadata": {},
+  "Parameters": {
+    "AppSyncApiId": {
+      "Type": "String",
+      "Description": "The id of the AppSync API associated with this project."
+    },
+    "AppSyncApiName": {
+      "Type": "String",
+      "Description": "The name of the AppSync API",
+      "Default": "AppSyncSimpleTransform"
+    },
+    "env": {
+      "Type": "String",
+      "Description": "The environment name. e.g. Dev, Test, or Production",
+      "Default": "NONE"
+    },
+    "S3DeploymentBucket": {
+      "Type": "String",
+      "Description": "The S3 bucket containing all deployment assets for the project."
+    },
+    "S3DeploymentRootKey": {
+      "Type": "String",
+      "Description": "An S3 key relative to the S3DeploymentBucket that points to the root\nof the deployment directory."
+    },
+    "AuthCognitoUserPoolId": {
+      "Type": "String",
+      "Description": "Cognito User Pool ID for groups creation"
+    }
+  },
+  "Resources": {
+    "EmptyResource": {
+      "Type": "Custom::EmptyResource",
+      "Condition": "AlwaysFalse"
+    },
+    "UserPoolGroupAdmins": {
+      "Type": "AWS::Cognito::UserPoolGroup",
+      "Properties": {
+        "Description": "Privilidged users group",
+        "GroupName": "Admins",
+        "UserPoolId": {
+          "Ref": "AuthCognitoUserPoolId"
+        }
+      }
+    },
+    "UserPoolGroupMembers": {
+      "Type": "AWS::Cognito::UserPoolGroup",
+      "Properties": {
+        "Description": "Organization members group",
+        "GroupName": "Members",
+        "UserPoolId": {
+          "Ref": "AuthCognitoUserPoolId"
+        }
+      }
+    },
+    "UserPoolGroupUsers": {
+      "Type": "AWS::Cognito::UserPoolGroup",
+      "Properties": {
+        "Description": "Organization supporters group",
+        "GroupName": "Users",
+        "UserPoolId": {
+          "Ref": "AuthCognitoUserPoolId"
+        }
+      }
+    },
+    "GetCoversationByRegionResolver": {
+      "Type": "AWS::AppSync::Resolver",
+      "Properties": {
+        "ApiId": {
+          "Ref": "AppSyncApiId"
+        },
+        "DataSourceName": "ConversationTable",
+        "FieldName": "getCoversationByRegion",
+        "TypeName": "Query",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "ResolverFileName": {
+                "Fn::Join": [".", ["Query", "getCoversationByRegion", "req", "vtl"]]
+              }
+            }
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "ResolverFileName": {
+                "Fn::Join": [".", ["Query", "getCoversationByRegion", "res", "vtl"]]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "MeResolver": {
+      "Type": "AWS::AppSync::Resolver",
+      "Properties": {
+        "ApiId": {
+          "Ref": "AppSyncApiId"
+        },
+        "DataSourceName": "UserTable",
+        "FieldName": "me",
+        "TypeName": "Query",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "ResolverFileName": {
+                "Fn::Join": [".", ["Query", "me", "req", "vtl"]]
+              }
+            }
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "ResolverFileName": {
+                "Fn::Join": [".", ["Query", "me", "res", "vtl"]]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Conditions": {
+    "HasEnvironmentParameter": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "env"
+            },
+            "NONE"
+          ]
+        }
+      ]
+    },
+    "AlwaysFalse": {
+      "Fn::Equals": ["true", "false"]
+    }
+  },
+  "Outputs": {
+    "EmptyOutput": {
+      "Description": "An empty output. You may delete this if you have at least one resource above.",
+      "Value": ""
+    }
+  }
 }

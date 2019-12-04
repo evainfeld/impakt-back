@@ -1,0 +1,20 @@
+type Subscription {
+  onCreateMessage(convoId: String!): Message
+    @aws_subscribe(mutations: ["createMessage"])
+    @aws_api_key
+  onPropagandaChange(region: String!, category: String!): Propaganda
+    @aws_subscribe(mutations: ["createPropaganda", "updatePropaganda", "deletePropaganda"])
+  onEventChange(region: String!, category: String!): Event
+    @aws_subscribe(mutations: ["createEvent", "updateEvent", "deleteEvent"])
+  onAnnouncementChange(region: String!, category: String!): Announcement
+    @aws_subscribe(mutations: ["createAnnouncement", "updateAnnouncement", "deleteAnnouncement"])
+  onConversationChange(id: ID!): Conversation
+    @aws_subscribe(mutations: ["updateConversation", "deleteConversation"])
+    @aws_api_key
+  onCategoryChange(region: String!): Category
+    @aws_subscribe(mutations: ["createCategory", "deleteCategory"])
+    @aws_api_key
+  onLocationChange(org: String!): Location
+    @aws_subscribe(mutations: ["createLocation", "updateLocation", "deleteLocation"])
+    @aws_api_key
+}

@@ -1,0 +1,20 @@
+{
+  "version": "2017-02-28",
+  "operation": "Query",
+  "index": "Region",
+  "query" : {
+    "expression" : "#reg = :reg AND #tn = :tn ",
+    "expressionNames" : {
+            "#reg" : "region",
+            "#tn" : "type#name"
+        },
+    "expressionValues" : {
+        ":reg": {
+          "S" : "$ctx.args.region"
+        },
+        ":tn": {
+          "S" : "${ctx.args.type}#${ctx.args.name}"
+        }
+    }
+  }
+}
