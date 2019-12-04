@@ -66,5 +66,39 @@
         "changeAgent": {}
       }
     }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "change-agent-dev-20191204113155-authRole",
+      "UnauthRoleArn": "arn:aws:iam::557346154937:role/change-agent-dev-20191204113155-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::557346154937:role/change-agent-dev-20191204113155-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "change-agent-dev-20191204113155-deployment",
+      "UnauthRoleName": "change-agent-dev-20191204113155-unauthRole",
+      "StackName": "change-agent-dev-20191204113155",
+      "StackId": "arn:aws:cloudformation:eu-west-1:557346154937:stack/change-agent-dev-20191204113155/4b466bc0-1681-11ea-b5ac-02ac8ce49a7a"
+    },
+    "categories": {
+      "auth": {
+        "changeAgent": {}
+      },
+      "function": {
+        "changeAgentCreateAuthChallenge": {
+          "envType": "dev"
+        },
+        "changeAgentDefineAuthChallenge": {},
+        "changeAgentPreSignup": {},
+        "changeAgentVerifyAuthChallengeResponse": {},
+        "changeAgentPostConfirmation": {
+          "GROUP": "Users"
+        },
+        "changeAgentS3Trigger": {},
+        "changeAgentDynamoTrigger": {},
+        "changeAgentEmailResolver": {},
+        "changeAgentDynamo": {},
+        "changeAgentApi": {},
+        "changeAgent": {}
+      }
+    }
   }
 }

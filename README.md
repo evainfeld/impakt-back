@@ -62,7 +62,7 @@ AppClientIDWeb: 2g8ncfjog1l9k001oa28bpacqk
 
 ```txt
 GraphQL endpoint: https://bqlcivz5uzbyvkundgctz7mh5y.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-cthbdhyznvdcpjihpfcl7e74yi
+GraphQL API KEY: da2-fo5bvxvc75e6hn4tffpgpcmica
 UserPoolId: eu-west-1_kHZNA1wRG
 AppClientIDWeb: 786kjvgooaoj1l7n23ski8j81
 ```
