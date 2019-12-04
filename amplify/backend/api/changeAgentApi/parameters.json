@@ -4,5 +4,6 @@
   "DynamoDBEnableServerSideEncryption": "false",
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": ["authchangeAgent", "Outputs.UserPoolId"]
-  }
+  },
+  "APIKeyExpirationEpoch": 1585999663
 }
