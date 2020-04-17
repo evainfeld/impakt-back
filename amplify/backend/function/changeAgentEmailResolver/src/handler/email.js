@@ -1,3 +1,4 @@
+const Log = require('@dazn/lambda-powertools-logger');
 const { SES, SSM } = require('aws-sdk');
 
 async function getServiceEmail() {
@@ -11,22 +12,27 @@ async function getServiceEmail() {
     const resp = await new SSM().getParameters(req).promise();
     email = resp.Parameters[0].Value;
   } catch (error) {
-    console.log('Failed to retrive service email', error);
+    Log.error(`Failed to retrive service email from SSM param ${secretName}.`, {
+      errorMessage: error.message,
+      errorStack: error.stack,
+    });
   }
   return email;
 }
 
 async function sentEmail(args) {
-  console.log('Handling notify email to', args.coordinatorEmail);
+  Log.debug(`Starting Email Resolver for email: ${args.coordinatorEmail}`);
 
   if (!args.coordinatorEmail.match(/^[^@]+@[^@]+$/)) {
-    console.log('Not sending: invalid coordinator email address', args.coordinatorEmail);
-    return 'FAILED';
+    Log.error(`Not sending: invalid coordinator email address`, {
+      coordinatorEmail: args.coordinatorEmail,
+    });
+    return 'FAILED - Invalid coordinator email address';
   }
 
   const serviceEmail = await getServiceEmail();
   if (serviceEmail === null) {
-    return 'FAILED';
+    return 'FAILED - Failed to retrive service email';
   }
 
   const textBody = `
@@ -63,9 +69,13 @@ async function sentEmail(args) {
   try {
     await new SES().sendEmail(params).promise();
   } catch (error) {
-    console.log('Error while sending Email', error);
-    return 'Failed';
+    Log.error(`Error while sending Email`, {
+      errorMessage: error.message,
+      errorStack: error.stack,
+    });
+    return 'FAILED - error while sending Email';
   }
+  Log.debug(`Email Resolver successfully finished`);
   return 'Success';
 }
 
@@ -79,7 +89,6 @@ const resolvers = {
 };
 
 exports.handler = async event => {
-  console.log(`event = ${JSON.stringify(event)}`);
   const resolver = resolvers[event.typeName][event.fieldName];
   if (resolver) {
     const result = await resolver(event.arguments);

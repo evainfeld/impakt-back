@@ -230,3 +230,16 @@ UserPoolClientLambda:
   # Depends on UserPoolClientRole for role ARN
   Type: 'AWS::Lambda::Function'
 ```
+
+**16**:
+
+Expired Api Key as source of all evil in deployment... [link](https://github.com/aws-amplify/amplify-cli/issues/2519)
+
+Solution:
+
+```txt
+You should be able to get around this by setting the "APIKeyExpirationEpoch" parameter to -1 in the parameters.json. When you push, it will remove the key from the template. You can then push again and set the "APIKeyExpirationEpoch" value to the epoch timestamp in seconds when you would like the API key expire.
+
+ step1:   "APIKeyExpirationEpoch": -1
+ step2:   "APIKeyExpirationEpoch": 1585999663
+```

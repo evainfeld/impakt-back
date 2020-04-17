@@ -1,4 +1,7 @@
+const Log = require('@dazn/lambda-powertools-logger');
+
 exports.handler = async event => {
+  Log.debug(`Starting Create Auth for session: ${event.request.session}`);
   const eventResponse = event;
   if (
     event.request.session &&
@@ -22,5 +25,6 @@ exports.handler = async event => {
     eventResponse.response.failAuthentication = false;
     eventResponse.response.challengeName = 'CUSTOM_CHALLENGE';
   }
+  Log.debug(`Define Auth successfully finishing`);
   return eventResponse;
 };

@@ -12,7 +12,7 @@
     "amplify:changeAgentS3Trigger": ". ./__tools__/scripts/replace_symlinks.sh changeAgentS3Trigger",
     "amplify:changeAgentDynamoTrigger": ". ./__tools__/scripts/replace_symlinks.sh changeAgentDynamoTrigger",
     "amplify:changeAgentCreateAuthChallenge": ". ./__tools__/scripts/replace_symlinks.sh changeAgentCreateAuthChallenge",
-    "refresh": ". ./__tools__/scripts/refresh_modules.sh changeAgentPreSignup changeAgentPostConfirmation changeAgentS3Trigger changeAgentDynamoTrigger changeAgentCreateAuthChallenge"
+    "refresh": ". ./__tools__/scripts/refresh_modules.sh"
   },
   "author": "",
   "license": "ISC",
@@ -71,7 +71,6 @@
       "sourceType": "module"
     },
     "rules": {
-      "no-console": "off",
       "import/no-extraneous-dependencies": [
         "error",
         {
