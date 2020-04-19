@@ -5,6 +5,7 @@
   "main": "s3-trigger.js",
   "license": "Apache-2.0",
   "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.15.2",
     "change-agent-services": "file:../../changeAgentServices"
   }
 }

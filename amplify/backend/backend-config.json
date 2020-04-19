@@ -10,7 +10,7 @@
 							"authenticationType": "API_KEY",
 							"apiKeyConfig": {
 								"description": "dev-key",
-								"apiKeyExpirationDays": 180
+								"apiKeyExpirationDays": "180"
 							}
 						}
 					],
