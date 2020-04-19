@@ -1,90 +1,24 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const notifyCoordinator = `mutation NotifyCoordinator(
-  $currentNick: String!
-  $contactDetails: String!
-  $coordinatorEmail: String!
-  $msg: String
-) {
-  notifyCoordinator(
-    currentNick: $currentNick
-    contactDetails: $contactDetails
-    coordinatorEmail: $coordinatorEmail
-    msg: $msg
-  )
-}
-`;
-export const createConversation = `mutation CreateConversation($input: CreateConversationInput!) {
-  createConversation(input: $input) {
-    id
-    name
-    type
-    region
-    org
-    createdAt
-    updatedAt
-    messages {
-      nextToken
-    }
-    users {
-      nextToken
-    }
+export const notifyCoordinator = /* GraphQL */ `
+  mutation NotifyCoordinator(
+    $currentNick: String!
+    $contactDetails: String!
+    $coordinatorEmail: String!
+    $msg: String
+  ) {
+    notifyCoordinator(
+      currentNick: $currentNick
+      contactDetails: $contactDetails
+      coordinatorEmail: $coordinatorEmail
+      msg: $msg
+    )
   }
-}
 `;
-export const updateConversation = `mutation UpdateConversation($input: UpdateConversationInput!) {
-  updateConversation(input: $input) {
-    id
-    name
-    type
-    region
-    org
-    createdAt
-    updatedAt
-    messages {
-      nextToken
-    }
-    users {
-      nextToken
-    }
-  }
-}
-`;
-export const deleteConversation = `mutation DeleteConversation($input: DeleteConversationInput!) {
-  deleteConversation(input: $input) {
-    id
-    name
-    type
-    region
-    org
-    createdAt
-    updatedAt
-    messages {
-      nextToken
-    }
-    users {
-      nextToken
-    }
-  }
-}
-`;
-export const createMessage = `mutation CreateMessage($input: CreateMessageInput!) {
-  createMessage(input: $input) {
-    id
-    authorNick
-    content
-    convoId
-    isSent
-    resources {
-      name
-      bucket
-      region
-      key
-    }
-    createdAt
-    updatedAt
-    conversation {
+export const createConversation = /* GraphQL */ `
+  mutation CreateConversation($input: CreateConversationInput!) {
+    createConversation(input: $input) {
       id
       name
       type
@@ -92,205 +26,18 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
       org
       createdAt
       updatedAt
-    }
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
+      messages {
+        nextToken
+      }
+      users {
+        nextToken
+      }
     }
   }
-}
 `;
-export const createLocation = `mutation CreateLocation($input: CreateLocationInput!) {
-  createLocation(input: $input) {
-    id
-    region
-    org
-    name
-    coordinatorName
-    coordinatorEmail
-    createdAt
-    updatedAt
-  }
-}
-`;
-export const updateLocation = `mutation UpdateLocation($input: UpdateLocationInput!) {
-  updateLocation(input: $input) {
-    id
-    region
-    org
-    name
-    coordinatorName
-    coordinatorEmail
-    createdAt
-    updatedAt
-  }
-}
-`;
-export const deleteLocation = `mutation DeleteLocation($input: DeleteLocationInput!) {
-  deleteLocation(input: $input) {
-    id
-    region
-    org
-    name
-    coordinatorName
-    coordinatorEmail
-    createdAt
-    updatedAt
-  }
-}
-`;
-export const createCategory = `mutation CreateCategory($input: CreateCategoryInput!) {
-  createCategory(input: $input) {
-    id
-    region
-    org
-    name
-    createdAt
-    updatedAt
-  }
-}
-`;
-export const deleteCategory = `mutation DeleteCategory($input: DeleteCategoryInput!) {
-  deleteCategory(input: $input) {
-    id
-    region
-    org
-    name
-    createdAt
-    updatedAt
-  }
-}
-`;
-export const createUser = `mutation CreateUser($input: CreateUserInput!) {
-  createUser(input: $input) {
-    cognitoId
-    cognitoGroup
-    currentNick
-    pubKey
-    org
-    createdAt
-    updatedAt
-  }
-}
-`;
-export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
-  updateUser(input: $input) {
-    cognitoId
-    cognitoGroup
-    currentNick
-    pubKey
-    org
-    createdAt
-    updatedAt
-  }
-}
-`;
-export const createPropaganda = `mutation CreatePropaganda($input: CreatePropagandaInput!) {
-  createPropaganda(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
-      region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
-    }
-  }
-}
-`;
-export const updatePropaganda = `mutation UpdatePropaganda($input: UpdatePropagandaInput!) {
-  updatePropaganda(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
-      region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
-    }
-  }
-}
-`;
-export const deletePropaganda = `mutation DeletePropaganda($input: DeletePropagandaInput!) {
-  deletePropaganda(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
-      region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
-    }
-  }
-}
-`;
-export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
-  createEvent(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
-      region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    conversation {
+export const updateConversation = /* GraphQL */ `
+  mutation UpdateConversation($input: UpdateConversationInput!) {
+    updateConversation(input: $input) {
       id
       name
       type
@@ -298,36 +45,18 @@ export const createEvent = `mutation CreateEvent($input: CreateEventInput!) {
       org
       createdAt
       updatedAt
-    }
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
+      messages {
+        nextToken
+      }
+      users {
+        nextToken
+      }
     }
   }
-}
 `;
-export const updateEvent = `mutation UpdateEvent($input: UpdateEventInput!) {
-  updateEvent(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
-      region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    conversation {
+export const deleteConversation = /* GraphQL */ `
+  mutation DeleteConversation($input: DeleteConversationInput!) {
+    deleteConversation(input: $input) {
       id
       name
       type
@@ -335,129 +64,121 @@ export const updateEvent = `mutation UpdateEvent($input: UpdateEventInput!) {
       org
       createdAt
       updatedAt
-    }
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
+      messages {
+        nextToken
+      }
+      users {
+        nextToken
+      }
     }
   }
-}
 `;
-export const deleteEvent = `mutation DeleteEvent($input: DeleteEventInput!) {
-  deleteEvent(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
-      region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    conversation {
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage($input: CreateMessageInput!) {
+    createMessage(input: $input) {
       id
-      name
-      type
-      region
-      org
+      authorNick
+      content
+      convoId
+      isSent
+      resources {
+        name
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
-    }
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
-      org
-      createdAt
-      updatedAt
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
     }
   }
-}
 `;
-export const createAnnouncement = `mutation CreateAnnouncement($input: CreateAnnouncementInput!) {
-  createAnnouncement(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
+export const createLocation = /* GraphQL */ `
+  mutation CreateLocation($input: CreateLocationInput!) {
+    createLocation(input: $input) {
+      id
       region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
       org
+      name
+      coordinatorName
+      coordinatorEmail
       createdAt
       updatedAt
     }
   }
-}
 `;
-export const updateAnnouncement = `mutation UpdateAnnouncement($input: UpdateAnnouncementInput!) {
-  updateAnnouncement(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
+export const updateLocation = /* GraphQL */ `
+  mutation UpdateLocation($input: UpdateLocationInput!) {
+    updateLocation(input: $input) {
+      id
       region
-      key
-    }
-    region
-    org
-    createdAt
-    updatedAt
-    author {
-      cognitoId
-      cognitoGroup
-      currentNick
-      pubKey
       org
+      name
+      coordinatorName
+      coordinatorEmail
       createdAt
       updatedAt
     }
   }
-}
 `;
-export const deleteAnnouncement = `mutation DeleteAnnouncement($input: DeleteAnnouncementInput!) {
-  deleteAnnouncement(input: $input) {
-    authorNick
-    category
-    title
-    content
-    resources {
-      name
-      bucket
+export const deleteLocation = /* GraphQL */ `
+  mutation DeleteLocation($input: DeleteLocationInput!) {
+    deleteLocation(input: $input) {
+      id
       region
-      key
+      org
+      name
+      coordinatorName
+      coordinatorEmail
+      createdAt
+      updatedAt
     }
-    region
-    org
-    createdAt
-    updatedAt
-    author {
+  }
+`;
+export const createCategory = /* GraphQL */ `
+  mutation CreateCategory($input: CreateCategoryInput!) {
+    createCategory(input: $input) {
+      id
+      region
+      org
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCategory = /* GraphQL */ `
+  mutation DeleteCategory($input: DeleteCategoryInput!) {
+    deleteCategory(input: $input) {
+      id
+      region
+      org
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUser = /* GraphQL */ `
+  mutation CreateUser($input: CreateUserInput!) {
+    createUser(input: $input) {
       cognitoId
       cognitoGroup
       currentNick
@@ -467,5 +188,305 @@ export const deleteAnnouncement = `mutation DeleteAnnouncement($input: DeleteAnn
       updatedAt
     }
   }
-}
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      cognitoId
+      cognitoGroup
+      currentNick
+      pubKey
+      org
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPropaganda = /* GraphQL */ `
+  mutation CreatePropaganda($input: CreatePropagandaInput!) {
+    createPropaganda(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updatePropaganda = /* GraphQL */ `
+  mutation UpdatePropaganda($input: UpdatePropagandaInput!) {
+    updatePropaganda(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deletePropaganda = /* GraphQL */ `
+  mutation DeletePropaganda($input: DeletePropagandaInput!) {
+    deletePropaganda(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const createEvent = /* GraphQL */ `
+  mutation CreateEvent($input: CreateEventInput!) {
+    createEvent(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateEvent = /* GraphQL */ `
+  mutation UpdateEvent($input: UpdateEventInput!) {
+    updateEvent(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteEvent = /* GraphQL */ `
+  mutation DeleteEvent($input: DeleteEventInput!) {
+    deleteEvent(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      conversation {
+        id
+        name
+        type
+        region
+        org
+        createdAt
+        updatedAt
+      }
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const createAnnouncement = /* GraphQL */ `
+  mutation CreateAnnouncement($input: CreateAnnouncementInput!) {
+    createAnnouncement(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateAnnouncement = /* GraphQL */ `
+  mutation UpdateAnnouncement($input: UpdateAnnouncementInput!) {
+    updateAnnouncement(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteAnnouncement = /* GraphQL */ `
+  mutation DeleteAnnouncement($input: DeleteAnnouncementInput!) {
+    deleteAnnouncement(input: $input) {
+      authorNick
+      category
+      title
+      content
+      resources {
+        name
+        bucket
+        region
+        key
+      }
+      region
+      org
+      createdAt
+      updatedAt
+      author {
+        cognitoId
+        cognitoGroup
+        currentNick
+        pubKey
+        org
+        createdAt
+        updatedAt
+      }
+    }
+  }
 `;

@@ -49,22 +49,15 @@ AppSync supports only one table per one model design. According to AWS it's far 
 Prod and Dev envs are deployed automatically using AWS Amplify Console.
 As long as, API is "protected" using API KEY remember to add `x-api-key` param to POST header. When using JWT authorization use `Authorization` param.
 
+**NOTE**: `amplify delete env dev` == `amplify delete` :/ do not mistake it with `amplify remove env dev`.
+
 ### MST - associated with master branch
 
 ```txt
-GraphQL endpoint: https://2jjun6dfrvbpbhtt33dwn5gdba.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-yf6mvyyelva6lpzwm5dlsxctbq
-UserPoolId: eu-west-1_MiINe20KY
-AppClientIDWeb: 2g8ncfjog1l9k001oa28bpacqk
-```
-
-### DEV - associated with develop branch
-
-```txt
-GraphQL endpoint: https://bqlcivz5uzbyvkundgctz7mh5y.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-fo5bvxvc75e6hn4tffpgpcmica
-UserPoolId: eu-west-1_kHZNA1wRG
-AppClientIDWeb: 786kjvgooaoj1l7n23ski8j81
+GraphQL endpoint: https://ma3fzjopozfajlhnnpxqj4kfka.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-extz3zc4gvc4lp3v7moguekdhu
+UserPoolId: eu-west-1_FFPlCzHj6
+AppClientIDWeb: 6cuofthvg8fbautu8ekk46vuqk
 ```
 
 **Obtaining JWT Token** To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:
