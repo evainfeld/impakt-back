@@ -51,13 +51,13 @@ As long as, API is "protected" using API KEY remember to add `x-api-key` param t
 
 **NOTE**: `amplify delete env dev` == `amplify delete` :/ do not mistake it with `amplify remove env dev`.
 
-### MST - associated with master branch
+### MASTER - associated with master branch
 
 ```txt
-GraphQL endpoint: https://ma3fzjopozfajlhnnpxqj4kfka.appsync-api.eu-west-1.amazonaws.com/graphql
-GraphQL API KEY: da2-extz3zc4gvc4lp3v7moguekdhu
-UserPoolId: eu-west-1_FFPlCzHj6
-AppClientIDWeb: 6cuofthvg8fbautu8ekk46vuqk
+GraphQL endpoint: https://m3bualugrvaxvhvhzqbmecdjyi.appsync-api.eu-west-1.amazonaws.com/graphql
+GraphQL API KEY: da2-i5kv4rmunrgltjxzw6y526kl7e
+UserPoolId: eu-west-1_4x5EBX2PF
+AppClientIDWeb: 1b3o4kis62t2tgnachtkpl8gjt
 ```
 
 **Obtaining JWT Token** To call any Graphql you need to provide valid JWT Access Token in your request Header. It can be received using `amplify-js` lib. However for some dev tasks you may have a need to call API manually using tools like `GraphQL Playground`. To do so you need to get somehow this token. Here comes dev app from `devWebClient`. Running procedure:

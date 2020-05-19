@@ -1,0 +1,892 @@
+enum ConversationType {
+  EVENT
+  REGION
+}
+
+type Conversation @aws_api_key {
+  id: ID!
+  name: String!
+  type: ConversationType!
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  messages(
+    filter: ModelMessageFilterInput
+    sortDirection: ModelSortDirection
+    limit: Int
+    nextToken: String
+  ): ModelMessageConnection @aws_api_key
+  users(
+    filter: ModelUserFilterInput
+    sortDirection: ModelSortDirection
+    limit: Int
+    nextToken: String
+  ): ModelUserConnection @aws_api_key
+}
+
+type Message @aws_api_key {
+  id: ID!
+  authorNick: String!
+  content: String!
+  convoId: String!
+  isSent: Boolean
+  resources: [S3Resource]
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  conversation: Conversation! @aws_api_key
+  author: User! @aws_api_key
+}
+
+type Location @aws_api_key {
+  id: ID
+  region: String!
+  org: String!
+  name: String!
+  coordinatorName: String!
+  coordinatorEmail: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Category @aws_api_key {
+  id: ID
+  region: String!
+  org: String!
+  name: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type User @aws_api_key {
+  cognitoId: ID!
+  cognitoGroup: String!
+  currentNick: String!
+  pubKey: String
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Propaganda @aws_api_key {
+  authorNick: String!
+  category: String!
+  title: String!
+  content: String!
+  resources: [S3Resource]
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  author: User! @aws_api_key
+}
+
+type Event @aws_api_key {
+  authorNick: String!
+  category: String!
+  title: String!
+  whenDate: AWSDateTime!
+  content: String!
+  resources: [S3Resource]
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  conversation: Conversation @aws_api_key
+  author: User! @aws_api_key
+}
+
+type Announcement @aws_api_key {
+  authorNick: String!
+  category: String!
+  title: String!
+  whenDate: AWSDateTime!
+  content: String!
+  resources: [S3Resource]
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  author: User! @aws_api_key
+}
+
+type Mutation {
+  notifyCoordinator(
+    currentNick: String!
+    contactDetails: String!
+    coordinatorEmail: String!
+    msg: String
+  ): String @aws_api_key
+  createConversation(input: CreateConversationInput!): Conversation @aws_api_key
+  updateConversation(input: UpdateConversationInput!): Conversation @aws_api_key
+  deleteConversation(input: DeleteConversationInput!): Conversation @aws_api_key
+  createMessage(input: CreateMessageInput!): Message @aws_api_key
+  createLocation(input: CreateLocationInput!): Location @aws_api_key
+  updateLocation(input: UpdateLocationInput!): Location @aws_api_key
+  deleteLocation(input: DeleteLocationInput!): Location @aws_api_key
+  createCategory(input: CreateCategoryInput!): Category @aws_api_key
+  deleteCategory(input: DeleteCategoryInput!): Category @aws_api_key
+  createUser(input: CreateUserInput!): User @aws_api_key
+  updateUser(input: UpdateUserInput!): User @aws_api_key
+  createPropaganda(input: CreatePropagandaInput!): Propaganda @aws_api_key
+  updatePropaganda(input: UpdatePropagandaInput!): Propaganda @aws_api_key
+  deletePropaganda(input: DeletePropagandaInput!): Propaganda @aws_api_key
+  createEvent(input: CreateEventInput!): Event @aws_api_key
+  updateEvent(input: UpdateEventInput!): Event @aws_api_key
+  deleteEvent(input: DeleteEventInput!): Event @aws_api_key
+  createAnnouncement(input: CreateAnnouncementInput!): Announcement @aws_api_key
+  updateAnnouncement(input: UpdateAnnouncementInput!): Announcement @aws_api_key
+  deleteAnnouncement(input: DeleteAnnouncementInput!): Announcement @aws_api_key
+}
+
+union Important = Announcement | Event
+
+type Query {
+  listAllImportantNotifications(region: String!): [Important] @aws_api_key
+  getCoversationByRegion(region: String!, type: String!, name: String!): Conversation @aws_api_key
+  me: User @aws_api_key
+  listConversation(
+    id: ID
+    filter: ModelConversationFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelConversationConnection @aws_api_key
+  getConversation(id: ID!): Conversation @aws_api_key
+  listCoversationsByRegion(
+    region: String
+    typeName: ModelConversationRegionCompositeKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelConversationFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelConversationConnection @aws_api_key
+  getMessage(id: ID!): Message @aws_api_key
+  listMessage(
+    filter: ModelMessageFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelMessageConnection @aws_api_key
+  getLocation(org: String!, region: String!): Location @aws_api_key
+  listLocation(
+    org: String
+    region: ModelStringKeyConditionInput
+    filter: ModelLocationFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelLocationConnection @aws_api_key
+  listLocationByIndex(
+    id: ID
+    sortDirection: ModelSortDirection
+    filter: ModelLocationFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelLocationConnection @aws_api_key
+  getCategory(region: String!, name: String!): Category @aws_api_key
+  listCategory(
+    region: String
+    name: ModelStringKeyConditionInput
+    filter: ModelCategoryFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelCategoryConnection @aws_api_key
+  listCategoryByIndex(
+    id: ID
+    sortDirection: ModelSortDirection
+    filter: ModelCategoryFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelCategoryConnection @aws_api_key
+  listCategoryByOrg(
+    org: String
+    regionName: ModelCategoryOrgCompositeKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelCategoryFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelCategoryConnection @aws_api_key
+  listUser(
+    cognitoId: ID
+    filter: ModelUserFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelUserConnection @aws_api_key
+  getUser(cognitoId: ID!): User @aws_api_key
+  listUsersByOrg(
+    org: String
+    cognitoGroup: ModelStringKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelUserFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelUserConnection @aws_api_key
+  getPropaganda(region: String!, category: String!, title: String!): Propaganda @aws_api_key
+  listPropaganda(
+    region: String
+    categoryTitle: ModelPropagandaPrimaryCompositeKeyConditionInput
+    filter: ModelPropagandaFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelPropagandaConnection @aws_api_key
+  listPropagandaByOrg(
+    org: String
+    categoryTitle: ModelPropagandaOrgCompositeKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelPropagandaFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelPropagandaConnection @aws_api_key
+  listPropagandaSortedByTime(
+    region: String
+    updatedAt: ModelStringKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelPropagandaFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelPropagandaConnection @aws_api_key
+  getEvent(region: String!, category: String!, title: String!): Event @aws_api_key
+  listEvent(
+    region: String
+    categoryTitle: ModelEventPrimaryCompositeKeyConditionInput
+    filter: ModelEventFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelEventConnection @aws_api_key
+  listEventSortedByWhenDate(
+    region: String
+    whenDate: ModelStringKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelEventFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelEventConnection @aws_api_key
+  listEventSortedByUpdateTime(
+    region: String
+    updatedAt: ModelStringKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelEventFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelEventConnection @aws_api_key
+  listEventByOrg(
+    org: String
+    categoryTitle: ModelEventOrgCompositeKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelEventFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelEventConnection @aws_api_key
+  getAnnouncement(region: String!, category: String!, title: String!): Announcement @aws_api_key
+  listAnnouncement(
+    region: String
+    categoryTitle: ModelAnnouncementPrimaryCompositeKeyConditionInput
+    filter: ModelAnnouncementFilterInput
+    limit: Int
+    nextToken: String
+    sortDirection: ModelSortDirection
+  ): ModelAnnouncementConnection @aws_api_key
+  listAnnouncementByOrg(
+    org: String
+    categoryTitle: ModelAnnouncementOrgCompositeKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelAnnouncementFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelAnnouncementConnection @aws_api_key
+  listAnnouncementSortedByUpdateTime(
+    region: String
+    updatedAt: ModelStringKeyConditionInput
+    sortDirection: ModelSortDirection
+    filter: ModelAnnouncementFilterInput
+    limit: Int
+    nextToken: String
+  ): ModelAnnouncementConnection @aws_api_key
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type S3Resource @aws_api_key {
+  name: String!
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Subscription {
+  onCreateMessage(convoId: String!): Message
+    @aws_subscribe(mutations: ["createMessage"])
+    @aws_api_key
+  onPropagandaChange(region: String!, category: String!): Propaganda
+    @aws_subscribe(mutations: ["createPropaganda", "updatePropaganda", "deletePropaganda"])
+  onEventChange(region: String!, category: String!): Event
+    @aws_subscribe(mutations: ["createEvent", "updateEvent", "deleteEvent"])
+  onAnnouncementChange(region: String!, category: String!): Announcement
+    @aws_subscribe(mutations: ["createAnnouncement", "updateAnnouncement", "deleteAnnouncement"])
+  onConversationChange(id: ID!): Conversation
+    @aws_subscribe(mutations: ["updateConversation", "deleteConversation"])
+    @aws_api_key
+  onCategoryChange(region: String!): Category
+    @aws_subscribe(mutations: ["createCategory", "deleteCategory"])
+    @aws_api_key
+  onLocationChange(org: String!): Location
+    @aws_subscribe(mutations: ["createLocation", "updateLocation", "deleteLocation"])
+    @aws_api_key
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelConversationConnection @aws_api_key {
+  items: [Conversation]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelConversationTypeFilterInput {
+  eq: ConversationType
+  ne: ConversationType
+}
+
+input ModelConversationFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  type: ModelConversationTypeFilterInput
+  region: ModelStringFilterInput
+  org: ModelStringFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelConversationFilterInput]
+  or: [ModelConversationFilterInput]
+  not: ModelConversationFilterInput
+}
+
+input CreateConversationInput {
+  id: ID!
+  name: String!
+  type: ConversationType!
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateConversationInput {
+  id: ID!
+  name: String
+  type: ConversationType
+  region: String
+  org: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteConversationInput {
+  id: ID!
+}
+
+input S3ResourceInput {
+  name: String!
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type ModelMessageConnection @aws_api_key {
+  items: [Message]
+  nextToken: String
+}
+
+input ModelMessageFilterInput {
+  id: ModelIDFilterInput
+  authorNick: ModelStringFilterInput
+  content: ModelStringFilterInput
+  convoId: ModelStringFilterInput
+  isSent: ModelBooleanFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelMessageFilterInput]
+  or: [ModelMessageFilterInput]
+  not: ModelMessageFilterInput
+}
+
+input CreateMessageInput {
+  id: ID
+  authorNick: String!
+  content: String!
+  convoId: String!
+  isSent: Boolean
+  resources: [S3ResourceInput]
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  authorId: ID!
+  conversationId: ID!
+}
+
+type ModelLocationConnection @aws_api_key {
+  items: [Location]
+  nextToken: String
+}
+
+input ModelLocationFilterInput {
+  id: ModelIDFilterInput
+  region: ModelStringFilterInput
+  org: ModelStringFilterInput
+  name: ModelStringFilterInput
+  coordinatorName: ModelStringFilterInput
+  coordinatorEmail: ModelStringFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelLocationFilterInput]
+  or: [ModelLocationFilterInput]
+  not: ModelLocationFilterInput
+}
+
+input CreateLocationInput {
+  id: ID
+  region: String!
+  org: String!
+  name: String!
+  coordinatorName: String!
+  coordinatorEmail: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateLocationInput {
+  id: ID!
+  region: String!
+  org: String!
+  name: String
+  coordinatorName: String
+  coordinatorEmail: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteLocationInput {
+  org: String!
+  region: String!
+}
+
+type ModelCategoryConnection @aws_api_key {
+  items: [Category]
+  nextToken: String
+}
+
+input ModelCategoryFilterInput {
+  id: ModelIDFilterInput
+  region: ModelStringFilterInput
+  org: ModelStringFilterInput
+  name: ModelStringFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelCategoryFilterInput]
+  or: [ModelCategoryFilterInput]
+  not: ModelCategoryFilterInput
+}
+
+input CreateCategoryInput {
+  id: ID
+  region: String!
+  org: String!
+  name: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteCategoryInput {
+  region: String!
+  name: String!
+}
+
+type ModelUserConnection @aws_api_key {
+  items: [User]
+  nextToken: String
+}
+
+input ModelUserFilterInput {
+  cognitoId: ModelIDFilterInput
+  cognitoGroup: ModelStringFilterInput
+  currentNick: ModelStringFilterInput
+  pubKey: ModelStringFilterInput
+  org: ModelStringFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+input CreateUserInput {
+  cognitoId: ID!
+  cognitoGroup: String!
+  currentNick: String!
+  pubKey: String
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  userId: ID
+}
+
+input UpdateUserInput {
+  cognitoId: ID!
+  cognitoGroup: String
+  currentNick: String
+  pubKey: String
+  org: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  userId: ID
+}
+
+type ModelPropagandaConnection @aws_api_key {
+  items: [Propaganda]
+  nextToken: String
+}
+
+input ModelPropagandaFilterInput {
+  authorNick: ModelStringFilterInput
+  category: ModelStringFilterInput
+  title: ModelStringFilterInput
+  content: ModelStringFilterInput
+  region: ModelStringFilterInput
+  org: ModelStringFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelPropagandaFilterInput]
+  or: [ModelPropagandaFilterInput]
+  not: ModelPropagandaFilterInput
+}
+
+input CreatePropagandaInput {
+  authorNick: String!
+  category: String!
+  title: String!
+  content: String!
+  resources: [S3ResourceInput]
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  authorId: ID!
+}
+
+input UpdatePropagandaInput {
+  authorNick: String
+  category: String!
+  title: String!
+  content: String
+  resources: [S3ResourceInput]
+  region: String!
+  org: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  authorId: ID
+}
+
+input DeletePropagandaInput {
+  region: String!
+  category: String!
+  title: String!
+}
+
+type ModelEventConnection @aws_api_key {
+  items: [Event]
+  nextToken: String
+}
+
+input ModelEventFilterInput {
+  authorNick: ModelStringFilterInput
+  category: ModelStringFilterInput
+  title: ModelStringFilterInput
+  whenDate: ModelStringFilterInput
+  content: ModelStringFilterInput
+  region: ModelStringFilterInput
+  org: ModelStringFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelEventFilterInput]
+  or: [ModelEventFilterInput]
+  not: ModelEventFilterInput
+}
+
+input CreateEventInput {
+  authorNick: String!
+  category: String!
+  title: String!
+  whenDate: AWSDateTime!
+  content: String!
+  resources: [S3ResourceInput]
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  authorId: ID!
+  conversationId: ID
+}
+
+input UpdateEventInput {
+  authorNick: String
+  category: String!
+  title: String!
+  whenDate: AWSDateTime
+  content: String
+  resources: [S3ResourceInput]
+  region: String!
+  org: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  authorId: ID
+  conversationId: ID
+}
+
+input DeleteEventInput {
+  region: String!
+  category: String!
+  title: String!
+}
+
+type ModelAnnouncementConnection @aws_api_key {
+  items: [Announcement]
+  nextToken: String
+}
+
+input ModelAnnouncementFilterInput {
+  authorNick: ModelStringFilterInput
+  category: ModelStringFilterInput
+  title: ModelStringFilterInput
+  whenDate: ModelStringFilterInput
+  content: ModelStringFilterInput
+  region: ModelStringFilterInput
+  org: ModelStringFilterInput
+  createdAt: ModelStringFilterInput
+  updatedAt: ModelStringFilterInput
+  and: [ModelAnnouncementFilterInput]
+  or: [ModelAnnouncementFilterInput]
+  not: ModelAnnouncementFilterInput
+}
+
+input CreateAnnouncementInput {
+  authorNick: String!
+  category: String!
+  title: String!
+  whenDate: AWSDateTime!
+  content: String!
+  resources: [S3ResourceInput]
+  region: String!
+  org: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  authorId: ID!
+}
+
+input UpdateAnnouncementInput {
+  authorNick: String
+  category: String!
+  title: String!
+  whenDate: AWSDateTime
+  content: String
+  resources: [S3ResourceInput]
+  region: String!
+  org: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  authorId: ID
+}
+
+input DeleteAnnouncementInput {
+  region: String!
+  category: String!
+  title: String!
+}
+
+input ModelConversationRegionCompositeKeyConditionInput {
+  eq: ModelConversationRegionCompositeKeyInput
+  le: ModelConversationRegionCompositeKeyInput
+  lt: ModelConversationRegionCompositeKeyInput
+  ge: ModelConversationRegionCompositeKeyInput
+  gt: ModelConversationRegionCompositeKeyInput
+  between: [ModelConversationRegionCompositeKeyInput]
+  beginsWith: ModelConversationRegionCompositeKeyInput
+}
+
+input ModelConversationRegionCompositeKeyInput {
+  type: ConversationType
+  name: String
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelCategoryOrgCompositeKeyConditionInput {
+  eq: ModelCategoryOrgCompositeKeyInput
+  le: ModelCategoryOrgCompositeKeyInput
+  lt: ModelCategoryOrgCompositeKeyInput
+  ge: ModelCategoryOrgCompositeKeyInput
+  gt: ModelCategoryOrgCompositeKeyInput
+  between: [ModelCategoryOrgCompositeKeyInput]
+  beginsWith: ModelCategoryOrgCompositeKeyInput
+}
+
+input ModelCategoryOrgCompositeKeyInput {
+  region: String
+  name: String
+}
+
+input ModelPropagandaPrimaryCompositeKeyConditionInput {
+  eq: ModelPropagandaPrimaryCompositeKeyInput
+  le: ModelPropagandaPrimaryCompositeKeyInput
+  lt: ModelPropagandaPrimaryCompositeKeyInput
+  ge: ModelPropagandaPrimaryCompositeKeyInput
+  gt: ModelPropagandaPrimaryCompositeKeyInput
+  between: [ModelPropagandaPrimaryCompositeKeyInput]
+  beginsWith: ModelPropagandaPrimaryCompositeKeyInput
+}
+
+input ModelPropagandaPrimaryCompositeKeyInput {
+  category: String
+  title: String
+}
+
+input ModelPropagandaOrgCompositeKeyConditionInput {
+  eq: ModelPropagandaOrgCompositeKeyInput
+  le: ModelPropagandaOrgCompositeKeyInput
+  lt: ModelPropagandaOrgCompositeKeyInput
+  ge: ModelPropagandaOrgCompositeKeyInput
+  gt: ModelPropagandaOrgCompositeKeyInput
+  between: [ModelPropagandaOrgCompositeKeyInput]
+  beginsWith: ModelPropagandaOrgCompositeKeyInput
+}
+
+input ModelPropagandaOrgCompositeKeyInput {
+  category: String
+  title: String
+}
+
+input ModelEventPrimaryCompositeKeyConditionInput {
+  eq: ModelEventPrimaryCompositeKeyInput
+  le: ModelEventPrimaryCompositeKeyInput
+  lt: ModelEventPrimaryCompositeKeyInput
+  ge: ModelEventPrimaryCompositeKeyInput
+  gt: ModelEventPrimaryCompositeKeyInput
+  between: [ModelEventPrimaryCompositeKeyInput]
+  beginsWith: ModelEventPrimaryCompositeKeyInput
+}
+
+input ModelEventPrimaryCompositeKeyInput {
+  category: String
+  title: String
+}
+
+input ModelEventOrgCompositeKeyConditionInput {
+  eq: ModelEventOrgCompositeKeyInput
+  le: ModelEventOrgCompositeKeyInput
+  lt: ModelEventOrgCompositeKeyInput
+  ge: ModelEventOrgCompositeKeyInput
+  gt: ModelEventOrgCompositeKeyInput
+  between: [ModelEventOrgCompositeKeyInput]
+  beginsWith: ModelEventOrgCompositeKeyInput
+}
+
+input ModelEventOrgCompositeKeyInput {
+  category: String
+  title: String
+}
+
+input ModelAnnouncementPrimaryCompositeKeyConditionInput {
+  eq: ModelAnnouncementPrimaryCompositeKeyInput
+  le: ModelAnnouncementPrimaryCompositeKeyInput
+  lt: ModelAnnouncementPrimaryCompositeKeyInput
+  ge: ModelAnnouncementPrimaryCompositeKeyInput
+  gt: ModelAnnouncementPrimaryCompositeKeyInput
+  between: [ModelAnnouncementPrimaryCompositeKeyInput]
+  beginsWith: ModelAnnouncementPrimaryCompositeKeyInput
+}
+
+input ModelAnnouncementPrimaryCompositeKeyInput {
+  category: String
+  title: String
+}
+
+input ModelAnnouncementOrgCompositeKeyConditionInput {
+  eq: ModelAnnouncementOrgCompositeKeyInput
+  le: ModelAnnouncementOrgCompositeKeyInput
+  lt: ModelAnnouncementOrgCompositeKeyInput
+  ge: ModelAnnouncementOrgCompositeKeyInput
+  gt: ModelAnnouncementOrgCompositeKeyInput
+  between: [ModelAnnouncementOrgCompositeKeyInput]
+  beginsWith: ModelAnnouncementOrgCompositeKeyInput
+}
+
+input ModelAnnouncementOrgCompositeKeyInput {
+  category: String
+  title: String
+}

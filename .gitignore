@@ -13,7 +13,8 @@ amplify/backend/awscloudformation
 amplify/backend/api/changeAgentApi/build/*
 dist/
 node_modules/
-aws-exports.js
+# AWS Exports to repo as it's not real secret right now
+#aws-exports.js
 awsconfiguration.json
 
 
