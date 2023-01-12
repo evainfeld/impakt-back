@@ -1,4 +1,6 @@
-# Change Agent Backend App
+Note: this is a backup of a repo built by @bjowczarek.
+
+# Impakt Backend App
 
 ## Very important about Amplify CLI
 
