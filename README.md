@@ -1,4 +1,4 @@
-Note: this is a backup of a repo built by @bjowczarek.
+Disclaimer from Eva: this is a backup of a repo built by @bjowczarek.
 
 # Impakt Backend App
 
